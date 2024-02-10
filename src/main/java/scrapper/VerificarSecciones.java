@@ -52,6 +52,8 @@ public class VerificarSecciones {
             WebElement fechaElemento = elementoBase.findElement(By.cssSelector("span.t-14.t-normal.t-black--light"));
             String[] fecha = fechaElemento.getText().split("\\n");
             System.out.println("Fecha: " + fecha[0]);
+            
+            
            
 
             // Obtener la profesión                                    
