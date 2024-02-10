@@ -1,0 +1,6 @@
+config.properties
+config
+*.properties
+**/.properties
+**/config.properties
+*/config.properties
