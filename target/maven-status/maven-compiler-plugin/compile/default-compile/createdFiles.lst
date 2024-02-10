@@ -1,0 +1,10 @@
+iterador\IteradorPorURL.class
+database\ArrayListQueue.class
+scrapper\LinksUsuario.class
+scrapper\VerificarSecciones.class
+main\InicioSesion.class
+automata\GeneradorPorCadena.class
+database\Queue.class
+utilidades\Generales.class
+database\MongoDBConnection.class
+main\Main.class
