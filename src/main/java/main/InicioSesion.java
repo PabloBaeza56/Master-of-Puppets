@@ -20,7 +20,7 @@ public class InicioSesion {
             propiedades.load(new FileReader("config.properties"));
         	 
             setCorreo(propiedades.getProperty("correo"));
-            setDriver(driver);
+            this.driver = driver;
             setContrasenia(propiedades.getProperty("contrasenia"));
  
         } catch (IOException e) {}

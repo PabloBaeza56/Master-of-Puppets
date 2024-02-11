@@ -14,13 +14,12 @@ public class Main {
         WebDriver driver = new ChromeDriver();
         InicioSesion usuario = new InicioSesion(driver);
         usuario.IniciarSesion();
-        esperarSegundos(3);
+        esperarSegundos(30);
         
         VerificarSecciones test = new VerificarSecciones(driver);
         
         driver.get("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
-        System.out.println(test.buscarIndiceSeccion("Educación"));
-        test.buscarElementos(String.valueOf(test.buscarIndiceSeccion("Educación")));
+        test.buscarExperiencia(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
         //obtenerLinksporURL("fmat uady", driver);
         driver.quit();
     }

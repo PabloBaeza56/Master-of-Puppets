@@ -1,8 +1,5 @@
 package scrapper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -36,58 +33,83 @@ public class VerificarSecciones {
    
     
     public void buscarElementos(String seccionDeseada) {
-    for (int i = 5; i >= 1; i--) {
-        try {
-            esperarSegundos(1);
-            WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section["+ seccionDeseada +"]/div[3]/ul/li["+ i + "]/div/div[2]/div[1]/a"));
-            
+        int ContadorElemento = 1;
+        Boolean finResulatdo = false;
+        while (finResulatdo == false) {
+            try {
+                esperarSegundos(1);
+                WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section["+ seccionDeseada +"]/div[3]/ul/li["+ ContadorElemento + "]/div/div[2]/div[1]/a"));
 
+                WebElement puestoElemento = elementoBase.findElement(By.cssSelector("span.t-14.t-normal"));
+                String[] puesto = puestoElemento.getText().split("\\n");
+                System.out.println("Puesto: " + puesto[0]);
+
+                WebElement fechaElemento = elementoBase.findElement(By.cssSelector("span.t-14.t-normal.t-black--light"));
+                String[] fecha = fechaElemento.getText().split("\\n");
+                System.out.println("Fecha: " + fecha[0]);
+                                    
+                WebElement profesionElemento = elementoBase.findElement(By.cssSelector("div.display-flex.full-width > div.display-flex.align-items-center.mr1.hoverable-link-text.t-bold"));
+                String[] profesion = profesionElemento.getText().split("\\n");
+                System.out.println("Profesión: " + profesion[0]);
+
+
+                System.out.println("----------------------------------------------------------");
+                ContadorElemento++;
+
+            } catch (NoSuchElementException e) {
+                finResulatdo = true;
+                break;
+            }
+        }
+    }
+
+    public void buscarExperiencia(String seccionDeseada) {
+        for (int i = 0; i<6; i++){
+            try {
+                WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + seccionDeseada + "]/div[3]/ul/li["+ i +"]/div/div[2]"));///div/div/div/div/div/div/span[1]
             
-            WebElement puestoElemento = elementoBase.findElement(By.cssSelector("span.t-14.t-normal"));
-            String[] puesto = puestoElemento.getText().split("\\n");
-            System.out.println("Puesto: " + puesto[0]);
+       
+                //------------NO MOVER
+                try{
+                   WebElement puestoElement = elementoBase.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
+                    String[] titulo = puestoElement.getText().split("\\n");
+                    System.out.println("Título: " + titulo[0]);
+                }catch (NoSuchElementException e) {}
           
+                //------------NO MOVER
+                try{
+                     WebElement empresaElemento = elementoBase.findElement(By.xpath(".//span[@class='t-14 t-normal']"));
+                    String[] puesto = empresaElemento.getText().split("\\n");
+                    System.out.println("Empresa: " + puesto[0]);
+                }catch (NoSuchElementException e) {}
+                
+                
+                //------------NO MOVER
+                try{
+                    WebElement fechaElemento = elementoBase.findElement(By.xpath(".//span[contains(@class, 't-14')][3]"));
+                    String[] fecha = fechaElemento.getText().split("\\n");
+                    System.out.println("Fecha: " + fecha[0]);
+                }catch (NoSuchElementException e) {}
+                
+                try{
+                    WebElement descripcionElemento = elementoBase.findElement(By.xpath(".//div[contains(@class, 'pv-shared-text-with-see-more')]//span"));
+                    String[] descripcion = descripcionElemento.getText().split("\\n");
+                    System.out.println("Descripción: " + descripcion[0]);
+                }catch (NoSuchElementException e) {}
 
-            // Obtener la fecha
-            WebElement fechaElemento = elementoBase.findElement(By.cssSelector("span.t-14.t-normal.t-black--light"));
-            String[] fecha = fechaElemento.getText().split("\\n");
-            System.out.println("Fecha: " + fecha[0]);
+              
+                //String codigoHTML = elementoBase.getAttribute("outerHTML");
+                //System.out.println(codigoHTML);
+                
+                System.out.println("---------------------");
+            } catch (NoSuchElementException e) {}
             
-            
-           
-
-            // Obtener la profesión                                    
-            WebElement profesionElemento = elementoBase.findElement(By.cssSelector("div.display-flex.full-width > div.display-flex.align-items-center.mr1.hoverable-link-text.t-bold"));
-            String[] profesion = profesionElemento.getText().split("\\n");
-            System.out.println("Profesión: " + profesion[0]);
-            
-            
-            System.out.println("----------------------------------------------------------");
-            
-        } catch (NoSuchElementException e) {}
+        }
+       
+                                                                      
+             
+        
     }
 }
 
-    
-}
 
-
-/*
-Content of Section 7: Intereses
-Content of Section 7: Idiomas
-Content of Section 7: Conocimientos y aptitudes
-Content of Section 7: Licencias y certificaciones
-Content of Section 7: Educación
-Content of Section 7: Experiencia
-Content of Section 7: Actividad
-Content of Section 7: Servicios
-Content of Section 7: Acerca de
-*/
-
-
-
- ///html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[7]/div[2]/div/div/div/h2/span[2] //titulo
-            ///html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[1] //Contenido Puro
-            ///html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[4] //Contenido Puro
-            ///html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[1]/div/div[2]/div/div/span[1]/span[1] Empresa
-            ///html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[1]/div/div[2]/div/div/span[2]/span[1]
