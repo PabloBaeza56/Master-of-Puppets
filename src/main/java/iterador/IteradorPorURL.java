@@ -45,7 +45,7 @@ public class IteradorPorURL {
         boolean fin = false;
 
         esperarSegundos(3);
-
+        
         List<WebElement> elementosH2 = driver.findElements(By.tagName("h2"));
 
         esperarSegundos(3);

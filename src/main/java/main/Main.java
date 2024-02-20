@@ -14,12 +14,15 @@ public class Main {
         WebDriver driver = new ChromeDriver();
         InicioSesion usuario = new InicioSesion(driver);
         usuario.IniciarSesion();
-        esperarSegundos(30);
         
+        //esperarSegundos(30);
         VerificarSecciones test = new VerificarSecciones(driver);
+        //https://www.linkedin.com/in/ecambranes/
+        //https://www.linkedin.com/in/luis-basto-diaz-41136396/
+        //
+        driver.get("https://www.linkedin.com/in/victorlavalle/");
+        test.buscarExperienciaCasoCompuesto(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
         
-        driver.get("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
-        test.buscarExperiencia(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
         //obtenerLinksporURL("fmat uady", driver);
         driver.quit();
     }

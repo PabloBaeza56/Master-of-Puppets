@@ -20,7 +20,6 @@ public class VerificarSecciones {
             esperarSegundos(1);
             WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[2]"));
        
-            //System.out.println("Content of Section 7: " + sectionElement.getText());
             if (sectionElement.getText().equals(seccionDeseada)){
                 elementoDeseado = i;
                 break;
@@ -32,7 +31,7 @@ public class VerificarSecciones {
     }
    
     
-    public void buscarElementos(String seccionDeseada) {
+    public void buscarEducacion(String seccionDeseada) {
         int ContadorElemento = 1;
         Boolean finResulatdo = false;
         while (finResulatdo == false) {
@@ -63,7 +62,8 @@ public class VerificarSecciones {
         }
     }
 
-    public void buscarExperiencia(String seccionDeseada) {
+    public void buscarExperienciaCasoSimple(String seccionDeseada) {
+        //Convertir a ciclo while
         for (int i = 0; i<6; i++){
             try {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + seccionDeseada + "]/div[3]/ul/li["+ i +"]/div/div[2]"));///div/div/div/div/div/div/span[1]
@@ -105,11 +105,71 @@ public class VerificarSecciones {
             } catch (NoSuchElementException e) {}
             
         }
-       
-                                                                      
-             
-        
     }
+    
+    public void buscarExperienciaCasoCompuesto(String seccionDeseada) {
+            for (int i = 0; i<6; i++){
+                try {
+                    WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + seccionDeseada + "]/div[3]/ul/li["+ i +"]/div/div[2]"));///div/div/div/div/div/div/span[1]
+                                                                            //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[1]
+                                                                            //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[3]/div/div[2]
+                                                                            //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[3]/div/div[2]/div[2]/ul/li[1]/div/div[2]
+                    int contador = 1;                                                        //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[1]/div/div[2]/div[2]/ul/li[3]/div/div[2]/div[1]
+                    while (true){                                          //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[3]/div/div[2]
+                        try {
+                            WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li["+ contador +"]/div/div[2]/div/a")); // /a
+                                     //html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[5]/div[3]/ul/li[3]/div/div[2]/div[2]/ul/li[1]/div/div[2]/div/a
+                            
+                            //System.out.println("Datos Concretos: " + fechaElemento.getText());
+                            
+                            //String codigoHTML = fechaElemento.getAttribute("outerHTML");
+                            //System.out.println(codigoHTML);
+                            // Encuentra el elemento <a> que contiene los datos valiosos
+                       
+
+                            // Encuentra el elemento <div> que contiene el nombre del puesto
+                            try{
+                                WebElement puestoElement = fechaElemento.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
+                                 String[] titulo = puestoElement.getText().split("\\n");
+                                 System.out.println("Puesto: " + titulo[0]);
+                             }catch (NoSuchElementException e) {}
+
+                             //------------NO MOVER
+                             try{
+                                  WebElement empresaElemento = fechaElemento.findElement(By.xpath(".//span[@class='t-14 t-normal']"));
+                                 String[] puesto = empresaElemento.getText().split("\\n");
+                                 System.out.println("Tipo de contrato: " + puesto[0]);
+                             }catch (NoSuchElementException e) {}
+                             
+                             try{
+                                 WebElement fechaElxxemento = fechaElemento.findElement(By.xpath(".//span[contains(@class, 't-14 t-normal t-black--light')][1]"));
+                                 String[] fechax = fechaElxxemento.getText().split("\\n");
+                                 System.out.println("Duracion : " + fechax[0]);
+                             }catch (NoSuchElementException e) {}
+
+                             try{
+                                 WebElement fechaElxxemento = fechaElemento.findElement(By.xpath(".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
+                                 String[] fechay = fechaElxxemento.getText().split("\\n");
+                                 System.out.println("Ubicacion : " + fechay[0]);
+                             }catch (NoSuchElementException e) {}
+                             //------------NO MOVER
+                             
+                            
+                            contador++;
+                            System.out.println("---------------------");
+                        } catch (NoSuchElementException e) {
+                            break;
+                        }
+                    
+                    }
+
+                    //String codigoHTML = elementoBase.getAttribute("outerHTML");
+                    //System.out.println(codigoHTML);
+
+                    System.out.println("XXXXXXXXXX");
+                } catch (NoSuchElementException e) {}
+            }
+        }
 }
 
 
