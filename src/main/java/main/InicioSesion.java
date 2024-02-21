@@ -1,6 +1,5 @@
 package main;
 
-import static utilidades.Generales.esperarSegundos;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -36,7 +35,7 @@ public class InicioSesion {
         inputPassword.sendKeys(this.contrasenia);
 
         inputPassword.sendKeys(Keys.ENTER);
-        esperarSegundos(3);
+
     }
     
     private void setCorreo(String correo) {

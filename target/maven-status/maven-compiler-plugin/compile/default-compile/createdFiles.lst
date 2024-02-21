@@ -1,10 +1,12 @@
 iterador\IteradorPorURL.class
 database\ArrayListQueue.class
 scrapper\LinksUsuario.class
-scrapper\VerificarSecciones.class
+scrapper\MinadoDatos.class
 main\InicioSesion.class
 automata\GeneradorPorCadena.class
 database\Queue.class
-utilidades\Generales.class
+iterador\IteradorPaginas.class
 database\MongoDBConnection.class
+scrapper\ObtenerEducacion.class
+scrapper\ObtenerExperiencia.class
 main\Main.class

@@ -1,6 +1,7 @@
 package database;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArrayListQueue implements Queue {
     
@@ -47,13 +48,16 @@ public class ArrayListQueue implements Queue {
         return cola.isEmpty();
     }
     
-    public void launcherURLS(String elemento){
-        this.enqueue(elemento);
+    public void launcherURLS(List<String> elementos){
+        for (String elemento : elementos) {
+            this.enqueue(elemento);
+        }
         
         if (this.size() > 30){
             this.vaciarDatos();
         }
     }
+  
     
     public void vaciarDatos(){
         System.out.println("Liberando datos...");

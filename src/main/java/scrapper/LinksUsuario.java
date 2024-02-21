@@ -1,12 +1,10 @@
 package scrapper;
 
-import static utilidades.Generales.esperarSegundos;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -20,7 +18,6 @@ public class LinksUsuario {
     }
     
     public List<String> obtenerLinks() {
-        esperarSegundos(3);
 
         List<WebElement> enlaces = driver.findElements(By.tagName("a"));
         List<String> elementosValidos = new ArrayList<>();

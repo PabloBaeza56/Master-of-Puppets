@@ -4,6 +4,7 @@ public class GeneradorPorCadena {
     
     public static String metodoURL(String cadena) {
         String[] lineas = cadena.split(" ");
+        String cadenaSalida;
 
         String[] nuevoArreglo = new String[lineas.length];
         int index = 0;
@@ -23,8 +24,11 @@ public class GeneradorPorCadena {
 
         preCadena.append(nuevoArreglo[index - 1]);
 
-        return "https://www.linkedin.com/search/results/people/?keywords=" + preCadena.toString() +
-                "&origin=GLOBAL_SEARCH_HEADER&page=XXXXX&sid=";
+        cadenaSalida = "https://www.linkedin.com/search/results/people/?keywords=" + preCadena.toString() + "&origin=GLOBAL_SEARCH_HEADER&page=XXXXX&sid=";
+        
+        //Si llega a existir este caso se ejecutara
+        cadenaSalida = cadenaSalida.replace("SWITCH_SEARCH_VERTICAL&", "SWITCH_SEARCH_VERTICAL&page=XXXXX&");
+        return cadenaSalida;
     }
     
     public static String metodoBotones(String cadena) {
