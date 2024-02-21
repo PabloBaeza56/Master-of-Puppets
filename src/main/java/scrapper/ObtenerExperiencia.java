@@ -19,7 +19,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
         this.elementosCasoCompuesto = new ArrayList<>();    
     }
 
-    private void determinarTipoSecciones() {
+    public void determinarTipoSecciones() {
         this.seccionDeseada = super.buscarIndiceSeccion("Experiencia");
 
         int i = 1;
@@ -48,7 +48,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
         for (int i : this.elementosCasoSimple) {
             try {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
-
+                                                                       
                 //------------NO MOVER
                 try {
                     WebElement puestoElement = elementoBase.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
@@ -102,12 +102,11 @@ public final class ObtenerExperiencia extends MinadoDatos{
         for (int i : this.elementosCasoCompuesto) {
             try {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
-
+                                                                       
                 String Titulo = "";
                 try {
                     WebElement puestoElement = elementoBase.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
                     String[] titulo = puestoElement.getText().split("\\n");
-                    //System.out.println("Empresa: " + titulo[0]);
                     Titulo = titulo[0];
                 } catch (NoSuchElementException e) {}
 
@@ -115,42 +114,38 @@ public final class ObtenerExperiencia extends MinadoDatos{
                 while (true) {
                     try {
                         WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); // /a
-                        System.out.println("Empresa: " + Titulo);
+                        
+                        System.out.println("Empresa: " + Titulo);                      
                         try {
                             WebElement puestoElement = fechaElemento.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
                             String[] titulo = puestoElement.getText().split("\\n");
                             System.out.println("Puesto: " + titulo[0]);
-                        } catch (NoSuchElementException e) {
-                        }
+                        } catch (NoSuchElementException e) {}
 
                         try {
                             WebElement empresaElemento = fechaElemento.findElement(By.xpath(".//span[@class='t-14 t-normal']"));
                             String[] puesto = empresaElemento.getText().split("\\n");
                             System.out.println("Tipo de contrato: " + puesto[0]);
-                        } catch (NoSuchElementException e) {
-                        }
+                        } catch (NoSuchElementException e) {}
 
                         try {
                             WebElement fechaElxxemento = fechaElemento.findElement(By.xpath(".//span[contains(@class, 't-14 t-normal t-black--light')][1]"));
                             String[] fechax = fechaElxxemento.getText().split("\\n");
                             System.out.println("Duracion : " + fechax[0]);
-                        } catch (NoSuchElementException e) {
-                        }
+                        } catch (NoSuchElementException e) {}
 
                         try {
                             WebElement fechaElxxemento = fechaElemento.findElement(By.xpath(".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
                             String[] fechay = fechaElxxemento.getText().split("\\n");
                             System.out.println("Ubicacion : " + fechay[0]);
-                        } catch (NoSuchElementException e) {
-                        }
+                        } catch (NoSuchElementException e) {}
 
                         //REPARAR-------------------------------------------------
                         try {
-                            WebElement descripcionElemento = fechaElemento.findElement(By.xpath(".//div[contains(@class, 'pv-shared-text-with-see-more full-width t-14 t-normal t-black display-flex align-items-center')]"));
+                            WebElement descripcionElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div[2]/ul/li/div/ul/li/div/div/div"));
                             String[] descripcion = descripcionElemento.getText().split("\\n");
-                            System.out.println("Descripción: " + descripcion[0]);
-                        } catch (NoSuchElementException e) {
-                        }
+                            System.out.println("Descripción2: " + descripcion[0]);
+                        } catch (NoSuchElementException e) {}
 
                         contador++;
                         System.out.println("---------------------");

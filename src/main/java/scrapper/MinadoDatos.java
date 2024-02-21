@@ -35,8 +35,18 @@ public class MinadoDatos {
         return elementoDeseado;
     }
     
-    public String scrapyText(WebElement elementoBase, String selector) {
-        WebElement elemento = elementoBase.findElement(By.cssSelector(selector));
+   
+    public String scrapyText(WebElement elementoBase, String tipoSelector, String selector ) {
+        WebElement elemento;
+
+        if (tipoSelector.equalsIgnoreCase("css")) {
+            elemento = elementoBase.findElement(By.cssSelector(selector));
+        } else if (tipoSelector.equalsIgnoreCase("xpath")) {
+            elemento = elementoBase.findElement(By.xpath(selector));
+        } else {
+            throw new IllegalArgumentException("Tipo de selector no válido: " + tipoSelector);
+        }
+
         String[] texto = elemento.getText().split("\\n");
         return texto[0];
     }

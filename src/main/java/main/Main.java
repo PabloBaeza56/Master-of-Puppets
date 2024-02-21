@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scrapper.MinadoDatos;
 import scrapper.ObtenerEducacion;
+import scrapper.ObtenerExperiencia;
 
 public class Main {
 
@@ -21,21 +22,22 @@ public class Main {
             Thread.sleep(60 * 1000);
         } catch (InterruptedException e) {} 
         
-        
+        ObtenerExperiencia xp = new ObtenerExperiencia(driver);
         ObtenerEducacion test = new ObtenerEducacion(driver);
         MinadoDatos prueba = new MinadoDatos(driver);
         //
         //https://www.linkedin.com/in/luis-basto-diaz-41136396/
         //https://www.linkedin.com/in/victorlavalle/
-        driver.get("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
+        driver.get("https://www.linkedin.com/in/ecambranes/");
         //test.determinarTipoSecciones(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
-        //test.seccionExperienciaCasoSimple(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
-        //test.seccionExperienciaCasoCompuesto(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
+        xp.determinarTipoSecciones();
+        xp.seccionExperienciaCasoSimple();
+        xp.seccionExperienciaCasoCompuesto();
         //test.seccionEducacion();
         //obtenerLinksporURL("fmat uady", driver);
         //colaLanzamiento.vaciarDatos();
-        System.out.println(prueba.buscarIndiceSeccion("Educación"));
-        test.seccionEducacion();
+
+        //test.seccionCabcecera();
         driver.quit();
 
     }
