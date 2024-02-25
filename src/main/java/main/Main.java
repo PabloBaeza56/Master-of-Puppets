@@ -2,8 +2,6 @@ package main;
 
 import automata.GeneradorPorCadena;
 import database.ArrayListQueue;
-
-
 import iterador.IteradorPorURL;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,7 +10,7 @@ import scrapper.MinadoDatos;
 import scrapper.ObtenerContactosPivote;
 import scrapper.ObtenerEducacion;
 import scrapper.ObtenerExperiencia;
-import scrapper.ObtenerNodos;
+
 
 public class Main {
 
