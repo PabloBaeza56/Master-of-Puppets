@@ -32,7 +32,7 @@ public class IteradorPorURL extends IteradorPaginas {
 
     @Override
     public void siguientePagina() {
-        paginaActual++;
+        this.paginaActual++;
     }
 
     

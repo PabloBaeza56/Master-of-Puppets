@@ -62,7 +62,8 @@ public class ArrayListQueue implements Queue {
     public void vaciarDatos(){
         System.out.println("Liberando datos...");
         while (!this.isEmpty()){ 
-            db.InsertarURL("DatosSteamRadar","URLS", (String) this.front());
+            //db.InsertarURL("DatosSteamRadar","URLS", (String) this.front());
+            System.out.println(this.front());
             this.dequeue(); 
         }
         

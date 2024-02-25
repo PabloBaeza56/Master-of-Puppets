@@ -50,4 +50,21 @@ public class MinadoDatos {
         String[] texto = elemento.getText().split("\\n");
         return texto[0];
     }
+    
+    public int buscarIndiceSeccionAside(String seccionDeseada) {
+        int elementoDeseado = 0;
+        for (int i = 12; i >= 1; i--) {
+            try {
+            esperarSegundos(1);
+            WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
+                                                                     
+            if (sectionElement.getText().equals(seccionDeseada)){
+                elementoDeseado = i;
+                break;
+            }
+            } catch (NoSuchElementException e) {}
+        }
+        
+        return elementoDeseado;
+    }
 }
