@@ -3,8 +3,11 @@ package main;
 import automata.GeneradorPorCadena;
 import database.ArrayListQueue;
 import iterador.IteradorPorURL;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import scrapper.LinksUsuario;
 import scrapper.MinadoDatos;
 import scrapper.ObtenerContactosPivote;
@@ -33,7 +36,7 @@ public class Main {
         //
         //https://www.linkedin.com/in/luis-basto-diaz-41136396/
         //https://www.linkedin.com/in/victorlavalle/
-        //driver.get("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
+        driver.get("https://www.linkedin.com/search/results/people/?keywords=fmat%20uady&origin=SWITCH_SEARCH_VERTICAL&sid=kcU");
         //test.determinarTipoSecciones(String.valueOf(test.buscarIndiceSeccion("Experiencia")));
         //xp.determinarTipoSecciones();
         //xp.seccionExperienciaCasoSimple();
@@ -41,9 +44,10 @@ public class Main {
         //System.out.println(yy.obtenerLinks());
         
         //test.seccionEducacion();
-        metodoURL("https://www.linkedin.com/search/results/people/?geoUrn=%5B%22103256664%22%5D&keywords=fmat%20uady&network=%5B%22F%22%2C%22S%22%2C%22O%22%5D&origin=FACETED_SEARCH&sid=b00", driver);
+        //metodoURL("https://www.linkedin.com/search/results/people/?geoUrn=%5B%22103256664%22%5D&keywords=fmat%20uady&network=%5B%22F%22%2C%22S%22%2C%22O%22%5D&origin=FACETED_SEARCH&sid=b00", driver);
         //colaLanzamiento.vaciarDatos();
-        
+    
+
         
         //xx.ActualizarPivotes();
        

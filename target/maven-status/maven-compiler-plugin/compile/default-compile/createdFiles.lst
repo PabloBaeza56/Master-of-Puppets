@@ -9,6 +9,9 @@ scrapper\ObtenerContactosPivote.class
 iterador\IteradorPorURL.class
 database\ArrayListQueue.class
 scrapper\LinksUsuario.class
+objetosConcretos\Experiencia.class
 main\InicioSesion.class
+objetosConcretos\Usuario.class
+objetosConcretos\Educacion.class
 automata\GeneradorPorCadena.class
 scrapper\ObtenerExperiencia.class
