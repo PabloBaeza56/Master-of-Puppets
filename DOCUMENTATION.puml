@@ -1,0 +1,27 @@
+@startuml
+annotation java.lang.Override
+class java.io.File
+class java.util.ArrayList
+class java.util.HashMap
+class java.util.List
+class java.util.Map
+class observerTEST.Demo
+class observerTEST.Editor
+class observerTEST.EmailNotificationListener
+class observerTEST.EventManager
+class observerTEST.LogOpenListener
+interface observerTEST.EventListener
+observerTEST.Editor ..> java.io.File
+observerTEST.EmailNotificationListener ..> java.lang.Override
+observerTEST.EmailNotificationListener ..> java.io.File
+observerTEST.EmailNotificationListener --|> observerTEST.EventListener
+observerTEST.EventManager ..> java.io.File
+observerTEST.EventManager ..> java.util.ArrayList
+observerTEST.EventManager ..> java.util.HashMap
+observerTEST.EventManager ..> java.util.List
+observerTEST.EventManager ..> java.util.Map
+observerTEST.LogOpenListener ..> java.lang.Override
+observerTEST.LogOpenListener ..> java.io.File
+observerTEST.LogOpenListener --|> observerTEST.EventListener
+observerTEST.EventListener ..> java.io.File
+@enduml
