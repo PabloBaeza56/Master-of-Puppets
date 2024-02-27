@@ -12,20 +12,17 @@ public class ExtraccionDatos {
     private final ObtenerDatosCabecera controladorCabecera;
     private final ObtenerExperiencia controladorExperiencia;
     private final MinadoDatos minador;
-    WebDriver driver;
+
     
-    public ExtraccionDatos(WebDriver driver){
+    public ExtraccionDatos(){
         this.minador = new MinadoDatos();
         this.controladorEducacion = new ObtenerEducacion();
         this.controladorExperiencia= new ObtenerExperiencia();
-        this.controladorCabecera = new ObtenerDatosCabecera();
-        this.driver = driver;
-
-        
+        this.controladorCabecera = new ObtenerDatosCabecera();   
     }
     
     public void PerfilCompleto(String perfilDeseado){
-        this.driver.get(perfilDeseado);
+        this.minador.irPagina(perfilDeseado);
         this.controladorCabecera.seccionCabcecera();
         this.controladorEducacion.seccionEducacion();
         this.controladorExperiencia.determinarTipoSecciones();

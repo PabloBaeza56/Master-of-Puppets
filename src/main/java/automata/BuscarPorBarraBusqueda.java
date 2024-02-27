@@ -45,14 +45,13 @@ public class BuscarPorBarraBusqueda {
         return cadenaSalida;
     }
     
-    public void metodoDirecto(String cadena) {
+    public String metodoDirecto(String cadena) {
         WebElement inputField = this.driver.findElement(By.xpath("/html/body/div[5]/header/div/div/div/div[1]/input"));
         inputField.sendKeys(cadena);
         inputField.sendKeys(Keys.ENTER);
         
-        //Hacer que la pagina espere hasta que cargue la pagina
        try {
-            Thread.sleep(5 * 1000);
+            Thread.sleep(2 * 1000);
         } catch (InterruptedException e) {}  
 
         
@@ -70,6 +69,12 @@ public class BuscarPorBarraBusqueda {
         WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+IndicePersonas+"]/button"));
                                                                                                 
         button.sendKeys(Keys.ENTER);
+        
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException e) {}  
+        
+        return driver.getCurrentUrl();
     }
   
 }

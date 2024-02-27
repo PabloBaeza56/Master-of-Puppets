@@ -14,8 +14,8 @@ public class BusquedaLinks {
     private final ObtenerNodos nodo;
     
     protected BusquedaLinks(WebDriver driver){
-        this.iterador = new IteradorPorURL();
         this.buscador = new BuscarPorBarraBusqueda(driver);
+        this.iterador = new IteradorPorURL();
         this.pivoteador = new ObtenerContactosPivote();
         this.nodo = new ObtenerNodos();
     }
@@ -25,9 +25,11 @@ public class BusquedaLinks {
         this.iterador.iniciarIteracion(cadenaPreparada);
     }
     
-    public void insercionDirectaBuscador(String cadenaDeseada, WebDriver driver){
-        this.buscador.metodoDirecto(cadenaDeseada);
-        this.iterador.iniciarIteracion(driver.getCurrentUrl());
+    public void insercionDirectaBuscador(String cadenaDeseada){
+        String rutaObtenida = this.buscador.metodoDirecto(cadenaDeseada);
+        rutaObtenida = rutaObtenida.replace("FACETED_SEARCH&", "FACETED_SEARCHL&page=XXXXX&");
+        rutaObtenida = rutaObtenida.replace("SWITCH_SEARCH_VERTICAL&", "SWITCH_SEARCH_VERTICAL&page=XXXXX&");
+        this.iterador.iniciarIteracion(rutaObtenida);
     }
     
     public void metodoURL(String urlDeseada){

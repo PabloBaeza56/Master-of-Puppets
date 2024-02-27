@@ -17,6 +17,10 @@ public class MinadoDatos {
         ControladorMaestro controlador = ControladorMaestro.getInstance();
         this.driver = controlador.getDriver();
     }
+    
+    public void irPagina(String url){
+        this.driver.get(url);
+    }
 
     protected void esperarSegundos(int segundos){
         try {

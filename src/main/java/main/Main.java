@@ -11,9 +11,9 @@ public class Main {
         ControladorMaestro controlador = ControladorMaestro.getInstance();
         WebDriver driver = controlador.getDriver();
         BusquedaLinks buscador = new BusquedaLinks(driver);
-        ExtraccionDatos extractor = new ExtraccionDatos(driver);
-        extractor.PerfilCompleto("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
-        //buscador.insercionIndirectaBuscadorURL("fmat uady");
+        ExtraccionDatos extractor = new ExtraccionDatos();
+        //extractor.PerfilCompleto("https://www.linkedin.com/in/luis-basto-diaz-41136396/");
+        buscador.insercionDirectaBuscador("fmat uady");
         
       
         
