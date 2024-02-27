@@ -7,9 +7,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-public class GeneradorPorCadena {
+public class BuscarPorBarraBusqueda {
+
+    private final WebDriver driver;
     
-    public static String metodoURL(String cadena) {
+    public BuscarPorBarraBusqueda(WebDriver driver){
+        this.driver = driver;
+    }
+    
+    public String metodoURL(String cadena) {
         String[] lineas = cadena.split(" ");
         String cadenaSalida;
 
@@ -35,14 +41,12 @@ public class GeneradorPorCadena {
         
         //Si llega a existir este caso se ejecutara
         cadenaSalida = cadenaSalida.replace("SWITCH_SEARCH_VERTICAL&", "SWITCH_SEARCH_VERTICAL&page=XXXXX&");
-        
              
         return cadenaSalida;
     }
     
-    public static void metodoDirecto(String cadena, WebDriver driver) {
-        // Encontrar el campo de entrada por su XPath
-        WebElement inputField = driver.findElement(By.xpath("/html/body/div[5]/header/div/div/div/div[1]/input"));
+    public void metodoDirecto(String cadena) {
+        WebElement inputField = this.driver.findElement(By.xpath("/html/body/div[5]/header/div/div/div/div[1]/input"));
         inputField.sendKeys(cadena);
         inputField.sendKeys(Keys.ENTER);
         
@@ -55,24 +59,16 @@ public class GeneradorPorCadena {
        int IndicePersonas = 0;
        for (int i = 1; i < 7; i++){
            try {
-                WebElement button = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+i+"]/button"));
+                WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+i+"]/button"));
                 if (button.getText().equals("Personas")){        
                     IndicePersonas = i;
                     break; 
                 }
            } catch (NoSuchElementException e) {}                                               
        }
-       
-      
 
-        //WebElement button = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li[1]/button"));
-
-        // Enfocar el botón (opcional)
-        //button.sendKeys(Keys.ENTER);
-
-        WebElement button = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+IndicePersonas+"]/button"));
+        WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+IndicePersonas+"]/button"));
                                                                                                 
-        // Enfocar el botón (opcional)
         button.sendKeys(Keys.ENTER);
     }
   

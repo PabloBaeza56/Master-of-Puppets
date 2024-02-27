@@ -1,14 +1,11 @@
 package objetosConcretos;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Experiencia {
     private String nombreEmpresa;
+
+    
     private String puesto;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private int duracionMeses;
+    private Fechas fecha;
     private String ubicacion;
     private String descripcion;
     
@@ -16,19 +13,15 @@ public class Experiencia {
     public Experiencia() {
         this.nombreEmpresa = "";
         this.puesto = "";
-        this.fechaInicio = LocalDate.parse("", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.fechaFin = LocalDate.parse("", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.duracionMeses = 0;
+        this.fecha = null;
         this.ubicacion = "";
         this.descripcion = "";
     }
 
-    public Experiencia(String nombreEmpresa, String puesto, String fechaInicio, String fechaFin, int duracionMeses, String ubicacion, String descripcion) {
+    public Experiencia(String nombreEmpresa, String puesto, Fechas fecha, String ubicacion, String descripcion) {
         this.nombreEmpresa = nombreEmpresa;
         this.puesto = puesto;
-        this.fechaInicio = LocalDate.parse(fechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.fechaFin = LocalDate.parse(fechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.duracionMeses = duracionMeses;
+        this.fecha = fecha;  
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
     }
@@ -50,30 +43,6 @@ public class Experiencia {
         this.puesto = puesto;
     }
 
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public int getDuracionMeses() {
-        return duracionMeses;
-    }
-
-    public void setDuracionMeses(int duracionMeses) {
-        this.duracionMeses = duracionMeses;
-    }
-
     public String getUbicacion() {
         return ubicacion;
     }
@@ -88,5 +57,13 @@ public class Experiencia {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    
+    public Fechas getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Fechas fecha) {
+        this.fecha = fecha;
     }
 }

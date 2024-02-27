@@ -1,5 +1,10 @@
 package scrapper;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import main.ControladorMaestro;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -8,17 +13,18 @@ import org.openqa.selenium.WebElement;
 public class MinadoDatos {
     protected WebDriver driver;
 
-    public MinadoDatos(WebDriver driver) {
-        this.driver = driver;
+    public MinadoDatos() {
+        ControladorMaestro controlador = ControladorMaestro.getInstance();
+        this.driver = controlador.getDriver();
     }
 
-    public void esperarSegundos(int segundos){
+    protected void esperarSegundos(int segundos){
         try {
             Thread.sleep(segundos * 1000);
         } catch (InterruptedException e) {}  
     }
 
-    public int buscarIndiceSeccion(String seccionDeseada) {
+    protected int buscarIndiceSeccionMain(String seccionDeseada) {
         int elementoDeseado = 0;
         for (int i = 12; i >= 1; i--) {
             try {
@@ -35,23 +41,7 @@ public class MinadoDatos {
         return elementoDeseado;
     }
     
-   
-    public String scrapyText(WebElement elementoBase, String tipoSelector, String selector ) {
-        WebElement elemento;
-
-        if (tipoSelector.equalsIgnoreCase("css")) {
-            elemento = elementoBase.findElement(By.cssSelector(selector));
-        } else if (tipoSelector.equalsIgnoreCase("xpath")) {
-            elemento = elementoBase.findElement(By.xpath(selector));
-        } else {
-            throw new IllegalArgumentException("Tipo de selector no válido: " + tipoSelector);
-        }
-
-        String[] texto = elemento.getText().split("\\n");
-        return texto[0];
-    }
-    
-    public int buscarIndiceSeccionAside(String seccionDeseada) {
+    protected int buscarIndiceSeccionAside(String seccionDeseada) {
         int elementoDeseado = 0;
         for (int i = 12; i >= 1; i--) {
             try {
@@ -67,4 +57,59 @@ public class MinadoDatos {
         
         return elementoDeseado;
     }
+    
+   
+    protected String scrapyText(WebElement elementoBase, String tipoSelector, String selector ) {
+        WebElement elemento;
+
+        if (tipoSelector.equalsIgnoreCase("css")) {
+            elemento = elementoBase.findElement(By.cssSelector(selector));
+        } else if (tipoSelector.equalsIgnoreCase("xpath")) {
+            elemento = elementoBase.findElement(By.xpath(selector));
+        } else {
+            throw new IllegalArgumentException("Tipo de selector no válido: " + tipoSelector);
+        }
+
+        String[] texto = elemento.getText().split("\\n");
+        return texto[0];
+    }
+    
+    protected String obtenerLink(WebElement elementoBase){
+        
+        WebElement enlace = elementoBase.findElement(By.tagName("a"));
+        String cadenaSalida = enlace.getAttribute("href");  
+        
+        return cadenaSalida;
+    }
+    
+    protected List<String> obtenerLinks() {
+
+        List<WebElement> enlaces = driver.findElements(By.tagName("a"));
+        List<String> elementosValidos = new ArrayList<>();
+
+        for (WebElement enlace : enlaces) {
+            String url = enlace.getAttribute("href");
+            if (url != null && url.contains("https://www.linkedin.com/in/")) {
+                char primerChar = url.charAt(28);
+
+                if (Character.isLowerCase(primerChar)) {
+                    elementosValidos.add(url);
+                }
+            }
+        }
+
+        List<String> arregloFinal = eliminarDuplicados(elementosValidos);
+
+        return arregloFinal;
+    }
+    
+    
+    protected List<String> eliminarDuplicados(List<String> lista) {
+        Set<String> conjunto = new HashSet<>(lista);
+        return new ArrayList<>(conjunto);
+    }
+    
+    
+    
+    
 }

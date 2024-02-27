@@ -7,8 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ObtenerNodos extends MinadoDatos{
-    public ObtenerNodos(WebDriver driver) {
-        super(driver);
+    public ObtenerNodos() {
+        super();
     }
     
     public void UsuariosRelacionadosA() {
@@ -23,15 +23,11 @@ public class ObtenerNodos extends MinadoDatos{
             try {
 
                 WebElement elementoInterno = driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/ul/li["+ContadorElemento+"]"));
-                
-                
-                WebElement enlace = elementoInterno.findElement(By.tagName("a"));
-                String url = enlace.getAttribute("href");
+                 
+                String url = super.obtenerLink(elementoInterno);
                 System.out.println(url);
 
-            } catch (NoSuchElementException e) {
-                break;
-            }
+            } catch (NoSuchElementException e) {break;}
             ContadorElemento++;
         }
     }
@@ -40,8 +36,7 @@ public class ObtenerNodos extends MinadoDatos{
         int ContadorElemento = 1;
         int seccionDeseada = super.buscarIndiceSeccionAside("Gente que podrías conocer");
 
-        WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + seccionDeseada + "]/div[3]/div/div/div/a"));
-                                                               
+        WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + seccionDeseada + "]/div[3]/div/div/div/a"));                                                    
         elementoBase.sendKeys(Keys.ENTER);                                                     
         super.esperarSegundos(10);
         
@@ -50,8 +45,7 @@ public class ObtenerNodos extends MinadoDatos{
                                                                          
                 WebElement elementoInterno = driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/div[3]/div/ul/li["+ContadorElemento+"]"));
                 
-                WebElement enlace = elementoInterno.findElement(By.tagName("a"));
-                String url = enlace.getAttribute("href");
+                String url = super.obtenerLink(elementoInterno);
                 System.out.println(url);
 
             } catch (NoSuchElementException e) {break;}

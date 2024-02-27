@@ -13,14 +13,14 @@ public final class ObtenerExperiencia extends MinadoDatos{
     private int seccionDeseada;
 
 
-    public ObtenerExperiencia(WebDriver driver) {
-        super(driver);
+    public ObtenerExperiencia() {
+        super();
         this.elementosCasoSimple = new ArrayList<>();
         this.elementosCasoCompuesto = new ArrayList<>();    
     }
 
     public void determinarTipoSecciones() {
-        this.seccionDeseada = super.buscarIndiceSeccion("Experiencia");
+        this.seccionDeseada = super.buscarIndiceSeccionMain("Experiencia");
 
         int i = 1;
         while (true) {
@@ -83,8 +83,6 @@ public final class ObtenerExperiencia extends MinadoDatos{
                                                                        
                 String Titulo = "";
                 try {
-                    //WebElement puestoElement = elementoBase.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
-                    //String[] titulo = puestoElement.getText().split("\\n");
                     Titulo = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
                 } catch (NoSuchElementException e) {}
 

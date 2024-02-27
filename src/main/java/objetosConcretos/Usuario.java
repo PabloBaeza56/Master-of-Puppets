@@ -1,12 +1,14 @@
 package objetosConcretos;
 
+import java.util.ArrayList;
+
 public class Usuario {
 
     private String nombre;
     private String leyenda;
     private String ubicacion;
-    private Experiencia experiencia;
-    private Educacion educacion;
+    private ArrayList<Experiencia> experiencia;
+    private ArrayList<Educacion> educacion;
     private String fechaEncuentro;
     private String fechaExtraccion;
     private Boolean extraido;
@@ -23,31 +25,7 @@ public class Usuario {
         
     }
 
-    public String getFechaEncuentro() {
-        return fechaEncuentro;
-    }
-
-    public void setFechaEncuentro(String fechaEncuentro) {
-        this.fechaEncuentro = fechaEncuentro;
-    }
-
-    public String getFechaExtraccion() {
-        return fechaExtraccion;
-    }
-
-    public void setFechaExtraccion(String fechaExtraccion) {
-        this.fechaExtraccion = fechaExtraccion;
-    }
-
-    public Boolean getExtraido() {
-        return extraido;
-    }
-
-    public void setExtraido(Boolean extraido) {
-        this.extraido = extraido;
-    }
-
-    public Usuario(String nombre, String leyenda, String ubicacion, Experiencia experiencia, Educacion educacion, String fechaEncuentro, String fechaExtraccion, Boolean extraido) {
+    public Usuario(String nombre, String leyenda, String ubicacion, ArrayList<Experiencia> experiencia, ArrayList<Educacion> educacion, String fechaEncuentro, String fechaExtraccion, Boolean extraido) {
         this.nombre = nombre;
         this.leyenda = leyenda;
         this.ubicacion = ubicacion;
@@ -83,20 +61,44 @@ public class Usuario {
         this.ubicacion = ubicacion;
     }
 
-    public Experiencia getExperiencia() {
+    public ArrayList<Experiencia> getExperiencia() {
         return experiencia;
     }
 
-    public void setExperiencia(Experiencia experiencia) {
+    public void setExperiencia(ArrayList<Experiencia> experiencia) {
         this.experiencia = experiencia;
     }
 
-    public Educacion getEducacion() {
+    public ArrayList<Educacion> getEducacion() {
         return educacion;
     }
 
-    public void setEducacion(Educacion educacion) {
+    public void setEducacion(ArrayList<Educacion> educacion) {
         this.educacion = educacion;
+    }
+    
+     public String getFechaEncuentro() {
+        return fechaEncuentro;
+    }
+
+    public void setFechaEncuentro(String fechaEncuentro) {
+        this.fechaEncuentro = fechaEncuentro;
+    }
+
+    public String getFechaExtraccion() {
+        return fechaExtraccion;
+    }
+
+    public void setFechaExtraccion(String fechaExtraccion) {
+        this.fechaExtraccion = fechaExtraccion;
+    }
+
+    public Boolean getExtraido() {
+        return extraido;
+    }
+
+    public void setExtraido(Boolean extraido) {
+        this.extraido = extraido;
     }
 
     /*
@@ -118,4 +120,6 @@ public class Usuario {
         System.out.println("Educación: " + usuario.getEducacion());
     }
 */
+
+   
 }
