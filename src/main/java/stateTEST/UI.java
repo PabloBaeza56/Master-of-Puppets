@@ -34,10 +34,25 @@ public class UI {
         JButton stop = new JButton("Stop");
         stop.addActionListener(e -> textField.setText(player.getState().onLock()));
         JButton next = new JButton("Next");
-        next.addActionListener(e -> textField.setText(player.getState().onNext()));
+        next.addActionListener(e -> {
+            Thread autoPlayThread = new Thread(() -> {
+                try {
+                    while (true) {  // Ciclo infinito para continuar reproduciendo automáticamente
+                        Thread.sleep(4000);  // Espera 3 segundos antes de pasar a la siguiente pista
+                        textField.setText(player.getState().onNext());
+                    }
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            autoPlayThread.start();
+        });
+        
+        frame.setVisible(true);
         frame.setSize(300, 100);
         buttons.add(play);
         buttons.add(stop);
         buttons.add(next);
+        
     }
 }

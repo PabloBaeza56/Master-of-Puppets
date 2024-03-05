@@ -1,52 +1,77 @@
 package objetosConcretos;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 public class Fechas {
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private long duracionMeses;
+    private String fechaInicio;
+    private String fechaFin;
+    private String duracion;
+    
+    public Fechas() {
+        this.fechaInicio = "";
+        this.fechaFin = "";
+        this.duracion = "";
+    }
 
-    public Fechas(LocalDate fechaInicio, LocalDate fechaFin) {
+    public Fechas(String fechaInicio, String fechaFin, String Duracion) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.duracionMeses = calcularDuracionMeses();
+        this.duracion = Duracion;
     }
 
-    private long calcularDuracionMeses() {
-        return ChronoUnit.MONTHS.between(fechaInicio, fechaFin);
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
+    
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
+    
 
-    public void setFechaFin(LocalDate fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    public long getDuracionMeses() {
-        return duracionMeses;
+    
+
+    public void setDuracion(String duracionMeses) {
+        this.duracion = duracionMeses;
     }
 
-    public void setDuracionMeses(long duracionMeses) {
-        this.duracionMeses = duracionMeses;
+    @Override
+    public String toString() {
+        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracion=" + duracion + '}';
     }
+    
+    public String ObtenerDuracionMeses(String cadenaFecha){
+        String[] partes = cadenaFecha.split(" ");
+        
+        int anios = 0;
+        int meses = 0;
+        
+        for (int i = 0; i < partes.length; i++) {
+            if (partes[i].equals("años") || partes[i].equals("año")) {
+                anios = Integer.parseInt(partes[i - 1]);
+            } else if (partes[i].equals("meses") || partes[i].equals("mes")) {
+                meses = Integer.parseInt(partes[i - 1]);
+            }
+        }
+        
+        int totalMeses = (anios * 12) + meses;
+        
+        return String.valueOf(totalMeses);
+    }
+    
+    public String ConvertirActualidadEnFecha(){
+        Date fechaActual = new Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("MMM. yyyy");
+        String fechaFormateada = formatoFecha.format(fechaActual);
+        return fechaFormateada;
+    }
+    
+    
 
-    public static void main(String[] args) {
-        // Ejemplo de uso
-        LocalDate inicio = LocalDate.of(2022, 1, 1);
-        LocalDate fin = LocalDate.of(2022, 12, 31);
-        Fechas tiempo = new Fechas(inicio, fin);
-        System.out.println("Duración en meses: " + tiempo.getDuracionMeses());
-    }
+   
+
 }

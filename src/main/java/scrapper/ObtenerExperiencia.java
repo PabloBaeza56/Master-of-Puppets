@@ -1,6 +1,10 @@
 package scrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import objetosConcretos.Experiencia;
+import objetosConcretos.Fechas;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -40,32 +44,42 @@ public final class ObtenerExperiencia extends MinadoDatos{
     }
 
     public void seccionExperienciaCasoSimple() {
+        ArrayList<Experiencia> elementosExperiencia = new ArrayList<>();
 
         for (int i : this.elementosCasoSimple) {
+            Experiencia elementoExperiencia = new Experiencia();
             try {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
                                                                        
                 try {
-                    System.out.println("Puesto: " + super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']"));
+                    String Puesto = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+                    elementoExperiencia.setPuesto(Puesto);
                 } catch (NoSuchElementException e) {}
 
 
                 try {
-                    System.out.println("Empresa: " + super.scrapyText(elementoBase, "xpath", ".//span[@class='t-14 t-normal']"));
+                    String Empresa = super.scrapyText(elementoBase, "xpath", ".//span[@class='t-14 t-normal']");
+                    elementoExperiencia.setNombreEmpresa(Empresa);
                 } catch (NoSuchElementException e) {}
 
                 
                 try {
-                    System.out.println("Fecha: " + super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]"));
+                    String Fecha = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
+                    Fechas fechaCorregida = this.ObtenerFecha(Fecha);
+                    elementoExperiencia.setFecha(fechaCorregida);
+                
+                
                 } catch (NoSuchElementException e) {}
 
 
                 try {
-                    System.out.println("Ubicacion: " + super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
+                    String Ubicacion = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
+                    elementoExperiencia.setUbicacion(Ubicacion);
                 } catch (NoSuchElementException e) {}
 
                 try {
-                    System.out.println("Descripción: " + super.scrapyText(elementoBase, "xpath", ".//div[contains(@class, 'pv-shared-text-with-see-more')]//span"));
+                    String Descripcion = super.scrapyText(elementoBase, "xpath", ".//div[contains(@class, 'pv-shared-text-with-see-more')]//span");
+                    elementoExperiencia.setDescripcion(Descripcion);
                 } catch (NoSuchElementException e) {}
 
                 //String codigoHTML = elementoBase.getAttribute("outerHTML");
@@ -129,6 +143,20 @@ public final class ObtenerExperiencia extends MinadoDatos{
         }
     }
     
-    
+    public Fechas ObtenerFecha( String Fecha){
+        Fechas manejadorFechas = new Fechas();
+        String[] elementos = Fecha.split(" - | · ");
+        
+        manejadorFechas.setFechaInicio(elementos[0]);
+        
+        if (elementos[1].contains("actualidad")){
+            manejadorFechas.setFechaFin(manejadorFechas.ConvertirActualidadEnFecha());
+        } else {
+            manejadorFechas.setFechaFin(elementos[1]);
+        }
+        
+        manejadorFechas.setDuracion(manejadorFechas.ObtenerDuracionMeses(elementos[2]));
+        return manejadorFechas;
+    }
 
 }

@@ -1,17 +1,19 @@
 package scrapper;
 
+import objetosConcretos.datosBasicos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ObtenerDatosCabecera extends MinadoDatos{
-
+    datosBasicos cabecera;
     public ObtenerDatosCabecera() {
         super();
+        this.cabecera = new datosBasicos();
     }
     
-    public void seccionCabcecera() {
+    public datosBasicos seccionCabcecera() {
         int seccionDeseada = 1;
         try {
             super.esperarSegundos(1);
@@ -20,20 +22,24 @@ public class ObtenerDatosCabecera extends MinadoDatos{
 
             try {
                 WebElement elementoA = elementoBase.findElement(By.xpath("./div[1]/div[1]"));
-                System.out.println("Nombre: " + super.scrapyText(elementoA, "xpath", ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]"));
+                String Nombre = super.scrapyText(elementoA, "xpath", ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]");
+                cabecera.setNombre(Nombre);
             } catch (NoSuchElementException e) {}
 
             try {
                 WebElement elementoB = elementoBase.findElement(By.xpath("./div[1]/div[2]"));
-                System.out.println("Leyenda:  " + elementoB.getText());
+                String Leyenda = elementoB.getText();
+                cabecera.setLeyenda(Leyenda);
             } catch (NoSuchElementException e) {}
 
             try {
                 WebElement elementoC = elementoBase.findElement(By.xpath("./div[2]"));
-                System.out.println("Ubicacion: " + super.scrapyText(elementoC, "xpath", ".//span[contains(@class, 'text-body-small inline t-black--light break-words')]"));
+                String Ubicacion = super.scrapyText(elementoC, "xpath", ".//span[contains(@class, 'text-body-small inline t-black--light break-words')]");
+                cabecera.setUbicacion(Ubicacion);
             } catch (NoSuchElementException e) {}
 
         } catch (NoSuchElementException e) {}
+        return cabecera;
     }
     
 }

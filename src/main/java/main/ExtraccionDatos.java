@@ -1,5 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import objetosConcretos.Educacion;
+import objetosConcretos.datosBasicos;
 import org.openqa.selenium.WebDriver;
 import scrapper.MinadoDatos;
 import scrapper.ObtenerDatosCabecera;
@@ -23,11 +26,16 @@ public class ExtraccionDatos {
     
     public void PerfilCompleto(String perfilDeseado){
         this.minador.irPagina(perfilDeseado);
-        this.controladorCabecera.seccionCabcecera();
-        this.controladorEducacion.seccionEducacion();
+        //datosBasicos info = this.controladorCabecera.seccionCabcecera();
+        //System.out.println(info);
+        
+        //ArrayList<Educacion> resultado =this.controladorEducacion.seccionEducacion();
+        //System.out.println("Datos Recuperados:");
+        //System.out.println(resultado);
+        
         this.controladorExperiencia.determinarTipoSecciones();
         this.controladorExperiencia.seccionExperienciaCasoSimple();
-        this.controladorExperiencia.seccionExperienciaCasoCompuesto();
+        //this.controladorExperiencia.seccionExperienciaCasoCompuesto();
  
     }
     

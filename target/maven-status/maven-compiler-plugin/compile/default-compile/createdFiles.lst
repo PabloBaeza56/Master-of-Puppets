@@ -1,4 +1,3 @@
-observerTEST\EmailNotificationListener.class
 scrapper\ObtenerNodos.class
 stateTEST\PlayingState.class
 database\MongoDBConnection.class
@@ -12,9 +11,9 @@ objetosConcretos\Usuario.class
 stateTEST\LockedState.class
 stateTEST\State.class
 scrapper\ObtenerExperiencia.class
+observerTEST\EscuchadorEventos.class
 objetosConcretos\Fechas.class
 scrapper\MinadoDatos.class
-observerTEST\EventManager.class
 observerTEST\Editor.class
 database\Queue.class
 automata\BuscarPorBarraBusqueda.class
@@ -24,10 +23,12 @@ automata\IteradorPaginas.class
 observerTEST\Demo.class
 stateTEST\Demo.class
 scrapper\ObtenerDatosCabecera.class
+observerTEST\ManejadorEventos.class
 database\ArrayListQueue.class
 main\ControladorMaestro$NewSingletonHolder.class
 objetosConcretos\Experiencia.class
-observerTEST\EventListener.class
 objetosConcretos\Educacion.class
+objetosConcretos\datosBasicos.class
 automata\IteradorPorURL.class
 main\BusquedaLinks.class
+observerTEST\ActivadorEventoConcreto.class

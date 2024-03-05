@@ -41,12 +41,10 @@ public class ObtenerContactosPivote extends MinadoDatos {
                 System.out.println(url);
 
             } catch (NoSuchElementException e) {break;}
-            i++;
-            
-            
-            
+            i++; 
         }
-        
     }
+    
+    
     
 }

@@ -4,43 +4,50 @@ package objetosConcretos;
 public class Educacion {
     private String instituto;
     private String titulo;
-    private Fechas fecha;
+    private String anioInicio;
+    private String anioFin;
 
     public Educacion() {
         this.instituto = "";
         this.titulo = "";
-        this.fecha = null;
+        this.anioInicio = "";  
+        this.anioFin = "";
     }
 
-    public Educacion(String instituto, String titulo, Fechas fecha) {
+    public Educacion(String instituto, String titulo, String anioInicio, String anioFin) {
         this.instituto = instituto;
         this.titulo = titulo;
-        this.fecha = fecha;  
+        this.anioInicio = anioInicio;  
+        this.anioFin = anioFin;
+    }
+
+  
+    public void setAnioInicio(String anioInicio) {
+        this.anioInicio = anioInicio;
+    }
+
+   
+
+    public void setAnioFin(String anioFin) {
+        this.anioFin = anioFin;
     }
     
-    public Fechas getFecha() {
-        return fecha;
-    }
+    
 
-    public void setFecha(Fechas fecha) {
-        this.fecha = fecha;
-    }
-
-
-    public String getInstituto() {
-        return instituto;
-    }
-
+   
     public void setInstituto(String instituto) {
         this.instituto = instituto;
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    @Override
+    public String toString() {
+        return "Educacion{" + "instituto=" + instituto + ", titulo=" + titulo + ", anioInicio=" + anioInicio + ", anioFin=" + anioFin + '}';
     }
 
     
