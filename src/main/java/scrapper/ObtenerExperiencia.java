@@ -67,10 +67,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                     String Fecha = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
                     Fechas fechaCorregida = this.ObtenerFecha(Fecha);
                     elementoExperiencia.setFecha(fechaCorregida);
-                
-                
                 } catch (NoSuchElementException e) {}
-
 
                 try {
                     String Ubicacion = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
@@ -82,9 +79,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                     elementoExperiencia.setDescripcion(Descripcion);
                 } catch (NoSuchElementException e) {}
 
-                //String codigoHTML = elementoBase.getAttribute("outerHTML");
-                //System.out.println(codigoHTML);
-                System.out.println("---------------------");
+                elementosExperiencia.add(elementoExperiencia);
             } catch (NoSuchElementException e) {}
         }
     }
@@ -102,6 +97,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
 
                 int contador = 1;
                 while (true) {
+                    Experiencia elementoExperiencia = new Experiencia();
                     try {
                         WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); // /a
                         
@@ -109,6 +105,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                         
                         try {
                             System.out.println("Puesto: " + super.scrapyText(fechaElemento, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']"));
+                            //elementoExperiencia.setPuesto(Titulo);
                         } catch (NoSuchElementException e) {}
 
                         
@@ -123,12 +120,12 @@ public final class ObtenerExperiencia extends MinadoDatos{
 
                         
                         try {
-                            System.out.println("Ubicacion: " + super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
+                            System.out.println("AUbicacion: " + super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
                         } catch (NoSuchElementException e) {}
 
                         
                         try {
-                            System.out.println("Ubicacion: " + super.scrapyText(elementoBase, "xpath", "./div[2]/ul/li[" + contador + "]/div/div[2]/div[2]/ul/li/div/ul/li/div/div/div"));
+                            System.out.println("BUbicacion: " + super.scrapyText(elementoBase, "xpath", "./div[2]/ul/li[" + contador + "]/div/div[2]/div[2]/ul/li/div/ul/li/div/div/div"));
                         } catch (NoSuchElementException e) {}
 
                         contador++;

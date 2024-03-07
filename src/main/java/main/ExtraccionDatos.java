@@ -34,8 +34,8 @@ public class ExtraccionDatos {
         //System.out.println(resultado);
         
         this.controladorExperiencia.determinarTipoSecciones();
-        this.controladorExperiencia.seccionExperienciaCasoSimple();
-        //this.controladorExperiencia.seccionExperienciaCasoCompuesto();
+        //this.controladorExperiencia.seccionExperienciaCasoSimple();
+        this.controladorExperiencia.seccionExperienciaCasoCompuesto();
  
     }
     
