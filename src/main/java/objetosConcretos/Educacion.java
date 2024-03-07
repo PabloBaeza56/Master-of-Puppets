@@ -47,7 +47,13 @@ public class Educacion {
 
     @Override
     public String toString() {
-        return "Educacion{" + "instituto=" + instituto + ", titulo=" + titulo + ", anioInicio=" + anioInicio + ", anioFin=" + anioFin + '}';
+        return """
+               Educacion{
+               \tinstituto=""" + instituto + 
+            "\n\ttitulo=" + titulo + 
+            "\n\tanioInicio=" + anioInicio + 
+            "\n\tanioFin=" + anioFin + 
+            "\n}";
     }
 
     

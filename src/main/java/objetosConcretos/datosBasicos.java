@@ -35,7 +35,11 @@ public class datosBasicos {
 
     @Override
     public String toString() {
-        return "datosBasicos{" + "nombre=" + nombre + ", leyenda=" + leyenda + ", ubicacion=" + ubicacion + '}';
+        return """
+               datosBasicos{
+               \tnombre=""" + nombre + 
+                "\n\tleyenda=" + leyenda + 
+                "\n\tubicacion=" + ubicacion + 
+                "\n}";
     }
-
 }

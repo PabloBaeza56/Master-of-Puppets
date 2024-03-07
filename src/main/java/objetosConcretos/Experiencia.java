@@ -7,7 +7,7 @@ public class Experiencia {
     private String puesto;
     private Fechas fecha;
     private String ubicacion;
-    private String descripcion;
+
 
     
     
@@ -16,15 +16,15 @@ public class Experiencia {
         this.puesto = "";
         this.fecha = null;
         this.ubicacion = "";
-        this.descripcion = "";
+
     }
 
-    public Experiencia(String nombreEmpresa, String puesto,Fechas fecha ,String ubicacion, String descripcion) {
+    public Experiencia(String nombreEmpresa, String puesto,Fechas fecha ,String ubicacion) {
         this.nombreEmpresa = nombreEmpresa;
         this.puesto = puesto;
         this.fecha = fecha;
         this.ubicacion = ubicacion;
-        this.descripcion = descripcion;
+
         
     }
     
@@ -45,12 +45,20 @@ public class Experiencia {
         this.ubicacion = ubicacion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    
+ 
     public void setFecha(Fechas fecha) {
         this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+          return """
+                 Experiencia{
+                 \tnombreEmpresa=""" + nombreEmpresa + 
+            "\n\tpuesto=" + puesto + 
+            "\n\tfecha=" + fecha + 
+            "\n\tubicacion=" + ubicacion + 
+            "\n}";
     }
 
     

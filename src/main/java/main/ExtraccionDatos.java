@@ -1,7 +1,10 @@
 package main;
 
+import database.MongoDBConnection;
 import java.util.ArrayList;
 import objetosConcretos.Educacion;
+import objetosConcretos.Experiencia;
+import objetosConcretos.Usuario;
 import objetosConcretos.datosBasicos;
 import org.openqa.selenium.WebDriver;
 import scrapper.MinadoDatos;
@@ -25,18 +28,27 @@ public class ExtraccionDatos {
     }
     
     public void PerfilCompleto(String perfilDeseado){
+        Usuario user = new Usuario();
         this.minador.irPagina(perfilDeseado);
-        //datosBasicos info = this.controladorCabecera.seccionCabcecera();
-        //System.out.println(info);
+        datosBasicos info = this.controladorCabecera.seccionCabcecera();
+        user.setDatosBasicos(info);
         
-        //ArrayList<Educacion> resultado =this.controladorEducacion.seccionEducacion();
-        //System.out.println("Datos Recuperados:");
-        //System.out.println(resultado);
+        ArrayList<Educacion> resultadoEducacion =this.controladorEducacion.seccionEducacion();
+        user.setEducacion(resultadoEducacion);
         
         this.controladorExperiencia.determinarTipoSecciones();
-        //this.controladorExperiencia.seccionExperienciaCasoSimple();
-        this.controladorExperiencia.seccionExperienciaCasoCompuesto();
- 
+        
+        ArrayList<Experiencia> resultadoSimple = this.controladorExperiencia.seccionExperienciaCasoSimple();
+        ArrayList<Experiencia> resultadoCompuesto = this.controladorExperiencia.seccionExperienciaCasoCompuesto();
+   
+        ArrayList<Experiencia> arregloFinal = new ArrayList<>();
+        arregloFinal.addAll(resultadoSimple);
+        arregloFinal.addAll(resultadoCompuesto);
+        user.setExperiencia(arregloFinal);
+        
+        System.out.println(user);
+        MongoDBConnection db = new MongoDBConnection();
+        db.SubirUsuario(user);
     }
     
 }

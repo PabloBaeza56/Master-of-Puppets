@@ -43,7 +43,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
         }
     }
 
-    public void seccionExperienciaCasoSimple() {
+    public ArrayList<Experiencia> seccionExperienciaCasoSimple() {
         ArrayList<Experiencia> elementosExperiencia = new ArrayList<>();
 
         for (int i : this.elementosCasoSimple) {
@@ -59,7 +59,9 @@ public final class ObtenerExperiencia extends MinadoDatos{
 
                 try {
                     String Empresa = super.scrapyText(elementoBase, "xpath", ".//span[@class='t-14 t-normal']");
-                    elementoExperiencia.setNombreEmpresa(Empresa);
+                    String[] partes = Empresa.split("·");
+                    String primeraSubcadena = partes[0].trim();
+                    elementoExperiencia.setNombreEmpresa(primeraSubcadena);
                 } catch (NoSuchElementException e) {}
 
                 
@@ -74,70 +76,77 @@ public final class ObtenerExperiencia extends MinadoDatos{
                     elementoExperiencia.setUbicacion(Ubicacion);
                 } catch (NoSuchElementException e) {}
 
-                try {
-                    String Descripcion = super.scrapyText(elementoBase, "xpath", ".//div[contains(@class, 'pv-shared-text-with-see-more')]//span");
-                    elementoExperiencia.setDescripcion(Descripcion);
-                } catch (NoSuchElementException e) {}
+                //try {
+                    //String Descripcion = super.scrapyText(elementoBase, "xpath", ".//div[contains(@class, 'pv-shared-text-with-see-more')]//span");
+                    //elementoExperiencia.setDescripcion(Descripcion);
+                //} catch (NoSuchElementException e) {}
 
                 elementosExperiencia.add(elementoExperiencia);
             } catch (NoSuchElementException e) {}
         }
+        return elementosExperiencia;
     }
 
-    public void seccionExperienciaCasoCompuesto() {
+    public ArrayList<Experiencia> seccionExperienciaCasoCompuesto() {
+        ArrayList<Experiencia> elementosExperiencia = new ArrayList<>();
 
         for (int i : this.elementosCasoCompuesto) {
+            
             try {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
                                                                        
-                String Titulo = "";
+                String NombreEmpresa = "";
                 try {
-                    Titulo = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+                    NombreEmpresa = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
                 } catch (NoSuchElementException e) {}
 
                 int contador = 1;
                 while (true) {
                     Experiencia elementoExperiencia = new Experiencia();
                     try {
+                        
                         WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); // /a
                         
-                        System.out.println("Empresa: " + Titulo);   
+            
+                        elementoExperiencia.setNombreEmpresa(NombreEmpresa);
                         
                         try {
-                            System.out.println("Puesto: " + super.scrapyText(fechaElemento, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']"));
-                            //elementoExperiencia.setPuesto(Titulo);
+                            String Puesto=  super.scrapyText(fechaElemento, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+                            elementoExperiencia.setPuesto(Puesto);
+                        } catch (NoSuchElementException e) {}
+
+                        
+                        //try {
+                            //System.out.println("Tipo de contrato: " + super.scrapyText(fechaElemento, "xpath", ".//span[@class='t-14 t-normal']"));
+                        //} catch (NoSuchElementException e) {}
+
+                        
+                        try {
+                            String Duracion = super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
+                            Fechas fechaCorregida = this.ObtenerFecha(Duracion);
+                            elementoExperiencia.setFecha(fechaCorregida);
                         } catch (NoSuchElementException e) {}
 
                         
                         try {
-                            System.out.println("Tipo de contrato: " + super.scrapyText(fechaElemento, "xpath", ".//span[@class='t-14 t-normal']"));
+                            String Ubicacion = super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
+                            elementoExperiencia.setUbicacion(Ubicacion);
                         } catch (NoSuchElementException e) {}
 
                         
-                        try {
-                            System.out.println("Duracion: " + super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]"));
-                        } catch (NoSuchElementException e) {}
-
-                        
-                        try {
-                            System.out.println("AUbicacion: " + super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]"));
-                        } catch (NoSuchElementException e) {}
-
-                        
-                        try {
-                            System.out.println("BUbicacion: " + super.scrapyText(elementoBase, "xpath", "./div[2]/ul/li[" + contador + "]/div/div[2]/div[2]/ul/li/div/ul/li/div/div/div"));
-                        } catch (NoSuchElementException e) {}
-
+                       
+                        elementosExperiencia.add(elementoExperiencia);
                         contador++;
-                        System.out.println("---------------------");
                     } catch (NoSuchElementException e) {break;}
                 }
 
                 //String codigoHTML = elementoBase.getAttribute("outerHTML");
                 //System.out.println(codigoHTML);
+                
                 i++;
             } catch (NoSuchElementException e) {break;}
         }
+        return elementosExperiencia;
     }
     
     public Fechas ObtenerFecha( String Fecha){

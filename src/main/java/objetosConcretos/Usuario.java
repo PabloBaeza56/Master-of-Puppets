@@ -4,102 +4,30 @@ import java.util.ArrayList;
 
 public class Usuario {
 
-    private String nombre;
-    private String leyenda;
-    private String ubicacion;
+ 
     private ArrayList<Experiencia> experiencia;
     private ArrayList<Educacion> educacion;
-    private String fechaEncuentro;
-    private String fechaExtraccion;
-    private Boolean extraido;
+    private Object datosBasicos;
 
     public Usuario() {
-        this.nombre = "";
-        this.leyenda = "";
-        this.ubicacion = "";
+        this.datosBasicos = null;
         this.experiencia = null;
         this.educacion = null;
-        this.fechaEncuentro = "";
-        this.fechaExtraccion = "";
-        this.extraido = false;
+       // this.fechaEncuentro = "";
+        //this.fechaExtraccion = "";
+        //this.extraido = false;
         
     }
 
-    public Usuario(String nombre, String leyenda, String ubicacion, ArrayList<Experiencia> experiencia, ArrayList<Educacion> educacion, String fechaEncuentro, String fechaExtraccion, Boolean extraido) {
-        this.nombre = nombre;
-        this.leyenda = leyenda;
-        this.ubicacion = ubicacion;
+    public Usuario(Object datosBasicos, ArrayList<Experiencia> experiencia, ArrayList<Educacion> educacion) {
+        this.datosBasicos = datosBasicos;
         this.experiencia = experiencia;
         this.educacion = educacion;
-        this.fechaEncuentro = fechaEncuentro;
-        this.fechaExtraccion = fechaExtraccion;
-        this.extraido = extraido;
+       
         
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getLeyenda() {
-        return leyenda;
-    }
-
-    public void setLeyenda(String leyenda) {
-        this.leyenda = leyenda;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public ArrayList<Experiencia> getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(ArrayList<Experiencia> experiencia) {
-        this.experiencia = experiencia;
-    }
-
-    public ArrayList<Educacion> getEducacion() {
-        return educacion;
-    }
-
-    public void setEducacion(ArrayList<Educacion> educacion) {
-        this.educacion = educacion;
-    }
-    
-     public String getFechaEncuentro() {
-        return fechaEncuentro;
-    }
-
-    public void setFechaEncuentro(String fechaEncuentro) {
-        this.fechaEncuentro = fechaEncuentro;
-    }
-
-    public String getFechaExtraccion() {
-        return fechaExtraccion;
-    }
-
-    public void setFechaExtraccion(String fechaExtraccion) {
-        this.fechaExtraccion = fechaExtraccion;
-    }
-
-    public Boolean getExtraido() {
-        return extraido;
-    }
-
-    public void setExtraido(Boolean extraido) {
-        this.extraido = extraido;
-    }
+   
 
     /*
     public static void main(String[] args) {
@@ -120,6 +48,41 @@ public class Usuario {
         System.out.println("Educación: " + usuario.getEducacion());
     }
 */
+
+    public ArrayList<Experiencia> getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(ArrayList<Experiencia> experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public ArrayList<Educacion> getEducacion() {
+        return educacion;
+    }
+
+    public void setEducacion(ArrayList<Educacion> educacion) {
+        this.educacion = educacion;
+    }
+
+    public Object getDatosBasicos() {
+        return datosBasicos;
+    }
+
+    public void setDatosBasicos(Object datosBasicos) {
+        this.datosBasicos = datosBasicos;
+    }
+
+    @Override
+    public String toString() {
+        return """
+               Usuario{
+               \texperiencia=""" + experiencia + 
+                "\n\teducacion=" + educacion + 
+                "\n\tdatosBasicos=" + datosBasicos + 
+                "\n}";
+    }
+
 
    
 }
