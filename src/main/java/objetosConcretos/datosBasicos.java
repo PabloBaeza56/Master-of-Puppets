@@ -1,37 +1,16 @@
 package objetosConcretos;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class datosBasicos {
 
-    private String nombre;
-    private String leyenda;
-    private String ubicacion;
-
-
-    public datosBasicos() {
-        this.nombre = "";
-        this.leyenda = "";
-        this.ubicacion = "";  
-    }
-
-    public datosBasicos(String nombre, String leyenda, String ubicacion) {
-        this.nombre = nombre;
-        this.leyenda = leyenda;
-        this.ubicacion = ubicacion;   
-    }
-
- 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setLeyenda(String leyenda) {
-        this.leyenda = leyenda;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+    @Setter private String nombre;
+    @Setter private String leyenda;
+    @Setter private String ubicacion;
 
     @Override
     public String toString() {

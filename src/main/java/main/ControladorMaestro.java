@@ -3,6 +3,7 @@ package main;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import lombok.Setter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,8 +14,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ControladorMaestro {
-    private String correo;
-    private String contrasenia;
+    @Setter private String correo;
+    @Setter private String contrasenia;
     private final WebDriver driver;
 
     private ControladorMaestro() {
@@ -47,13 +48,7 @@ public class ControladorMaestro {
         inputPassword.sendKeys(Keys.ENTER);
     }
 
-    private void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    private void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
+    
 
     public WebDriver getDriver() {
         return  this.driver;

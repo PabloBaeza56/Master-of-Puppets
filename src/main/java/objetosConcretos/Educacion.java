@@ -1,60 +1,26 @@
 package objetosConcretos;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Educacion {
-    private String instituto;
-    private String titulo;
-    private String anioInicio;
-    private String anioFin;
 
-    public Educacion() {
-        this.instituto = "";
-        this.titulo = "";
-        this.anioInicio = "";  
-        this.anioFin = "";
-    }
-
-    public Educacion(String instituto, String titulo, String anioInicio, String anioFin) {
-        this.instituto = instituto;
-        this.titulo = titulo;
-        this.anioInicio = anioInicio;  
-        this.anioFin = anioFin;
-    }
-
-  
-    public void setAnioInicio(String anioInicio) {
-        this.anioInicio = anioInicio;
-    }
-
-   
-
-    public void setAnioFin(String anioFin) {
-        this.anioFin = anioFin;
-    }
-    
-    
-
-   
-    public void setInstituto(String instituto) {
-        this.instituto = instituto;
-    }
-
-    
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    @Setter private String centroEducativo;
+    @Setter private String gradoAcademico;
+    @Setter private String anioIngreso;
+    @Setter private String anioEgreso;
 
     @Override
     public String toString() {
         return """
                Educacion{
-               \tinstituto=""" + instituto + 
-            "\n\ttitulo=" + titulo + 
-            "\n\tanioInicio=" + anioInicio + 
-            "\n\tanioFin=" + anioFin + 
+               \t centroEducativo=""" + centroEducativo + 
+            "\n \t gradoAcademico=" + gradoAcademico + 
+            "\n\t anioIngreso=" + anioIngreso + 
+            "\n\t anioEgreso=" + anioEgreso + 
             "\n}";
-    }
-
-    
+    } 
 }

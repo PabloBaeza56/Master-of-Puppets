@@ -1,47 +1,40 @@
 package objetosConcretos;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class Fechas {
-    private String fechaInicio;
-    private String fechaFin;
-    private String duracion;
+@AllArgsConstructor
+@NoArgsConstructor
+public final class Fechas {
+    @Setter private Date fechaInicio;
+    @Setter private Date fechaFin;
+    @Setter private String duracionMeses;
+    private String cadenaFecha;
     
-    public Fechas() {
-        this.fechaInicio = "";
-        this.fechaFin = "";
-        this.duracion = "";
+    public Fechas (String cadenaFecha){
+        this.cadenaFecha = cadenaFecha;
+        this.ObtenerFecha(this.cadenaFecha);
     }
-
-    public Fechas(String fechaInicio, String fechaFin, String Duracion) {
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.duracion = Duracion;
-    }
-
     
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
     
-
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
     
-
-    public void setDuracion(String duracionMeses) {
-        this.duracion = duracionMeses;
-    }
-
-    @Override
-    public String toString() {
-        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracion=" + duracion + '}';
+    public void ObtenerFecha( String Fecha){
+        String[] elementos = Fecha.split(" - | · ");
+        
+        this.setFechaInicio(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[0]));
+        
+        if (elementos[1].contains("actualidad")){
+            this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(this.ConvertirActualidadEnFecha()));
+        } else {
+            this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[1]));
+        }
+        
+        this.setDuracionMeses(this.ObtenerDuracionMeses(elementos[2]));
     }
     
     public String ObtenerDuracionMeses(String cadenaFecha){
@@ -70,8 +63,27 @@ public class Fechas {
         return fechaFormateada;
     }
     
+    public Date convertirFechaAFechaLegiblePorLaBaseDeDatos(String fechaTexto){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("MMM. yyyy");
+        try {
+
+            Date fecha = formatoFecha.parse(fechaTexto);
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(fecha);
+            calendario.set(Calendar.DAY_OF_MONTH, 1);
+            Date fechaFinal = calendario.getTime();
+
+            return fechaFinal;
+        } catch (ParseException e) {}
+        
+        return null;
+    }
     
-
-   
-
+    @Override
+    public String toString() {
+        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracion=" + duracionMeses + '}';
+    }
+    
+    
+    
 }

@@ -25,18 +25,18 @@ public class ObtenerEducacion extends MinadoDatos {
                 WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + seccionDeseada + "]/div[3]/ul/li[" + ContadorElemento + "]/div/div[2]/div[1]/a"));
 
                 String Universidad = super.scrapyText(elementoBase, "xpath", "./div/div/div/div/span[1]");
-                educacionPersona.setInstituto(Universidad);
+                educacionPersona.setCentroEducativo(Universidad);
+   
                 
                 String Carrera = super.scrapyText(elementoBase, "xpath", "./span[1]/span[1]");
-                educacionPersona.setTitulo(Carrera);
+                educacionPersona.setGradoAcademico(Carrera);
 
 
                 String Fecha = super.scrapyText(elementoBase, "xpath", "./span[2]/span[1]");
                 String[] partesFecha = Fecha.split("-");
-                educacionPersona.setAnioInicio(partesFecha[0]);
-                educacionPersona.setAnioFin(partesFecha[1]);
+                educacionPersona.setAnioIngreso(partesFecha[0]);
+                educacionPersona.setAnioEgreso(partesFecha[1]);
                 
-                //System.out.println(educacionPersona);
                 listaEducacion.add(educacionPersona);
             } catch (NoSuchElementException e) {break;}
             ContadorElemento++;

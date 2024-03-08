@@ -1,66 +1,27 @@
 package objetosConcretos;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class Experiencia {
-    private String nombreEmpresa;
-
     
-    private String puesto;
-    private Fechas fecha;
-    private String ubicacion;
-
-
-    
-    
-    public Experiencia() {
-        this.nombreEmpresa = "";
-        this.puesto = "";
-        this.fecha = null;
-        this.ubicacion = "";
-
-    }
-
-    public Experiencia(String nombreEmpresa, String puesto,Fechas fecha ,String ubicacion) {
-        this.nombreEmpresa = nombreEmpresa;
-        this.puesto = puesto;
-        this.fecha = fecha;
-        this.ubicacion = ubicacion;
-
-        
-    }
-    
-
-  
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
-    }
-
-    
-    public void setPuesto(String puesto) {
-        this.puesto = puesto;
-    }
-
-   
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
- 
-    public void setFecha(Fechas fecha) {
-        this.fecha = fecha;
-    }
+    @Setter private String nombreEmpresa;
+    @Setter private String puestoEmpleado;
+    @Setter private Fechas permanenciaEmpleado;
+    @Setter private String ubicacionEmpleado;
 
     @Override
     public String toString() {
           return """
                  Experiencia{
                  \tnombreEmpresa=""" + nombreEmpresa + 
-            "\n\tpuesto=" + puesto + 
-            "\n\tfecha=" + fecha + 
-            "\n\tubicacion=" + ubicacion + 
+            "\n\tpuesto=" + puestoEmpleado + 
+            "\n\tfecha=" + permanenciaEmpleado + 
+            "\n\tubicacion=" + ubicacionEmpleado + 
             "\n}";
     }
-
-    
-    
+   
 }

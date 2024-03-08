@@ -38,6 +38,7 @@ public class MongoDBConnection {
     }
     
     public void SubirUsuario(Usuario usuario){
+        
         MongoDatabase database = mongoClient.getDatabase("STEAM-RADAR");
         MongoCollection<Document> collection = database.getCollection("2024");
 

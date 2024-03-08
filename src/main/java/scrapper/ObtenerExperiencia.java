@@ -1,13 +1,10 @@
 package scrapper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import objetosConcretos.Experiencia;
 import objetosConcretos.Fechas;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public final class ObtenerExperiencia extends MinadoDatos{
@@ -53,7 +50,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                                                                        
                 try {
                     String Puesto = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-                    elementoExperiencia.setPuesto(Puesto);
+                    elementoExperiencia.setPuestoEmpleado(Puesto);
                 } catch (NoSuchElementException e) {}
 
 
@@ -66,14 +63,14 @@ public final class ObtenerExperiencia extends MinadoDatos{
 
                 
                 try {
-                    String Fecha = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
-                    Fechas fechaCorregida = this.ObtenerFecha(Fecha);
-                    elementoExperiencia.setFecha(fechaCorregida);
+                    String cadenaFecha = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
+                    Fechas fechaFormateada = new Fechas(cadenaFecha);
+                    elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                 } catch (NoSuchElementException e) {}
 
                 try {
                     String Ubicacion = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
-                    elementoExperiencia.setUbicacion(Ubicacion);
+                    elementoExperiencia.setUbicacionEmpleado(Ubicacion);
                 } catch (NoSuchElementException e) {}
 
                 //try {
@@ -105,32 +102,26 @@ public final class ObtenerExperiencia extends MinadoDatos{
                     Experiencia elementoExperiencia = new Experiencia();
                     try {
                         
-                        WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); // /a
+                        WebElement elementoConcreto = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); // /a
                         
-            
                         elementoExperiencia.setNombreEmpresa(NombreEmpresa);
                         
                         try {
-                            String Puesto=  super.scrapyText(fechaElemento, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-                            elementoExperiencia.setPuesto(Puesto);
-                        } catch (NoSuchElementException e) {}
-
-                        
-                        //try {
-                            //System.out.println("Tipo de contrato: " + super.scrapyText(fechaElemento, "xpath", ".//span[@class='t-14 t-normal']"));
-                        //} catch (NoSuchElementException e) {}
-
-                        
-                        try {
-                            String Duracion = super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
-                            Fechas fechaCorregida = this.ObtenerFecha(Duracion);
-                            elementoExperiencia.setFecha(fechaCorregida);
+                            String Puesto=  super.scrapyText(elementoConcreto, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+                            elementoExperiencia.setPuestoEmpleado(Puesto);
                         } catch (NoSuchElementException e) {}
 
                         
                         try {
-                            String Ubicacion = super.scrapyText(fechaElemento, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
-                            elementoExperiencia.setUbicacion(Ubicacion);
+                            String Duracion = super.scrapyText(elementoConcreto, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
+                            Fechas fechaFormateada = new Fechas(Duracion);
+                            elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
+                        } catch (NoSuchElementException e) {}
+
+                        
+                        try {
+                            String Ubicacion = super.scrapyText(elementoConcreto, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
+                            elementoExperiencia.setUbicacionEmpleado(Ubicacion);
                         } catch (NoSuchElementException e) {}
 
                         
@@ -139,9 +130,6 @@ public final class ObtenerExperiencia extends MinadoDatos{
                         contador++;
                     } catch (NoSuchElementException e) {break;}
                 }
-
-                //String codigoHTML = elementoBase.getAttribute("outerHTML");
-                //System.out.println(codigoHTML);
                 
                 i++;
             } catch (NoSuchElementException e) {break;}
@@ -149,20 +137,6 @@ public final class ObtenerExperiencia extends MinadoDatos{
         return elementosExperiencia;
     }
     
-    public Fechas ObtenerFecha( String Fecha){
-        Fechas manejadorFechas = new Fechas();
-        String[] elementos = Fecha.split(" - | · ");
-        
-        manejadorFechas.setFechaInicio(elementos[0]);
-        
-        if (elementos[1].contains("actualidad")){
-            manejadorFechas.setFechaFin(manejadorFechas.ConvertirActualidadEnFecha());
-        } else {
-            manejadorFechas.setFechaFin(elementos[1]);
-        }
-        
-        manejadorFechas.setDuracion(manejadorFechas.ObtenerDuracionMeses(elementos[2]));
-        return manejadorFechas;
-    }
+    
 
 }

@@ -44,7 +44,7 @@ public class ExtraccionDatos {
         ArrayList<Experiencia> arregloFinal = new ArrayList<>();
         arregloFinal.addAll(resultadoSimple);
         arregloFinal.addAll(resultadoCompuesto);
-        user.setExperiencia(arregloFinal);
+        user.setExperienciaLaboral(arregloFinal);
         
         System.out.println(user);
         MongoDBConnection db = new MongoDBConnection();
