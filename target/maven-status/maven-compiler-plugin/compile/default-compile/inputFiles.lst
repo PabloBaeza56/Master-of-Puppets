@@ -8,6 +8,9 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\obs
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\objetosConcretos\Educacion.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\ArrayListQueue.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\stateTEST\Demo.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\VentanaBuscadorManual.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\VentanaBuscadorPorURL.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\VentanaExtraccionMultiple.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\IteradorPaginas.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\objetosConcretos\Usuario.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerExperiencia.java
@@ -18,6 +21,8 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\aut
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\objetosConcretos\Experiencia.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\MongoDBConnection.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\objetosConcretos\datosBasicos.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\VentanaBuscadorContactosAmigos.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\PantallaPrincipal.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\MinadoDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\stateTEST\LockedState.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\stateTEST\Player.java
@@ -27,6 +32,7 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scr
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\objetosConcretos\Fechas.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerNodos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\Main.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\main\VentanaBuscadorCadena.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\observerTEST\Editor.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerContactosPivote.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\Queue.java
