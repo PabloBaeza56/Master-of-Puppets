@@ -12,8 +12,8 @@ public class IteradorPorURL extends MinadoDatos implements IteradorPaginas {
     private final ArrayListQueue cola;
     private int paginaActual;
 
-    public IteradorPorURL() {
-        super();
+    public IteradorPorURL(WebDriver driver) {
+        super(driver);
         this.cola = new ArrayListQueue();
         this.paginaActual = 1;
     }

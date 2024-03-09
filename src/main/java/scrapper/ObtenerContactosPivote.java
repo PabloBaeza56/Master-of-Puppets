@@ -3,15 +3,15 @@ package scrapper;
 import automata.IteradorPorURL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
 public class ObtenerContactosPivote extends MinadoDatos {
     
 
-    public ObtenerContactosPivote() {
-        super();
-
+    public ObtenerContactosPivote(WebDriver driver) {
+        super(driver);
     }
     
     public void AccederContactosPivotes(String usuarioDeseado){
@@ -22,7 +22,7 @@ public class ObtenerContactosPivote extends MinadoDatos {
         
         super.esperarSegundos(5);
         
-        IteradorPorURL iterador = new IteradorPorURL();
+        IteradorPorURL iterador = new IteradorPorURL(driver);
         cadenaSalida = cadenaSalida.replace("&origin=MEMBER_PROFILE_CANNED_SEARCH", "&origin=MEMBER_PROFILE_CANNED_SEARCH&page=XXXXX");
         iterador.iniciarIteracion(cadenaSalida);
         

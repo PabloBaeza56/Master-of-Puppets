@@ -14,11 +14,10 @@ public final class Fechas {
     @Setter private Date fechaInicio;
     @Setter private Date fechaFin;
     @Setter private String duracionMeses;
-    private String cadenaFecha;
+    
     
     public Fechas (String cadenaFecha){
-        this.cadenaFecha = cadenaFecha;
-        this.ObtenerFecha(this.cadenaFecha);
+        this.ObtenerFecha(cadenaFecha);
     }
     
     

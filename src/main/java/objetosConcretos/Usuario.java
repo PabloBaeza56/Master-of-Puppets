@@ -11,7 +11,7 @@ public class Usuario {
 
     @Setter private ArrayList<Experiencia> experienciaLaboral;
     @Setter private ArrayList<Educacion> educacion;
-    @Setter private Object datosBasicos;
+    @Setter private Object informacionPersonal;
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class Usuario {
                Usuario{
                \texperiencia=""" + experienciaLaboral + 
                 "\n\teducacion=" + educacion + 
-                "\n\tdatosBasicos=" + datosBasicos + 
+                "\n\tdatosBasicos=" + informacionPersonal + 
                 "\n}";
     }
  

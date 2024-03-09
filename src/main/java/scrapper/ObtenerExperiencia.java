@@ -5,6 +5,7 @@ import objetosConcretos.Experiencia;
 import objetosConcretos.Fechas;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public final class ObtenerExperiencia extends MinadoDatos{
@@ -14,8 +15,8 @@ public final class ObtenerExperiencia extends MinadoDatos{
     private int seccionDeseada;
 
 
-    public ObtenerExperiencia() {
-        super();
+    public ObtenerExperiencia(WebDriver driver) {
+      super(driver);
         this.elementosCasoSimple = new ArrayList<>();
         this.elementosCasoCompuesto = new ArrayList<>();    
     }
@@ -51,7 +52,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                 try {
                     String Puesto = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
                     elementoExperiencia.setPuestoEmpleado(Puesto);
-                } catch (NoSuchElementException e) {}
+                } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoSimple A ");}
 
 
                 try {
@@ -59,14 +60,14 @@ public final class ObtenerExperiencia extends MinadoDatos{
                     String[] partes = Empresa.split("·");
                     String primeraSubcadena = partes[0].trim();
                     elementoExperiencia.setNombreEmpresa(primeraSubcadena);
-                } catch (NoSuchElementException e) {}
+                } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoSimple B ");}
 
                 
                 try {
                     String cadenaFecha = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
                     Fechas fechaFormateada = new Fechas(cadenaFecha);
                     elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
-                } catch (NoSuchElementException e) {}
+                } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoSimple C ");}
 
                 try {
                     String Ubicacion = super.scrapyText(elementoBase, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
@@ -95,7 +96,7 @@ public final class ObtenerExperiencia extends MinadoDatos{
                 String NombreEmpresa = "";
                 try {
                     NombreEmpresa = super.scrapyText(elementoBase, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-                } catch (NoSuchElementException e) {}
+                } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoCompuesto A ");}
 
                 int contador = 1;
                 while (true) {
@@ -109,14 +110,14 @@ public final class ObtenerExperiencia extends MinadoDatos{
                         try {
                             String Puesto=  super.scrapyText(elementoConcreto, "xpath", ".//div[@class='display-flex flex-wrap align-items-center full-height']");
                             elementoExperiencia.setPuestoEmpleado(Puesto);
-                        } catch (NoSuchElementException e) {}
+                        } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoCompuesto B ");}
 
                         
                         try {
                             String Duracion = super.scrapyText(elementoConcreto, "xpath", ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
                             Fechas fechaFormateada = new Fechas(Duracion);
                             elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
-                        } catch (NoSuchElementException e) {}
+                        } catch (NoSuchElementException e) {System.out.println("seccionExperienciaCasoCompuesto C ");}
 
                         
                         try {

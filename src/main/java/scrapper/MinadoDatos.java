@@ -13,9 +13,9 @@ import org.openqa.selenium.WebElement;
 public class MinadoDatos {
     protected WebDriver driver;
 
-    public MinadoDatos() {
-        ControladorMaestro controlador = ControladorMaestro.getInstance();
-        this.driver = controlador.getDriver();
+    public MinadoDatos(WebDriver driver) {
+       
+        this.driver = driver;
     }
     
     public void irPagina(String url){

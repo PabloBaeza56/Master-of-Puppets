@@ -15,9 +15,9 @@ public class BusquedaLinks {
     
     protected BusquedaLinks(WebDriver driver){
         this.buscador = new BuscarPorBarraBusqueda(driver);
-        this.iterador = new IteradorPorURL();
-        this.pivoteador = new ObtenerContactosPivote();
-        this.nodo = new ObtenerNodos();
+        this.iterador = new IteradorPorURL(driver);
+        this.pivoteador = new ObtenerContactosPivote(driver);
+        this.nodo = new ObtenerNodos(driver);
     }
     
     public void insercionIndirectaBuscadorURL(String cadenaDeseada){

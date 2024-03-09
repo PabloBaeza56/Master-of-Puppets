@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class ControladorMaestro {
     @Setter private String correo;
     @Setter private String contrasenia;
-    private final WebDriver driver;
+    private  WebDriver driver;
 
     private ControladorMaestro() {
         ChromeOptions chromeOptions = new ChromeOptions();
