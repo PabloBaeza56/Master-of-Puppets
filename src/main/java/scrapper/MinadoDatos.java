@@ -1,20 +1,21 @@
 package scrapper;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import main.ControladorMaestro;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MinadoDatos {
     protected WebDriver driver;
 
     public MinadoDatos(WebDriver driver) {
-       
         this.driver = driver;
     }
     
@@ -29,16 +30,20 @@ public class MinadoDatos {
     }
 
     protected int buscarIndiceSeccionMain(String seccionDeseada) {
-        int elementoDeseado = 0;
+        int elementoDeseado = -1;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
+        
         for (int i = 12; i >= 1; i--) {
             try {
-            esperarSegundos(1);
-            WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
-       
-            if (sectionElement.getText().equals(seccionDeseada)){
-                elementoDeseado = i;
-                break;
-            }
+                    this.esperarSegundos(2);
+
+                    WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
+                    if (sectionElement.getText().equals(seccionDeseada)){
+                        elementoDeseado = i;
+                        break;
+                    }
+               
             } catch (NoSuchElementException e) {}
         }
         
@@ -50,7 +55,7 @@ public class MinadoDatos {
         for (int i = 12; i >= 1; i--) {
             try {
             esperarSegundos(1);
-            WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
+            WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
                                                                      
             if (sectionElement.getText().equals(seccionDeseada)){
                 elementoDeseado = i;
