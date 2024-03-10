@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerEducacion;
+import scrapper.ObtenerEducacionv2;
 import scrapper.ObtenerExperiencia;
 
 @NoArgsConstructor
@@ -27,14 +28,13 @@ public class ExtraccionDatos {
   
     public void PerfilCompleto(WebDriver driver, Usuario user){
         ObtenerEducacion controladorEducacion = new ObtenerEducacion(driver);
-        Duration duracion = Duration.ofSeconds(10);
-        WebDriverWait wait = new WebDriverWait(driver, duracion); // Espera un máximo de 10 segundos
+   
 
     
 
         
         // Extraer datos
-        ArrayList<Educacion> resultadoEducacion = controladorEducacion.seccionEducacion();
+        ArrayList<Educacion> resultadoEducacion = (ArrayList<Educacion>) controladorEducacion.seccionEducacion();
         user.setEducacion(resultadoEducacion);
         
         // Mostrar resultados

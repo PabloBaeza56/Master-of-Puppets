@@ -25,7 +25,7 @@ observerTEST\Demo.class
 scrapper\ObtenerDatosCabecera.class
 observerTEST\ManejadorEventos.class
 database\ArrayListQueue.class
-main\ControladorMaestro$NewSingletonHolder.class
+scrapper\ObtenerEducacionv2.class
 objetosConcretos\datosBasicos.class
 main\VentanaBuscadorPorURL$4.class
 automata\IteradorPorURL.class

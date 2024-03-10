@@ -3,6 +3,7 @@ package main;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import lombok.Setter;
 
 import org.openqa.selenium.By;
@@ -16,33 +17,31 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class ControladorMaestro {
     @Setter private String correo;
     @Setter private String contrasenia;
-    private  WebDriver driver;
+    
 
-    private ControladorMaestro() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        this.driver = new ChromeDriver(chromeOptions);
+    public ControladorMaestro(WebDriver driver) {
+       
         
-        cargarPropiedades();
+        cargarPropiedades(driver);
     }
     
-    private void cargarPropiedades() {
+    private void cargarPropiedades(WebDriver driver) {
         Properties propiedades = new Properties();
         try (FileInputStream input = new FileInputStream("config.properties")) {
             propiedades.load(input);
             setCorreo(propiedades.getProperty("correo"));
             setContrasenia(propiedades.getProperty("contrasenia"));
         } catch (IOException e) {}
-        this.iniciarSesion();
+        this.iniciarSesion(driver);
     }
 
-    private void iniciarSesion() {
-        this.driver.get("https://www.linkedin.com/login");
+    private void iniciarSesion(WebDriver driver) {
+        driver.get("https://www.linkedin.com/login");
         
-        WebElement inputUser =  this.driver.findElement(By.id("username"));
+        WebElement inputUser =  driver.findElement(By.id("username"));
         inputUser.sendKeys(this.correo);
 
-        WebElement inputPassword =  this.driver.findElement(By.id("password"));
+        WebElement inputPassword =  driver.findElement(By.id("password"));
         inputPassword.sendKeys(this.contrasenia);
 
         inputPassword.sendKeys(Keys.ENTER);
@@ -50,15 +49,8 @@ public class ControladorMaestro {
 
     
 
-    public WebDriver getDriver() {
-        return  this.driver;
-    }
     
-    public static ControladorMaestro getInstance() {
-        return NewSingletonHolder.INSTANCE;
-    }
+   
 
-    private static class NewSingletonHolder {
-        private static final ControladorMaestro INSTANCE = new ControladorMaestro();
-    }
+  
 }
