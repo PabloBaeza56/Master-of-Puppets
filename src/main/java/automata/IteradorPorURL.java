@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scrapper.MinadoDatos;
 
-public class IteradorPorURL extends MinadoDatos implements IteradorPaginas {
+public class IteradorPorURL extends MinadoDatos implements IteradorWeb {
 
     private final ArrayListQueue cola;
     private int paginaActual;
@@ -50,10 +50,7 @@ public class IteradorPorURL extends MinadoDatos implements IteradorPaginas {
         return fin;
     }
 
-    @Override
-    public void reiniciar() {
-        this.paginaActual = 1;
-    }
+
 
    
 

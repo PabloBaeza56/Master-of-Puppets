@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         WebDriver driver = new ChromeDriver(); 
         ControladorMaestro controler = new ControladorMaestro(driver);
-        //-------------------------------------------------------------------------------
+        
         try {
             Thread.sleep(60 * 1000);
         } catch (InterruptedException e) {System.out.println("Espera error main 2");} 
@@ -30,7 +30,8 @@ public class Main {
         driver.quit();
 
          
-         String[] arregloStrings = {"https://www.linkedin.com/in/victorlavalle/" ,"https://www.linkedin.com/in/rodrigo-urtecho/", "https://www.linkedin.com/in/carlos-morales-reinisch-9b6687221/", "https://www.linkedin.com/in/carlos-morales-reinisch-9b6687221/"};
+        //-------------------------------------------------------------------------------
+        String[] arregloStrings = {"https://www.linkedin.com/in/victorlavalle/" ,"https://www.linkedin.com/in/rodrigo-urtecho/", "https://www.linkedin.com/in/carlos-morales-reinisch-9b6687221/", "https://www.linkedin.com/in/carlos-morales-reinisch-9b6687221/"};
 
         for (String elemento : arregloStrings) {
             
@@ -40,26 +41,21 @@ public class Main {
                 newDriver.manage().addCookie(new Cookie(entry.getKey(), entry.getValue()));
             }
             
-            Usuario user2 = new Usuario();
+            Usuario user = new Usuario();
             ExtraccionDatos extractor2 = new ExtraccionDatos();
             System.out.println(elemento);
-            newDriver.get(elemento); // Utiliza newDriver para navegar a la URL
+            newDriver.get(elemento);
             try {
                 Thread.sleep(1 * 1000);
-            } catch (InterruptedException e) {System.out.println("Espera error main 2");} 
+            } catch (InterruptedException e) {} 
             newDriver.navigate().refresh();
             try {
                 Thread.sleep(1 * 1000);
-            } catch (InterruptedException e) {System.out.println("Espera error main 2");} 
+            } catch (InterruptedException e) {} 
 
-            extractor2.PerfilCompleto(newDriver, user2); // Utiliza n
+            extractor2.PerfilCompleto(newDriver, user); 
             newDriver.close(); 
         }
-     
-         
-         
-             // Segundo perfil
-   
 
 
             
