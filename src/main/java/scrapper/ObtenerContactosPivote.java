@@ -17,12 +17,12 @@ public class ObtenerContactosPivote extends MinadoDatos {
     public void AccederContactosPivotes(String usuarioDeseado){
         super.driver.get(usuarioDeseado);
     
-        WebElement elementoBase = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/ul/li"));
+        WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/ul/li"));
         String cadenaSalida = super.obtenerLink(elementoBase);
         
         super.esperarSegundos(5);
         
-        IteradorPorURL iterador = new IteradorPorURL(driver);
+        IteradorPorURL iterador = new IteradorPorURL(super.driver);
         cadenaSalida = cadenaSalida.replace("&origin=MEMBER_PROFILE_CANNED_SEARCH", "&origin=MEMBER_PROFILE_CANNED_SEARCH&page=XXXXX");
         iterador.iniciarIteracion(cadenaSalida);
         

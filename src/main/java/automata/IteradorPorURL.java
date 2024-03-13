@@ -5,15 +5,16 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import scrapper.MinadoDatos;
 
-public class IteradorPorURL extends MinadoDatos implements IteradorWeb {
+public class IteradorPorURL implements IteradorPaginasBusqueda {
 
     private final ArrayListQueue cola;
     private int paginaActual;
+    private final WebDriver driver;
+
 
     public IteradorPorURL(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
         this.cola = new ArrayListQueue();
         this.paginaActual = 1;
     }
@@ -23,7 +24,7 @@ public class IteradorPorURL extends MinadoDatos implements IteradorWeb {
         while (!this.esUltimaPagina(driver)) {
 
             driver.get(varOriginal.replace("XXXXX", String.valueOf(this.paginaActual)));
-            this.cola.launcherURLS(super.obtenerLinks());
+            this.cola.launcherURLS(/*minador.obtenerLinks()*/null);
             this.siguientePagina();
             
         }

@@ -1,14 +1,11 @@
 package scrapper;
 
-import java.time.Duration;
 import objetosConcretos.datosBasicos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ObtenerDatosCabecera extends MinadoDatos {
 
@@ -18,14 +15,11 @@ public class ObtenerDatosCabecera extends MinadoDatos {
 
     public datosBasicos seccionCabcecera() {
         datosBasicos cabecera = new datosBasicos();
-        int seccionDeseada = 1;
-
+        
         try {
+            super.esperarFinCargaPagina();
 
-            WebDriverWait wait = new WebDriverWait(super.driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
-
-            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + seccionDeseada + "]/div[2]/div[2]"));
+            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
 
             WebElement elementoA = elementoBase.findElement(By.xpath("./div[1]/div[1]"));
             String Nombre = super.scrapyText(elementoA, "xpath", ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]");

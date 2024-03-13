@@ -1,4 +1,5 @@
 main\VentanaBuscadorManual$2.class
+automata\AutomataDatos.class
 main\VentanaBuscadorContactosAmigos$3.class
 main\PantallaPrincipal$1.class
 main\PantallaPrincipal$8.class
@@ -20,17 +21,17 @@ main\ControladorMaestro.class
 scrapper\ObtenerEducacion.class
 main\VentanaBuscadorManual$3.class
 main\VentanaBuscadorPorURL$1.class
-automata\IteradorPaginas.class
 observerTEST\Demo.class
 scrapper\ObtenerDatosCabecera.class
 observerTEST\ManejadorEventos.class
 database\ArrayListQueue.class
-scrapper\ObtenerEducacionv2.class
 objetosConcretos\datosBasicos.class
 main\VentanaBuscadorPorURL$4.class
+automata\IteradorElementoTablaWeb.class
 automata\IteradorPorURL.class
 main\BusquedaLinks.class
 observerTEST\ActivadorEventoConcreto.class
+automata\IteradorPaginasBusqueda.class
 main\VentanaBuscadorPorURL$2.class
 main\VentanaExtraccionMultiple$1.class
 scrapper\ObtenerNodos.class
@@ -71,3 +72,4 @@ objetosConcretos\Educacion.class
 main\PantallaPrincipal$2.class
 main\VentanaBuscadorPorURL.class
 main\VentanaBuscadorContactosAmigos$1.class
+automata\IteradorElementosListaWeb.class

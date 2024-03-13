@@ -2,37 +2,42 @@ package main;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
+import java.util.Set;
 import lombok.Setter;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ControladorMaestro {
     @Setter private String correo;
     @Setter private String contrasenia;
-    
+    private final WebDriver driver;
+    Map<String, String> cookiesMap;
 
-    public ControladorMaestro(WebDriver driver) {
-       
-        
-        cargarPropiedades(driver);
+    public ControladorMaestro() {
+        this.driver = new ChromeDriver();  
+        this.cargarPropiedades();
+        this.iniciarSesion(this.driver);
+        try {
+            Thread.sleep(5 * 1000);
+        } catch (InterruptedException e) {}
+        this.guardarCookiesInicioSesion();
     }
     
-    private void cargarPropiedades(WebDriver driver) {
+    private void cargarPropiedades() {
         Properties propiedades = new Properties();
+        
         try (FileInputStream input = new FileInputStream("config.properties")) {
             propiedades.load(input);
             setCorreo(propiedades.getProperty("correo"));
             setContrasenia(propiedades.getProperty("contrasenia"));
-        } catch (IOException e) {}
-        this.iniciarSesion(driver);
+        } catch (IOException e) {}   
     }
 
     private void iniciarSesion(WebDriver driver) {
@@ -45,6 +50,22 @@ public class ControladorMaestro {
         inputPassword.sendKeys(this.contrasenia);
 
         inputPassword.sendKeys(Keys.ENTER);
+    }
+    
+    private void guardarCookiesInicioSesion(){
+        Set<Cookie> cookies = driver.manage().getCookies();
+        this.cookiesMap = new HashMap<>();
+        for (Cookie cookie : cookies) {
+            this.cookiesMap.put(cookie.getName(), cookie.getValue());
+        }
+        this.driver.quit();
+    }
+    
+    protected void cargarCookiesInicioSesion(WebDriver newDriver){
+        newDriver.get("https://www.linkedin.com/login");
+        for (Map.Entry<String, String> entry : this.cookiesMap.entrySet()) {
+            newDriver.manage().addCookie(new Cookie(entry.getKey(), entry.getValue()));
+        }
     }
 
     

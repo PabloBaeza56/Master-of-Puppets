@@ -6,18 +6,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 public class MinadoDatos {
-
+    
     protected WebDriver driver;
-
-    public MinadoDatos(WebDriver driver) {
-        this.driver = driver;
+    
+    public MinadoDatos(WebDriver driver) { 
+        this.driver = driver;  
     }
 
     protected void esperarSegundos(int segundos) {
@@ -29,45 +29,6 @@ public class MinadoDatos {
     protected void esperarFinCargaPagina() {
         WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
-    }
-
-    protected int buscarIndiceSeccionMain(String seccionDeseada) {
-        int elementoDeseado = -1;
-
-        this.esperarFinCargaPagina();
-
-        for (int i = 12; i >= 1; i--) {
-            try {
-                this.esperarSegundos(2);
-
-                WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
-                if (sectionElement.getText().equals(seccionDeseada)) {
-                    elementoDeseado = i;
-                    break;
-                }
-
-            } catch (NoSuchElementException e) {}
-        }
-
-        return elementoDeseado;
-    }
-
-    protected int buscarIndiceSeccionAside(String seccionDeseada) {
-        int elementoDeseado = -1;
-        this.esperarFinCargaPagina();
-        for (int i = 12; i >= 1; i--) {
-            try {
-                esperarSegundos(1);
-                WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
-
-                if (sectionElement.getText().equals(seccionDeseada)) {
-                    elementoDeseado = i;
-                    break;
-                }
-            } catch (NoSuchElementException e) {}
-        }
-
-        return elementoDeseado;
     }
 
     protected String scrapyText(WebElement elementoBase, String tipoSelector, String selector) {
@@ -114,9 +75,13 @@ public class MinadoDatos {
         return arregloFinal;
     }
 
-    protected List<String> eliminarDuplicados(List<String> lista) {
+    private List<String> eliminarDuplicados(List<String> lista) {
         Set<String> conjunto = new HashSet<>(lista);
         return new ArrayList<>(conjunto);
     }
+    
+   
+    
+    
 
 }

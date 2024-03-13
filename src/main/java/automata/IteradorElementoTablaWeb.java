@@ -1,17 +1,45 @@
 package automata;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class IteradorElementoTablaWeb implements IteradorWeb {
-
+public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
+    
+    @Getter private Integer IndiceFilatabla;
+    private final WebDriver driver;
+    @Setter private String subcadenaParte1;
+    @Setter private String subcadenaParte2;
+    
+    public IteradorElementoTablaWeb(WebDriver driver){
+        this.driver = driver;
+        this.IndiceFilatabla = 1;
+    }
+    
+    public String getXpathActual(){
+        return this.subcadenaParte1 + this.IndiceFilatabla + this.subcadenaParte2;
+    }
+    
     @Override
-    public void siguientePagina() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void siguienteElemento() {
+        this.IndiceFilatabla++;
     }
 
     @Override
-    public boolean esUltimaPagina(WebDriver driver) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean existeSiguienteElemento() {
+        if (this.driver.findElements(By.xpath(this.subcadenaParte1 + this.IndiceFilatabla + this.subcadenaParte2)).isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
+    
+    @Override
+    public void reiniciarIterador(){
+        this.IndiceFilatabla = 1;
+    }
+
+    
     
 }
