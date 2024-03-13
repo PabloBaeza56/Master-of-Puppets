@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,19 +33,28 @@ public class MinadoDatos {
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
-    protected String scrapyText(WebElement elementoBase, String tipoSelector, String selector) {
-        WebElement elemento;
-
-        if (tipoSelector.equalsIgnoreCase("css")) {
-            elemento = elementoBase.findElement(By.cssSelector(selector));
-        } else if (tipoSelector.equalsIgnoreCase("xpath")) {
-            elemento = elementoBase.findElement(By.xpath(selector));
-        } else {
-            throw new IllegalArgumentException("Tipo de selector no válido: " + tipoSelector);
-        }
-
+    protected String scrapyText(WebElement elementoBase, String selector) {
+ 
+        WebElement elemento = elementoBase.findElement(By.xpath(selector));
         String[] texto = elemento.getText().split("\\n");
         return texto[0];
+    }
+    
+    protected String scrapyTextV2(WebElement elementoBase, String selector) {
+        try {
+            WebElement elemento = elementoBase.findElement(By.xpath(selector));
+            String[] texto = elemento.getText().split("\\n");
+            return texto[0];
+        } catch (NoSuchElementException e) {
+            return "";
+        }
+    }
+
+    public void extraerDato(WebElement elementoBase, String selector, Consumer<String> setter) {
+        try {
+            String dato = scrapyTextV2(elementoBase, selector);
+            setter.accept(dato);
+        } catch (NoSuchElementException e) {}
     }
 
     protected String obtenerLink(WebElement elementoBase) {

@@ -13,7 +13,7 @@ public class ExtraccionDatos {
 
     public void PerfilCompleto(WebDriver driver, Usuario user) {
         AutomataDatos movilizador = new AutomataDatos(driver);
-        movilizador.busquedaIndicesSecciones();
+        movilizador.busquedaIndicesSeccionesMain();
 
         ObtenerEducacion controladorEducacion = new ObtenerEducacion(driver, movilizador);
         //ObtenerDatosCabecera controladorCabecera = new ObtenerDatosCabecera(driver);

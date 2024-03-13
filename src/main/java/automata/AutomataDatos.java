@@ -15,11 +15,13 @@ public class AutomataDatos{
     private final WebDriver driver;
     public IteradorElementoTablaWeb iteradorTabla;
     public IteradorPorURL iteradorURL;
-    @Getter protected Map<String, Integer> indicesSecciones;
+    @Getter protected Map<String, Integer> indicesSeccionesMain;
+    @Getter protected Map<String, Integer> indicesSeccionesAside;
 
     public AutomataDatos(WebDriver driver) {
         this.driver = driver;
-        this.indicesSecciones = new HashMap<>();
+        this.indicesSeccionesMain = new HashMap<>();
+        this.indicesSeccionesAside = new HashMap<>();
         this.iteradorTabla = new IteradorElementoTablaWeb(this.driver);
         this.iteradorURL = new IteradorPorURL(this.driver);
     }
@@ -35,15 +37,27 @@ public class AutomataDatos{
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
-    public void busquedaIndicesSecciones(){
-        
+    public void busquedaIndicesSeccionesMain(){
+     
         for (int i = 12; i >= 1; i--) {
             try {
-                
                 this.esperarSegundos(1);
                 WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
                 String texto = sectionElement.getText();
-                this.indicesSecciones.put(texto, i);
+                this.indicesSeccionesMain.put(texto, i);
+
+            } catch (NoSuchElementException e) {}
+        }
+    }
+    
+    public void busquedaIndicesSeccionesAside(){
+        
+        for (int i = 12; i >= 1; i--) {
+            try {
+                this.esperarSegundos(1);
+                WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
+                String texto = sectionElement.getText();
+                this.indicesSeccionesAside.put(texto, i);
 
             } catch (NoSuchElementException e) {}
         }
@@ -52,6 +66,6 @@ public class AutomataDatos{
     
     
     
-    //"/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + i + "]/div[2]/div/div/div/h2/span[1]"
+    //""
     
 }

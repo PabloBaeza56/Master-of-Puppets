@@ -16,35 +16,45 @@ public class ObtenerEducacion extends MinadoDatos {
     }
 
     public ArrayList<Educacion> seccionEducacion() {
+        super.esperarFinCargaPagina();
         ArrayList<Educacion> listaEducacion = new ArrayList<>();
-       
+       Integer secciondeseada = this.movilizador.getIndicesSeccionesMain().get("Educación");
         super.esperarSegundos(2);
-        //System.out.println(this.movilizador.getIndicesSecciones().get("Educación"));
     
-        this.movilizador.iteradorTabla.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.movilizador.getIndicesSecciones().get("Educación") + "]/div[3]/ul/li[");
+        this.movilizador.iteradorTabla.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + secciondeseada + "]/div[3]/ul/li[");
         this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]/div[1]/a");
         
         while (this.movilizador.iteradorTabla.existeSiguienteElemento()) {
-
+            super.esperarFinCargaPagina();
             Educacion educacionPersona = new Educacion();
             WebElement elementoBase = super.driver.findElement(By.xpath(this.movilizador.iteradorTabla.getXpathActual()));
 
+            /*
             try {
-                String Universidad = super.scrapyText(elementoBase, "xpath", "./div/div/div/div/span[1]");
+                String Universidad = super.scrapyText(elementoBase, "./div/div/div/div/span[1]");
                 educacionPersona.setCentroEducativo(Universidad);
             } catch (NoSuchElementException e) {}
 
             try {
-                String Carrera = super.scrapyText(elementoBase, "xpath", "./span[1]/span[1]");
+                String Carrera = super.scrapyText(elementoBase, "./span[1]/span[1]");
                 educacionPersona.setGradoAcademico(Carrera);
             } catch (NoSuchElementException e) {}
 
             try {
-                String Fecha = super.scrapyText(elementoBase, "xpath", "./span[2]/span[1]");
+                String Fecha = super.scrapyText(elementoBase, "./span[2]/span[1]");
                 String[] partesFecha = Fecha.split("-");
                 educacionPersona.setAnioIngreso(partesFecha[0]);
                 educacionPersona.setAnioEgreso(partesFecha[1]);
             } catch (NoSuchElementException e) {}
+*/
+            
+            super.extraerDato(elementoBase, "./div/div/div/div/span[1]", educacionPersona::setCentroEducativo);
+            super.extraerDato(elementoBase, "./span[1]/span[1]", educacionPersona::setGradoAcademico);
+            super.extraerDato(elementoBase, "./span[2]/span[1]", fecha -> {
+                String[] partesFecha = fecha.split("-");
+                educacionPersona.setAnioIngreso(partesFecha[0]);
+                educacionPersona.setAnioEgreso(partesFecha[1]);
+            });
 
             
             listaEducacion.add(educacionPersona);

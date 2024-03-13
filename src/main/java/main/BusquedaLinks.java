@@ -4,20 +4,17 @@ import automata.BuscarPorBarraBusqueda;
 import automata.IteradorPorURL;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerContactosPivote;
-import scrapper.ObtenerNodos;
 
 public class BusquedaLinks {
     
     private final IteradorPorURL iterador;
     private final BuscarPorBarraBusqueda buscador;
     private final ObtenerContactosPivote pivoteador;
-    private final ObtenerNodos nodo;
     
     protected BusquedaLinks(WebDriver driver){
         this.buscador = new BuscarPorBarraBusqueda(driver);
         this.iterador = new IteradorPorURL(driver);
         this.pivoteador = new ObtenerContactosPivote(driver);
-        this.nodo = new ObtenerNodos(driver);
     }
     
     public void insercionIndirectaBuscadorURL(String cadenaDeseada){
@@ -46,10 +43,6 @@ public class BusquedaLinks {
         this.pivoteador.ActualizarPivotes();
     }
     
-    public void personasRelacionadas(){
-        this.nodo.UsuariosRelacionadosA();
-        this.nodo.UsuariosRelacionadosB();   
-    }
     
     
     

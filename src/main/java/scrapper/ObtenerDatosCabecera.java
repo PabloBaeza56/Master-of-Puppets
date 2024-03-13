@@ -21,8 +21,9 @@ public class ObtenerDatosCabecera extends MinadoDatos {
 
             WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
 
+            /*
             WebElement elementoA = elementoBase.findElement(By.xpath("./div[1]/div[1]"));
-            String Nombre = super.scrapyText(elementoA, "xpath", ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]");
+            String Nombre = super.scrapyText(elementoA, ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]");
             cabecera.setNombre(Nombre);
 
             WebElement elementoB = elementoBase.findElement(By.xpath("./div[1]/div[2]"));
@@ -30,8 +31,17 @@ public class ObtenerDatosCabecera extends MinadoDatos {
             cabecera.setLeyenda(Leyenda);
 
             WebElement elementoC = elementoBase.findElement(By.xpath("./div[2]"));
-            String Ubicacion = super.scrapyText(elementoC, "xpath", ".//span[contains(@class, 'text-body-small inline t-black--light break-words')]");
+            String Ubicacion = super.scrapyText(elementoC,".//span[contains(@class, 'text-body-small inline t-black--light break-words')]");
             cabecera.setUbicacion(Ubicacion);
+            */
+            WebElement elementoA = elementoBase.findElement(By.xpath("./div[1]/div[1]"));
+            super.extraerDato(elementoA, ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]", cabecera::setNombre);
+
+            WebElement elementoB = elementoBase.findElement(By.xpath("./div[1]/div[2]"));
+            cabecera.setLeyenda(elementoB.getText());
+
+            WebElement elementoC = elementoBase.findElement(By.xpath("./div[2]"));
+            super.extraerDato(elementoC, ".//span[contains(@class, 'text-body-small inline t-black--light break-words')]", cabecera::setUbicacion);
             
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Error: Elemento no encontrado.");
