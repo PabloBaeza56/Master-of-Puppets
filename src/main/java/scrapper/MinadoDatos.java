@@ -32,14 +32,7 @@ public class MinadoDatos {
         WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
-
-    protected String scrapyText(WebElement elementoBase, String selector) {
  
-        WebElement elemento = elementoBase.findElement(By.xpath(selector));
-        String[] texto = elemento.getText().split("\\n");
-        return texto[0];
-    }
-    
     protected String scrapyTextV2(WebElement elementoBase, String selector) {
         try {
             WebElement elemento = elementoBase.findElement(By.xpath(selector));
@@ -65,7 +58,7 @@ public class MinadoDatos {
         return cadenaSalida;
     }
 
-    protected List<String> obtenerLinks() {
+    protected List<String> obtenerLinksUsuariosLinkedIn() {
 
         List<WebElement> enlaces = driver.findElements(By.tagName("a"));
         List<String> elementosValidos = new ArrayList<>();

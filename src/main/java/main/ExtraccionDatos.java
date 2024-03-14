@@ -1,30 +1,32 @@
 package main;
 
-import java.util.ArrayList;
 import lombok.NoArgsConstructor;
-import objetosConcretos.Educacion;
 import objetosConcretos.Usuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerEducacion;
 import automata.AutomataDatos;
+import scrapper.ObtenerDatosCabecera;
+import scrapper.ObtenerExperiencia;
 
 @NoArgsConstructor
 public class ExtraccionDatos {
-
-    public void PerfilCompleto(WebDriver driver, Usuario user) {
+    
+    public Usuario PerfilCompleto(WebDriver driver) {
         AutomataDatos movilizador = new AutomataDatos(driver);
         movilizador.busquedaIndicesSeccionesMain();
-
-        ObtenerEducacion controladorEducacion = new ObtenerEducacion(driver, movilizador);
-        //ObtenerDatosCabecera controladorCabecera = new ObtenerDatosCabecera(driver);
-
-        //datosBasicos datosCabecera = controladorCabecera.seccionCabcecera();
-        //user.setInformacionPersonal(datosCabecera);
-        ArrayList<Educacion> resultadoEducacion = (ArrayList<Educacion>) controladorEducacion.seccionEducacion();
-        user.setEducacion(resultadoEducacion);
-
-        System.out.println(user);
-
+        
+        ObtenerDatosCabecera obtenerCabecera = new ObtenerDatosCabecera(driver);
+        ObtenerExperiencia obtenerExperiencia = new ObtenerExperiencia(driver, movilizador);
+        ObtenerEducacion obtenerEducacion = new ObtenerEducacion(driver, movilizador);
+        
+        
+        Usuario usuario = new Usuario.UsuarioBuilder()
+                    .informacionPersonal(obtenerCabecera.seccionCabcecera())
+                    .experienciaLaboral(obtenerExperiencia.seccionExperiencia())
+                    .educacion(obtenerEducacion.seccionEducacion())
+                    .build();
+        
+        return usuario;
     }
 
 }

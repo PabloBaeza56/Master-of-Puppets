@@ -11,6 +11,7 @@ main\VentanaBuscadorContactosAmigos.class
 objetosConcretos\Usuario.class
 main\VentanaBuscadorPorURL$3.class
 main\VentanaBuscadorCadena$3.class
+objetosConcretos\Usuario$UsuarioBuilder.class
 main\VentanaExtraccionMultiple$2.class
 objetosConcretos\Fechas.class
 main\VentanaBuscadorCadena$4.class

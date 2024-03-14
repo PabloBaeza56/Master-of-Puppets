@@ -23,19 +23,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class ControladorMaestro {
+public final class ControladorMaestro {
+    
     @Setter private String correo;
     @Setter private String contrasenia;
-    private final WebDriver driver;
     Map<String, String> cookiesMap;
 
-    public ControladorMaestro() {
-        //this.driver = new ChromeDriver();  
-        this.driver = null;
-        //this.cargarPropiedades();
-        //this.iniciarSesion(this.driver);
+    public ControladorMaestro() throws IOException, ParseException {
         
-        //this.guardarCookiesInicioSesion();
+        Date fechaArchivo = this.leerFechaArchivo("fecha_actual.txt");
+        Calendar fechaActual = this.obtenerFechaActual();
+        
+        if (this.haPasadoUnaSemana(fechaArchivo, fechaActual)) {
+            System.out.println("Las cookies del archivo han expirado");
+            WebDriver driver = new ChromeDriver(); 
+            this.cargarPropiedades();
+            this.iniciarSesion(driver);
+            this.guardarCookiesInicioSesion(driver);
+            this.escribirEnArchivoFechaActual();
+            driver.quit();   
+        } else {
+            System.out.println("Las cookies del archivo estan vigentes");
+        }
     }
     
     private void cargarPropiedades() {
@@ -60,14 +69,14 @@ public class ControladorMaestro {
         inputPassword.sendKeys(Keys.ENTER);
     }
     
-    private void guardarCookiesInicioSesion() {
+    private void guardarCookiesInicioSesion(WebDriver driver) {
         Set<Cookie> cookies = driver.manage().getCookies();
         this.cookiesMap = new HashMap<>();
         for (Cookie cookie : cookies) {
             this.cookiesMap.put(cookie.getName(), cookie.getValue());
         }
         guardarCookiesEnArchivo("cookies.txt");
-        this.driver.quit();
+      
     }
     
      private void guardarCookiesEnArchivo(String nombreArchivo) {
@@ -82,7 +91,7 @@ public class ControladorMaestro {
         }
     }
      
-     protected Map<String, String> leerCookiesDesdeArchivo(String nombreArchivo) {
+    protected Map<String, String> leerCookiesDesdeArchivo(String nombreArchivo) {
         this.cookiesMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
@@ -110,7 +119,7 @@ public class ControladorMaestro {
     }
 
     
-    protected void escribirEnArchivoFechaActual(){
+    private void escribirEnArchivoFechaActual(){
 
         Date fechaActual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,6 +147,7 @@ public class ControladorMaestro {
             return formato.parse(fechaArchivoTexto);
         }
     }
+    
     protected Calendar obtenerFechaActual() {
         return Calendar.getInstance();
     }

@@ -15,8 +15,8 @@ public class AutomataDatos{
     private final WebDriver driver;
     public IteradorElementoTablaWeb iteradorTabla;
     public IteradorPorURL iteradorURL;
-    @Getter protected Map<String, Integer> indicesSeccionesMain;
-    @Getter protected Map<String, Integer> indicesSeccionesAside;
+    @Getter private Map<String, Integer> indicesSeccionesMain;
+    @Getter private Map<String, Integer> indicesSeccionesAside;
 
     public AutomataDatos(WebDriver driver) {
         this.driver = driver;
@@ -26,7 +26,7 @@ public class AutomataDatos{
         this.iteradorURL = new IteradorPorURL(this.driver);
     }
     
-     public void esperarSegundos(int segundos) {
+    public void esperarSegundos(int segundos) {
         try {
             Thread.sleep(segundos * 1000);
         } catch (InterruptedException e) {}
@@ -45,7 +45,7 @@ public class AutomataDatos{
                 WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
                 String texto = sectionElement.getText();
                 this.indicesSeccionesMain.put(texto, i);
-
+                
             } catch (NoSuchElementException e) {}
         }
     }
@@ -62,10 +62,5 @@ public class AutomataDatos{
             } catch (NoSuchElementException e) {}
         }
     }
-    
-    
-    
-    
-    //""
-    
+      
 }

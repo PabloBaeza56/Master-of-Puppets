@@ -19,7 +19,6 @@ public class ObtenerNodos extends MinadoDatos{
  
         int seccionDeseada = this.movilizador.getIndicesSeccionesAside().get("Otros perfiles vistos");
 
-
         WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/aside/section[" + seccionDeseada + "]/div[3]/div/div/div/a"));
         elementoBase.sendKeys(Keys.ENTER);                                                     
         super.esperarSegundos(2);

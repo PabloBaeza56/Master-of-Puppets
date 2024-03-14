@@ -30,7 +30,6 @@ public class MongoDBConnection {
 
         org.bson.Document document = new org.bson.Document("URL", valorURL);
         collection.insertOne(document);
-        
     }
     
     public void SubirUsuario(Usuario usuario){

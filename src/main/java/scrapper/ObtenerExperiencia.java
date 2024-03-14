@@ -12,19 +12,36 @@ import automata.AutomataDatos;
 public final class ObtenerExperiencia extends MinadoDatos {
 
     private final Integer seccionDeseada;
-    private final ArrayList<Integer> elementosCasoSimple;
-    private final ArrayList<Integer> elementosCasoCompuesto;
+    private final ArrayList<Integer> indicesCasoSimple;
+    private final ArrayList<Integer> indicesCasoCompuesto;
     private final AutomataDatos movilizador;
+    private  ArrayList<Experiencia> elementoCasoSimple;
+    private  ArrayList<Experiencia> elementoCasoCompuesto;
+    
 
     public ObtenerExperiencia(WebDriver driver, AutomataDatos movilizador) {
         super(driver);
-        this.elementosCasoSimple = new ArrayList<>();
-        this.elementosCasoCompuesto = new ArrayList<>();
         this.movilizador = movilizador;
+        this.indicesCasoSimple = new ArrayList<>();
+        this.indicesCasoCompuesto = new ArrayList<>(); 
+        this.elementoCasoSimple = new ArrayList<>();
+        this.elementoCasoCompuesto = new ArrayList<>();     
         this.seccionDeseada = this.movilizador.getIndicesSeccionesMain().get("Experiencia");
     }
+    
+    public ArrayList<Experiencia> seccionExperiencia(){
+        this.determinarTipoSecciones();
+        this.seccionExperienciaCasoSimple();
+        this.seccionExperienciaCasoCompuesto();
+        
+        ArrayList<Experiencia> acumuladoTotal = new ArrayList<>();
+        acumuladoTotal.addAll(this.elementoCasoSimple);
+        acumuladoTotal.addAll(this.elementoCasoCompuesto);
+        
+        return acumuladoTotal;
+    }
 
-    public void determinarTipoSecciones() {
+    private void determinarTipoSecciones() {
         this.movilizador.iteradorTabla.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[");
         this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]");
 
@@ -36,9 +53,9 @@ public final class ObtenerExperiencia extends MinadoDatos {
                 WebElement fechaElemento = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + 1 + "]/div/div[2]/div/a"));
                 WebElement puestoElement = fechaElemento.findElement(By.xpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
                 puestoElement.getText();
-                this.elementosCasoCompuesto.add(this.movilizador.iteradorTabla.getIndiceFilatabla());
+                this.indicesCasoCompuesto.add(this.movilizador.iteradorTabla.getIndiceFilatabla());
             } catch (NoSuchElementException e) {
-                this.elementosCasoSimple.add(this.movilizador.iteradorTabla.getIndiceFilatabla());
+                this.indicesCasoSimple.add(this.movilizador.iteradorTabla.getIndiceFilatabla());
             }
 
             this.movilizador.iteradorTabla.siguienteElemento();
@@ -46,38 +63,13 @@ public final class ObtenerExperiencia extends MinadoDatos {
         this.movilizador.iteradorTabla.reiniciarIterador();
     }
 
-    public ArrayList<Experiencia> seccionExperienciaCasoSimple() {
-        ArrayList<Experiencia> elementosExperiencia = new ArrayList<>();
-
-        for (int i : this.elementosCasoSimple) {
+    private void seccionExperienciaCasoSimple() {
+        
+        for (int i : this.indicesCasoSimple) {
             Experiencia elementoExperiencia = new Experiencia();
 
             WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
 
-            /*
-            try {
-                String Puesto = super.scrapyText(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-                elementoExperiencia.setPuestoEmpleado(Puesto);
-            } catch (NoSuchElementException e) {}
-
-            try {
-                String Empresa = super.scrapyText(elementoBase, ".//span[@class='t-14 t-normal']");
-                String[] partes = Empresa.split("·");
-                String primeraSubcadena = partes[0].trim();
-                elementoExperiencia.setNombreEmpresa(primeraSubcadena);
-            } catch (NoSuchElementException e) {}
-
-            try {
-                String cadenaFecha = super.scrapyText(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
-                
-                elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
-            } catch (NoSuchElementException e) {}
-
-            try {
-                String Ubicacion = super.scrapyText(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
-                elementoExperiencia.setUbicacionEmpleado(Ubicacion);
-            } catch (NoSuchElementException e) {}
-            */
             super.extraerDato(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
             
             super.extraerDato(elementoBase, ".//span[@class='t-14 t-normal']", dato -> {
@@ -91,74 +83,45 @@ public final class ObtenerExperiencia extends MinadoDatos {
             });
             
             super.extraerDato(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
-
-            elementosExperiencia.add(elementoExperiencia);
-
+ 
+            this.elementoCasoSimple.add(elementoExperiencia);
         }
-        return elementosExperiencia;
     }
 
-    public ArrayList<Experiencia> seccionExperienciaCasoCompuesto() {
-        ArrayList<Experiencia> elementosExperiencia = new ArrayList<>();
+    private void seccionExperienciaCasoCompuesto() {
 
-        for (int i : this.elementosCasoCompuesto) {
 
-            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
+        for (int i : this.indicesCasoCompuesto) {
+
+            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));
             
-            String NombreEmpresa = "";
-            try {
-                NombreEmpresa = super.scrapyText(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-            } catch (NoSuchElementException e) {}
-
-            int contador = 1;
-            
-            while (true) {
+            String NombreEmpresa = super.scrapyTextV2(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+  
+            this.movilizador.iteradorTabla.setSubcadenaParte1("./div[2]/ul/li[");
+            this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]/div/a");
+            while (this.movilizador.iteradorTabla.existeSiguienteElemento(elementoBase)) {
                 Experiencia elementoExperiencia = new Experiencia();
-                try {
+           
+                WebElement elementoConcreto = elementoBase.findElement(By.xpath(this.movilizador.iteradorTabla.getXpathActual())); 
 
-                    WebElement elementoConcreto = elementoBase.findElement(By.xpath("./div[2]/ul/li[" + contador + "]/div/div[2]/div/a")); 
-
-                    elementoExperiencia.setNombreEmpresa(NombreEmpresa);
-                    /*
-                    try {
-                        String Puesto = super.scrapyText(elementoConcreto, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
-                        elementoExperiencia.setPuestoEmpleado(Puesto);
-                    } catch (NoSuchElementException e) {}
-
-                    try {
-                        String Duracion = super.scrapyText(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]");
-                        Fechas fechaFormateada = new Fechas(Duracion);
-                        elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
-                    } catch (NoSuchElementException e) {}
-
-                    try {
-                        String Ubicacion = super.scrapyText(elementoConcreto,".//span[contains(@class, 't-14 t-normal t-black--light')][2]");
-                        elementoExperiencia.setUbicacionEmpleado(Ubicacion);
-                    } catch (NoSuchElementException e) {}
-                    */
-                    
+                elementoExperiencia.setNombreEmpresa(NombreEmpresa);
                    
-                    super.extraerDato(elementoConcreto, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
+                super.extraerDato(elementoConcreto, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
                     
-                    super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", Duracion -> {
-                        Fechas fechaFormateada = new Fechas(Duracion);
-                        elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
-                    });
+                super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", Duracion -> {
+                    Fechas fechaFormateada = new Fechas(Duracion);
+                    elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
+                });
                     
-                    super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
+                super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
                     
-
-                    
-
-                    elementosExperiencia.add(elementoExperiencia);
-                    contador++;
-                } catch (NoSuchElementException e) {break;}
-                
+                this.elementoCasoCompuesto.add(elementoExperiencia);
+                this.movilizador.iteradorTabla.siguienteElemento();
             }
-            i++;
-
+            this.movilizador.iteradorTabla.reiniciarIterador();
         }
-        return elementosExperiencia;
     }
+    
+    
 
 }

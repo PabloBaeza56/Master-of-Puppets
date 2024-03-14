@@ -20,8 +20,6 @@ public final class Fechas {
         this.ObtenerFecha(cadenaFecha);
     }
     
-    
-    
     public void ObtenerFecha( String Fecha){
         String[] elementos = Fecha.split(" - | · ");
         
@@ -80,7 +78,7 @@ public final class Fechas {
     
     @Override
     public String toString() {
-        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracion=" + duracionMeses + '}';
+        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracionMeses=" + duracionMeses + '}';
     }
     
     

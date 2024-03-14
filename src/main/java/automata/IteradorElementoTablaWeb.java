@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     
@@ -29,6 +30,14 @@ public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     @Override
     public boolean existeSiguienteElemento() {
         if (this.driver.findElements(By.xpath(this.subcadenaParte1 + this.IndiceFilatabla + this.subcadenaParte2)).isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public boolean existeSiguienteElemento(WebElement driver) {
+        if (driver.findElements(By.xpath(this.subcadenaParte1 + this.IndiceFilatabla + this.subcadenaParte2)).isEmpty()) {
             return false;
         } else {
             return true;
