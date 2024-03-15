@@ -22,16 +22,23 @@ public final class Fechas {
     
     public void ObtenerFecha( String Fecha){
         String[] elementos = Fecha.split(" - | · ");
-        
-        this.setFechaInicio(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[0]));
+        try {
+            this.setFechaInicio(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[0]));
+        } catch (ArrayIndexOutOfBoundsException e){}
         
         if (elementos[1].contains("actualidad")){
-            this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(this.ConvertirActualidadEnFecha()));
+            try {
+                this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(this.ConvertirActualidadEnFecha()));
+            } catch (ArrayIndexOutOfBoundsException e){}
         } else {
-            this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[1]));
+            try {
+                this.setFechaFin(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[1]));
+            } catch (ArrayIndexOutOfBoundsException e){}
         }
         
-        this.setDuracionMeses(this.ObtenerDuracionMeses(elementos[2]));
+        try {
+            this.setDuracionMeses(this.ObtenerDuracionMeses(elementos[2]));
+        } catch (ArrayIndexOutOfBoundsException e){}
     }
     
     public String ObtenerDuracionMeses(String cadenaFecha){

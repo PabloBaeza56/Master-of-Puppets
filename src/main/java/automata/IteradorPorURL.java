@@ -2,6 +2,7 @@ package automata;
 
 import database.ArrayListQueue;
 import java.util.List;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.WebElement;
 public class IteradorPorURL implements IteradorPaginasBusqueda {
 
     private final ArrayListQueue cola;
-    private int paginaActual;
+    @Getter private int paginaActual;
     private final WebDriver driver;
 
 
@@ -17,17 +18,6 @@ public class IteradorPorURL implements IteradorPaginasBusqueda {
         this.driver = driver;
         this.cola = new ArrayListQueue();
         this.paginaActual = 1;
-    }
-
-    public void iniciarIteracion(String varOriginal) {
-
-        while (!this.esUltimaPagina(driver)) {
-
-            driver.get(varOriginal.replace("XXXXX", String.valueOf(this.paginaActual)));
-            this.cola.launcherURLS(/*minador.obtenerLinks()*/null);
-            this.siguientePagina();
-            
-        }
     }
 
     @Override

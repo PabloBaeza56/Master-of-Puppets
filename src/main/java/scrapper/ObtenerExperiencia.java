@@ -15,8 +15,8 @@ public final class ObtenerExperiencia extends MinadoDatos {
     private final ArrayList<Integer> indicesCasoSimple;
     private final ArrayList<Integer> indicesCasoCompuesto;
     private final AutomataDatos movilizador;
-    private  ArrayList<Experiencia> elementoCasoSimple;
-    private  ArrayList<Experiencia> elementoCasoCompuesto;
+    private final  ArrayList<Experiencia> elementoCasoSimple;
+    private final  ArrayList<Experiencia> elementoCasoCompuesto;
     
 
     public ObtenerExperiencia(WebDriver driver, AutomataDatos movilizador) {

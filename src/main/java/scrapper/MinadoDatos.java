@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import objetosConcretos.LinkUsuario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -58,10 +59,11 @@ public class MinadoDatos {
         return cadenaSalida;
     }
 
-    protected List<String> obtenerLinksUsuariosLinkedIn() {
-
+    public ArrayList<LinkUsuario> obtenerLinksUsuariosLinkedIn() {
+        
         List<WebElement> enlaces = driver.findElements(By.tagName("a"));
-        List<String> elementosValidos = new ArrayList<>();
+
+        ArrayList<LinkUsuario> elementosValidos = new ArrayList<>();
 
         for (WebElement enlace : enlaces) {
             String url = enlace.getAttribute("href");
@@ -69,19 +71,27 @@ public class MinadoDatos {
                 char primerChar = url.charAt(28);
 
                 if (Character.isLowerCase(primerChar)) {
-                    elementosValidos.add(url);
+                    LinkUsuario user = new LinkUsuario();
+                    user.setVisitado(Boolean.FALSE);
+                    user.setUrlUsuario(url);
+                    elementosValidos.add(user);
                 }
             }
         }
 
-        List<String> arregloFinal = eliminarDuplicados(elementosValidos);
+        ArrayList<LinkUsuario> arregloFinal = obtenerElementosNoDuplicados(elementosValidos);
 
         return arregloFinal;
     }
 
-    private List<String> eliminarDuplicados(List<String> lista) {
-        Set<String> conjunto = new HashSet<>(lista);
-        return new ArrayList<>(conjunto);
+    public static ArrayList<LinkUsuario> obtenerElementosNoDuplicados(ArrayList<LinkUsuario> listaLinks) {
+        // Utilizamos un HashSet para almacenar elementos únicos
+        Set<LinkUsuario> setLinks = new HashSet<>(listaLinks);
+
+        // Creamos una nueva lista para almacenar los elementos únicos
+        ArrayList<LinkUsuario> listaNoDuplicados = new ArrayList<>(setLinks);
+
+        return listaNoDuplicados;
     }
     
    

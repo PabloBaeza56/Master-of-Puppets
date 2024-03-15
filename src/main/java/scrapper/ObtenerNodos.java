@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 // No utilizado en la Iteracion Actual
 public class ObtenerNodos extends MinadoDatos{
-    private AutomataDatos movilizador;
+    private final AutomataDatos movilizador;
 
     public ObtenerNodos(WebDriver driver, AutomataDatos movilizador) {
         super(driver);

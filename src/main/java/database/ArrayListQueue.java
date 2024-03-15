@@ -10,7 +10,7 @@ public class ArrayListQueue implements Queue {
     
     public ArrayListQueue(){
         cola = new ArrayList();
-        this.db = new MongoDBConnection();
+       
     }
 
     @Override

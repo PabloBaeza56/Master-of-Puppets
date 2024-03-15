@@ -2,13 +2,14 @@ package scrapper;
 
 import automata.AutomataDatos;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import objetosConcretos.Educacion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ObtenerEducacion extends MinadoDatos {
-    private AutomataDatos movilizador;
+    private final AutomataDatos movilizador;
     
     public ObtenerEducacion(WebDriver driver, AutomataDatos movilizador) {
         super(driver); 
@@ -34,15 +35,12 @@ public class ObtenerEducacion extends MinadoDatos {
             
             super.extraerDato(elementoBase, "./span[1]/span[1]", educacionPersona::setGradoAcademico);
             
-            super.extraerDato(elementoBase, "./span[2]/span[1]", fecha -> {
+            super.extraerDato(elementoBase, "./span[2]/span[1]", (String fecha) -> {
                 try{
-                String[] partesFecha = fecha.split("-");
-                educacionPersona.setAnioIngreso(partesFecha[0]);
-                educacionPersona.setAnioEgreso(partesFecha[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    educacionPersona.setAnioIngreso("0");
-                    educacionPersona.setAnioEgreso("0");
-                }
+                    String[] partesFecha = fecha.split("-");
+                    educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));
+                    educacionPersona.setAnioEgreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[1].trim()));
+                } catch (ArrayIndexOutOfBoundsException e) {}
             });
 
             

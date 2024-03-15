@@ -1,5 +1,6 @@
 package scrapper;
 
+import automata.BuscarPorBarraBusqueda;
 import automata.IteradorPorURL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -8,10 +9,15 @@ import org.openqa.selenium.WebElement;
 
 
 public class ObtenerContactosPivote extends MinadoDatos {
+
+    private final IteradorPorURL iterador;
+    private final MinadoDatos minador;
     
 
     public ObtenerContactosPivote(WebDriver driver) {
         super(driver);
+        this.minador = new MinadoDatos(super.driver);
+        this.iterador = new IteradorPorURL(driver);
     }
     
     public void AccederContactosPivotes(String usuarioDeseado){
@@ -22,9 +28,14 @@ public class ObtenerContactosPivote extends MinadoDatos {
         
         super.esperarSegundos(5);
         
-        IteradorPorURL iterador = new IteradorPorURL(super.driver);
+      
         cadenaSalida = cadenaSalida.replace("&origin=MEMBER_PROFILE_CANNED_SEARCH", "&origin=MEMBER_PROFILE_CANNED_SEARCH&page=XXXXX");
-        iterador.iniciarIteracion(cadenaSalida);
+        
+        while (!this.iterador.esUltimaPagina(this.driver)) {
+            this.driver.get(cadenaSalida.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
+            this.minador.obtenerLinksUsuariosLinkedIn();
+            this.iterador.siguientePagina();
+        }
         
     }
     
