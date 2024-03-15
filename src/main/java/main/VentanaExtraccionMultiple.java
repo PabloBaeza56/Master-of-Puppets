@@ -4,6 +4,11 @@
  */
 package main;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author pablo
@@ -150,10 +155,19 @@ public class VentanaExtraccionMultiple extends javax.swing.JFrame {
         String CadenaBusqueda;
         CadenaBusqueda = String.valueOf(seleccionadorExtraccion.getValue()); // Obtiene el valor como String
 
-
-        // Convierte la cadena a Integer
         int numero = Integer.parseInt(CadenaBusqueda);
-        System.out.println(numero + " (numero Busqueda)");
+        //System.out.println(numero + " (numero Busqueda)");
+        
+        try {
+            ControladorMaestro controler = new ControladorMaestro();
+            ExtraccionDatos extractor = new ExtraccionDatos();
+            extractor.MinadoUsuariosTotal(controler, numero);
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaExtraccionMultiple.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaExtraccionMultiple.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
 
         // Ahora puedes usar 'numero' como un entero
 

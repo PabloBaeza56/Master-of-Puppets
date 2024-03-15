@@ -1,7 +1,6 @@
 main\VentanaBuscadorManual$2.class
 automata\AutomataDatos.class
 main\VentanaBuscadorContactosAmigos$3.class
-main\Main$1.class
 main\PantallaPrincipal$1.class
 main\PantallaPrincipal$8.class
 main\VentanaBuscadorManual.class
@@ -18,6 +17,7 @@ objetosConcretos\Fechas.class
 main\VentanaBuscadorCadena$4.class
 scrapper\MinadoDatos.class
 main\PantallaPrincipal$7.class
+objetosConcretos\UsuarioPivote.class
 main\VentanaExtraccionMultiple$5.class
 main\ControladorMaestro.class
 scrapper\ObtenerEducacion.class
@@ -56,6 +56,7 @@ database\Queue.class
 main\VentanaBuscadorCadena$2.class
 automata\BuscarPorBarraBusqueda.class
 main\VentanaBuscadorContactosAmigos$4.class
+main\VentanaBuscadorPorURL$6.class
 main\PantallaPrincipal.class
 main\VentanaBuscadorCadena.class
 main\VentanaBuscadorManual$5.class

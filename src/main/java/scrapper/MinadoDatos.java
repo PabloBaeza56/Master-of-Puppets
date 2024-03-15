@@ -71,6 +71,7 @@ public class MinadoDatos {
                 char primerChar = url.charAt(28);
 
                 if (Character.isLowerCase(primerChar)) {
+                    System.out.println("");
                     LinkUsuario user = new LinkUsuario();
                     user.setVisitado(Boolean.FALSE);
                     user.setUrlUsuario(url);

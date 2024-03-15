@@ -4,6 +4,13 @@
  */
 package main;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 /**
  *
  * @author pablo
@@ -16,6 +23,7 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
     public VentanaBuscadorCadena() {
         initComponents();
         setResizable(false);
+        botonEjecutarBusqueda.setEnabled(false);
     }
 
     /**
@@ -47,6 +55,11 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
         campoEntradaBuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoEntradaBuscadorActionPerformed(evt);
+            }
+        });
+        campoEntradaBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoEntradaBuscadorKeyReleased(evt);
             }
         });
 
@@ -136,8 +149,20 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
         String CadenaBusqueda;
-        CadenaBusqueda = campoEntradaBuscador.getText();
+        CadenaBusqueda = campoEntradaBuscador.getText().trim();
         System.out.println(CadenaBusqueda + "Cadena");
+        
+        WebDriver driver = new ChromeDriver();
+        try {
+            ControladorMaestro controler = new ControladorMaestro();
+            controler.inyectarCookies( driver );
+        } catch (IOException | ParseException ex) {
+            Logger.getLogger(VentanaBuscadorCadena.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        BusquedaLinks buscador = new BusquedaLinks(driver);
+        buscador.insercionIndirectaBuscadorURL(CadenaBusqueda);
+        driver.quit();
         
         PantallaPrincipal modal = new PantallaPrincipal();
         modal.setVisible(true);
@@ -151,6 +176,16 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
+
+    private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased
+        String text = campoEntradaBuscador.getText();
+    // Verificar si el campo de texto está vacío
+        if (text.isEmpty()) {
+            botonEjecutarBusqueda.setEnabled(false);
+        } else {
+            botonEjecutarBusqueda.setEnabled(true);
+        }
+    }//GEN-LAST:event_campoEntradaBuscadorKeyReleased
 
     /**
      * @param args the command line arguments
@@ -181,10 +216,8 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaBuscadorCadena().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentanaBuscadorCadena().setVisible(true);
         });
     }
 

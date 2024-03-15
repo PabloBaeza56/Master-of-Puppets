@@ -5,7 +5,11 @@ import objetosConcretos.Usuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerEducacion;
 import automata.AutomataDatos;
+import database.MongoDBConnection;
+import java.util.List;
 import java.util.Map;
+import objetosConcretos.LinkUsuario;
+import org.bson.Document;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerExperiencia;
@@ -14,22 +18,24 @@ import scrapper.ObtenerExperiencia;
 public class ExtraccionDatos {
     
     
-    public void MinadoUsuariosTotal(ControladorMaestro controler){
-        String[] arregloStrings = {"https://www.linkedin.com/in/victorlavalle/" ,"https://www.linkedin.com/in/ecambranes/", "https://www.linkedin.com/in/manuelmartinrico/"};
-        for (String elemento : arregloStrings) {
+    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar){
+        
+        MongoDBConnection db = MongoDBConnection.getInstance();
+        db.eliminarDuplicadosPorUrlUsuario();
+        List<LinkUsuario> documentos = db.obtenerDocumentos(numeroLinksBuscar);
+     
+        for (LinkUsuario elemento : documentos) {
             
             WebDriver newDriver = new ChromeDriver();
-            newDriver.get("https://www.linkedin.com/login");
-            Map<String, String> cookies = controler.leerCookiesDesdeArchivo("cookies.txt");
-            controler.cargarCookiesInicioSesion(cookies, newDriver);
-            newDriver.navigate().refresh();
-          
+            controler.inyectarCookies(newDriver);
+ 
+            newDriver.get(elemento.getUrlUsuario());
             
-            ExtraccionDatos extractor = new ExtraccionDatos();
-            
-            newDriver.get(elemento);
-            Usuario usuario = extractor.PerfilCompleto(newDriver);
+            Usuario usuario = this.PerfilCompleto(newDriver);
             System.out.println(usuario);
+            db.SubirUsuario(usuario);
+            db.marcarDocumentoComoVisitado(elemento.get_id());
+            
             newDriver.close(); 
         }
     }

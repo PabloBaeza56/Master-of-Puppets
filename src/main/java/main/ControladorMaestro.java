@@ -159,7 +159,13 @@ public final class ControladorMaestro {
     }
     
 
-    
+    public void inyectarCookies(WebDriver driver ){
+         driver.get("https://www.linkedin.com/login");
+            Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
+            this.cargarCookiesInicioSesion(cookies, driver);
+            driver.navigate().refresh();
+        
+    }
 
     
    

@@ -11,14 +11,19 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Aggregates.match;
+import static com.mongodb.client.model.Aggregates.out;
 import static com.mongodb.client.model.Aggregates.project;
+import static com.mongodb.client.model.Aggregates.sort;
 import static com.mongodb.client.model.Aggregates.unwind;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.exists;
 import static com.mongodb.client.model.Filters.or;
 import static com.mongodb.client.model.Filters.regex;
+import static com.mongodb.client.model.Indexes.ascending;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import lombok.Getter;
 import objetosConcretos.LinkUsuario;
+import objetosConcretos.UsuarioPivote;
 import org.bson.conversions.Bson;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 
 public class MongoDBConnection {
@@ -55,6 +62,17 @@ public class MongoDBConnection {
 
         
        MongoCollection<Document> collection = this.getDatabase().getCollection("Links");
+
+        Gson gson = new Gson();
+        String json = gson.toJson(usuario);
+        Document doc = Document.parse(json);
+        collection.insertOne(doc);
+    }
+    
+    public void InsertarPivote(UsuarioPivote usuario) {
+
+        
+       MongoCollection<Document> collection = this.getDatabase().getCollection("Pivotes");
 
         Gson gson = new Gson();
         String json = gson.toJson(usuario);
@@ -229,6 +247,77 @@ public class MongoDBConnection {
                 )
         );
         return filterStage;
+    }
+    
+    
+   public List<LinkUsuario> obtenerDocumentos(int cantidad) {
+        List<LinkUsuario> listaLinks = new ArrayList<>();
+
+        MongoCollection<Document> collection = this.getDatabase().getCollection("Links");
+
+        long totalDocumentos = collection.countDocuments();
+
+        if (totalDocumentos == 0) {
+            System.out.println("La colección está vacía.");
+            return listaLinks;
+        }
+
+        int cantidadReal = (int) Math.min(totalDocumentos, cantidad);
+
+        Document filtro = new Document("visitado", false);
+
+        try (MongoCursor<Document> cursor = collection.find(filtro).limit(cantidadReal).iterator()) {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                LinkUsuario linkUsuario = documentoALinkUsuario(doc);
+                listaLinks.add(linkUsuario);
+            }
+        }
+
+        return listaLinks;
+    }
+
+    
+    private LinkUsuario documentoALinkUsuario(Document doc) {
+        
+        String urlUsuario = doc.getString("UrlUsuario");
+        Boolean visitado = doc.getBoolean("visitado");
+        return new LinkUsuario( doc.getObjectId("_id") , urlUsuario, visitado);
+    }
+    
+     public void marcarDocumentoComoVisitado(ObjectId idDocumento) {
+
+        MongoCollection<Document> collection = this.getDatabase().getCollection("Links");
+
+        Document filtroId = new Document("_id", idDocumento);
+
+        Document update = new Document("$set", new Document("visitado", true));
+
+        collection.updateOne(filtroId, update);
+    }
+     
+      public void eliminarDuplicadosPorUrlUsuario() {
+
+        MongoCollection<Document> collection = this.getDatabase().getCollection("Links");
+
+        // Utilizamos un conjunto para almacenar los URLUsuario únicos
+        Set<String> urlsUnicos = new HashSet<>();
+
+        // Creamos un cursor para recorrer todos los documentos en la colección
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                String urlUsuario = doc.getString("UrlUsuario");
+                // Verificamos si ya hemos visto este URLUsuario antes
+                if (urlsUnicos.contains(urlUsuario)) {
+                    // Si ya existe, eliminamos el documento duplicado
+                    collection.deleteOne(new Document("UrlUsuario", urlUsuario));
+                } else {
+                    // Si es único, lo agregamos al conjunto para futuras comprobaciones
+                    urlsUnicos.add(urlUsuario);
+                }
+            }
+        }
     }
 
 }

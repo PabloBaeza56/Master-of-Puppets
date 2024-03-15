@@ -1,22 +1,21 @@
+
 package objetosConcretos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkUsuario {
-    @Setter @Getter private ObjectId _id;
+public class UsuarioPivote {
+    @Setter @Getter private String nombre;
     @Setter @Getter private String UrlUsuario;
-    @Setter @Getter private Boolean visitado;
 
     @Override
     public String toString() {
-        return "LinkUsuario{" + "UrlUsuario=" + UrlUsuario + ", visitado=" + visitado + '}';
-    }
-
-    
+        return "UsuarioPivote{" + "nombre=" + nombre + ", UrlUsuario=" + UrlUsuario + '}';
+    } 
 }
+
+
