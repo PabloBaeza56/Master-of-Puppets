@@ -34,7 +34,7 @@ public class MinadoDatos {
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
  
-    protected String scrapyTextV2(WebElement elementoBase, String selector) {
+    protected String obtenerTexto(WebElement elementoBase, String selector) {
         try {
             WebElement elemento = elementoBase.findElement(By.xpath(selector));
             String[] texto = elemento.getText().split("\\n");
@@ -46,7 +46,7 @@ public class MinadoDatos {
 
     public void extraerDato(WebElement elementoBase, String selector, Consumer<String> setter) {
         try {
-            String dato = scrapyTextV2(elementoBase, selector);
+            String dato = obtenerTexto(elementoBase, selector);
             setter.accept(dato);
         } catch (NoSuchElementException e) {}
     }

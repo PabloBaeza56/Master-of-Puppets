@@ -89,7 +89,7 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
         jLabel2.setText("Ingrese la URL del perfil el cual esta conectado (es su \"amigo\"):");
 
         ComboBoxPivote.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        ComboBoxPivote.setModel(new javax.swing.DefaultComboBoxModel<String>(db.obtenerNombresUsuariosDesdeMongoDB().toArray(new String[0])));
+        ComboBoxPivote.setModel(new javax.swing.DefaultComboBoxModel<String>(db.obtenerNombresUsuarios().toArray(new String[0])));
         ComboBoxPivote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboBoxPivoteActionPerformed(evt);
@@ -148,7 +148,7 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
 
         String CadenaBusqueda = (String) ComboBoxPivote.getSelectedItem();
         BusquedaDatos db = new BusquedaDatos();
-        String URLasociadoNombre = db.buscarURLasociadoConNombrePivote(CadenaBusqueda);
+        String URLasociadoNombre = db.buscarUrlAsociadoConNombrePivote(CadenaBusqueda);
         
         WebDriver driver = new ChromeDriver();
         try {

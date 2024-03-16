@@ -168,9 +168,7 @@
         <Property name="text" type="java.lang.String" value="Ejecutar Busqueda"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonEjecutarBusquedaMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonEjecutarBusquedaActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="botonEjecutarBusquedaKeyReleased"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -218,7 +216,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="campoUniversidadIngles">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoUniversidadInglesActionPerformed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoUniversidadInglesKeyReleased"/>
       </Events>
     </Component>
@@ -234,7 +231,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreCarreraIngles">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreCarreraInglesActionPerformed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombreCarreraInglesKeyReleased"/>
       </Events>
     </Component>

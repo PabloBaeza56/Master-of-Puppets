@@ -1,9 +1,9 @@
 package vista;
 
-import database.MongoDBConnection;
 import database.QuerysMongoDB;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -68,19 +68,9 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
 
         botonEjecutarBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         botonEjecutarBusqueda.setText("Ejecutar Busqueda");
-        botonEjecutarBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonEjecutarBusquedaMouseClicked(evt);
-            }
-        });
         botonEjecutarBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEjecutarBusquedaActionPerformed(evt);
-            }
-        });
-        botonEjecutarBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                botonEjecutarBusquedaKeyReleased(evt);
             }
         });
 
@@ -112,11 +102,6 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
             }
         });
 
-        campoUniversidadIngles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoUniversidadInglesActionPerformed(evt);
-            }
-        });
         campoUniversidadIngles.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 campoUniversidadInglesKeyReleased(evt);
@@ -135,11 +120,6 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
             }
         });
 
-        nombreCarreraIngles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreCarreraInglesActionPerformed(evt);
-            }
-        });
         nombreCarreraIngles.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nombreCarreraInglesKeyReleased(evt);
@@ -276,7 +256,9 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
         }};
          
         QuerysMongoDB db = new QuerysMongoDB();
-        System.out.println(db.obtenerPuestosExperienciaPorUsuario(datos));
+        double resultado = db.obtenerPuestosExperienciaPorUsuario(datos);
+        
+        JOptionPane.showMessageDialog(this, resultado + "   Empleos en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
         
         PantallaPrincipal modal = new PantallaPrincipal();
         modal.setVisible(true);
@@ -287,114 +269,28 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
-    private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
-
     private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased
         
     }//GEN-LAST:event_campoEntradaBuscadorKeyReleased
 
-    private void campoUniversidadInglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUniversidadInglesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoUniversidadInglesActionPerformed
-
-    private void nombreCarreraInglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCarreraInglesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreCarreraInglesActionPerformed
-
-    private void botonEjecutarBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaKeyReleased
-        
-    }//GEN-LAST:event_botonEjecutarBusquedaKeyReleased
-
     private void campoUniversidadEspaniolKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUniversidadEspaniolKeyReleased
-        String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-
-        // Verificar si algún campo de texto está vacío
-        if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
-            !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
-            !NombreCarreraIngles.isEmpty()) 
-        {
-            botonEjecutarBusqueda.setEnabled(true);
-        } else {
-            botonEjecutarBusqueda.setEnabled(false);
-        }
+        this.verificarCamposTexto();
     }//GEN-LAST:event_campoUniversidadEspaniolKeyReleased
 
     private void campoUniversidadInglesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUniversidadInglesKeyReleased
-        String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-
-        // Verificar si algún campo de texto está vacío
-        if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
-            !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
-            !NombreCarreraIngles.isEmpty()) 
-        {
-            botonEjecutarBusqueda.setEnabled(true);
-        } else {
-            botonEjecutarBusqueda.setEnabled(false);
-        }
+        this.verificarCamposTexto();
     }//GEN-LAST:event_campoUniversidadInglesKeyReleased
 
     private void campoUniversidadAcronimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUniversidadAcronimoKeyReleased
-       String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-
-        // Verificar si algún campo de texto está vacío
-        if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
-            !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
-            !NombreCarreraIngles.isEmpty()) 
-        {
-            botonEjecutarBusqueda.setEnabled(true);
-        } else {
-            botonEjecutarBusqueda.setEnabled(false);
-        }
+       this.verificarCamposTexto();
     }//GEN-LAST:event_campoUniversidadAcronimoKeyReleased
 
     private void nombreCarreraEspaniolKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCarreraEspaniolKeyReleased
-        String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-
-        // Verificar si algún campo de texto está vacío
-        if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
-            !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
-            !NombreCarreraIngles.isEmpty()) 
-        {
-            botonEjecutarBusqueda.setEnabled(true);
-        } else {
-            botonEjecutarBusqueda.setEnabled(false);
-        }
+        this.verificarCamposTexto();
     }//GEN-LAST:event_nombreCarreraEspaniolKeyReleased
 
     private void nombreCarreraInglesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCarreraInglesKeyReleased
-        String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-
-        // Verificar si algún campo de texto está vacío
-        if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
-            !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
-            !NombreCarreraIngles.isEmpty()) 
-        {
-            botonEjecutarBusqueda.setEnabled(true);
-        } else {
-            botonEjecutarBusqueda.setEnabled(false);
-        }
+        this.verificarCamposTexto();
     }//GEN-LAST:event_nombreCarreraInglesKeyReleased
 
     public static void main(String args[]) {
@@ -406,6 +302,24 @@ public class QueryPromdioNumeroEmpleos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new QueryPromdioNumeroEmpleos().setVisible(true);
         });
+    }
+    
+    private void verificarCamposTexto() {
+    String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
+    String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
+    String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
+    String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
+    String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
+
+    // Verificar si algún campo de texto está vacío
+    if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
+        !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
+        !NombreCarreraIngles.isEmpty()) 
+    {
+        botonEjecutarBusqueda.setEnabled(true);
+    } else {
+        botonEjecutarBusqueda.setEnabled(false);
+    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

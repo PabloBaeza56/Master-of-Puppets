@@ -4,25 +4,18 @@ import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Usuario {
 
     @Setter private ArrayList<Experiencia> experienciaLaboral;
     @Setter private ArrayList<Educacion> educacion;
     @Setter private datosBasicos informacionPersonal;
 
-    @Override
-    public String toString() {
-        return """
-               Usuario{
-               \texperiencia=""" + experienciaLaboral + 
-                "\n\teducacion=" + educacion + 
-                "\n\tdatosBasicos=" + informacionPersonal + 
-                "\n}";
-    }
     
     public static class UsuarioBuilder {
         @Setter private ArrayList<Experiencia> experienciaLaboral;

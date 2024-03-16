@@ -16,60 +16,50 @@ import org.bson.types.ObjectId;
 
 public class InserccionDatos {
     
-    private MongoDBConnection db;
+    private final MongoDBConnection db;
     
     public InserccionDatos(){
         this.db = MongoDBConnection.getInstance();
-    }
+    }   
     
-    
-    public void InsertarURL(ArrayList<LinkUsuario> usuarios) {
+    public void InsertarDocumento(ArrayList<LinkUsuario> usuarios) {
         for (LinkUsuario usuario : usuarios) {
-            InsertarURL(usuario);
+            InserccionDatos.this.InsertarDocumento(usuario);
         }
     }
-
-    public void SubirUsuario(Usuario usuario) {
-
-        
-        MongoCollection<Document> collection = this.db.getDatabase().getCollection("2024");
-
-        Gson gson = new Gson();
-        String json = gson.toJson(usuario);
-        Document doc = Document.parse(json);
-        collection.insertOne(doc);
-    }
     
-    public void InsertarURL(LinkUsuario usuario) {
-
-        
-       MongoCollection<Document> collection = this.db.getDatabase().getCollection("Links");
-
-        Gson gson = new Gson();
-        String json = gson.toJson(usuario);
-        Document doc = Document.parse(json);
-        collection.insertOne(doc);
-    }
-    
-    public void InsertarPivote(UsuarioPivote usuario) {
-
-        
-       MongoCollection<Document> collection = this.db.getDatabase().getCollection("Pivotes");
-
-        Gson gson = new Gson();
-        String json = gson.toJson(usuario);
-        Document doc = Document.parse(json);
-        collection.insertOne(doc);
-    }
-    
-     public void marcarDocumentoComoVisitado(ObjectId idDocumento) {
+    public void InsertarDocumento(LinkUsuario usuario) {
 
         MongoCollection<Document> collection = this.db.getDatabase().getCollection("Links");
+        Gson gson = new Gson();
+        String json = gson.toJson(usuario);
+        Document doc = Document.parse(json);
+        collection.insertOne(doc);
+    }
 
+    public void InsertarDocumento(Usuario usuario) {
+        
+        MongoCollection<Document> collection = this.db.getDatabase().getCollection("2024");
+        Gson gson = new Gson();
+        String json = gson.toJson(usuario);
+        Document doc = Document.parse(json);
+        collection.insertOne(doc);
+    }
+    
+    public void InsertarDocumento(UsuarioPivote usuario) {
+
+        MongoCollection<Document> collection = this.db.getDatabase().getCollection("Pivotes");
+        Gson gson = new Gson();
+        String json = gson.toJson(usuario);
+        Document doc = Document.parse(json);
+        collection.insertOne(doc);
+    }
+    
+    public void marcarDocumentoComoVisitado(ObjectId idDocumento) {
+
+        MongoCollection<Document> collection = this.db.getDatabase().getCollection("Links");
         Document filtroId = new Document("_id", idDocumento);
-
         Document update = new Document("$set", new Document("visitado", true));
-
         collection.updateOne(filtroId, update);
     }
      

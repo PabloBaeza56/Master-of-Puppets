@@ -141,7 +141,7 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
             
             user.setVisitado(Boolean.FALSE);
             user.setUrlUsuario(CadenaBusqueda);
-            db.InsertarURL(user);
+            db.InsertarDocumento(user);
         }
         
         PantallaPrincipal modal = new PantallaPrincipal();

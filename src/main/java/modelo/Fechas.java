@@ -7,9 +7,11 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public final class Fechas {
     @Setter private Date fechaInicio;
     @Setter private Date fechaFin;
@@ -82,12 +84,5 @@ public final class Fechas {
         
         return null;
     }
-    
-    @Override
-    public String toString() {
-        return "Fechas{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", duracionMeses=" + duracionMeses + '}';
-    }
-    
-    
-    
+     
 }

@@ -1,5 +1,6 @@
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\Fechas.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\BuscarPorBarraBusqueda.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\NewMain.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\VentanaBuscadorContactosAmigos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\BusquedaDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\VentanaBuscadorPorURL.java
@@ -16,8 +17,10 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\dat
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\UsuarioPivote.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\AutomataDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\IteradorPorURL.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\CambiarUsuario.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\MongoDBConnection.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\LinkUsuario.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\Creditos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\QueryPromdioNumeroEmpleos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\MinadoDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\Educacion.java
@@ -29,7 +32,6 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vis
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\QueryPromdioDuracion.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerNodos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\IteradorElementosListaWeb.java
-C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\controlador\AnalisisDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerContactosPivote.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\InserccionDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\ObtenerDatosCabecera.java

@@ -1,3 +1,4 @@
+/*
 package scrapper;
 
 import automata.AutomataDatos;
@@ -60,3 +61,4 @@ public class ObtenerNodos extends MinadoDatos{
     }
     
 }
+*/

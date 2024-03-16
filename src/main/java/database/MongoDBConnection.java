@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.Properties;
 import lombok.Getter;
 
-
-
 public class MongoDBConnection {
 
     @Getter private MongoDatabase database;

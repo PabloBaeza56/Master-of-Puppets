@@ -18,17 +18,16 @@ import java.util.Set;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-
 public class QuerysMongoDB {
-    private MongoDBConnection db;
-    
-    public QuerysMongoDB(){
+
+    private final MongoDBConnection db;
+
+    public QuerysMongoDB() {
         this.db = MongoDBConnection.getInstance();
     }
-    
+
     public double obtenerPromedioDuracionEmpleo(Map<String, String> datos) {
 
-     
         MongoCollection<Document> collection = this.db.getDatabase().getCollection("2024");
 
         Bson unwindStage = unwind("$experienciaLaboral");
@@ -73,7 +72,7 @@ public class QuerysMongoDB {
     }
 
     public Map<String, Integer> obtenerEmpresasTrabajadas(Map<String, String> datos) {
-   
+
         MongoCollection<Document> collection = this.db.getDatabase().getCollection("2024");
 
         // Crear un diccionario para almacenar las empresas y el recuento de personas que trabajaron en ellas
@@ -138,8 +137,8 @@ public class QuerysMongoDB {
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
                 .replaceAll("[^\\p{ASCII}]", "");
     }
-    
-    public Bson filtroGenerico(Map<String, String> datos){
+
+    public Bson filtroGenerico(Map<String, String> datos) {
         Bson filterStage = Filters.and(
                 Filters.or(
                         Filters.regex("educacion.centroEducativo", quitarAcentos(datos.get("acronimoUniversidad")), "i"),
@@ -158,10 +157,9 @@ public class QuerysMongoDB {
         );
         return filterStage;
     }
-    
+
     public long obtenerNumeroUsuariosQueCumplenFiltro(Map<String, String> datos) {
 
- 
         MongoCollection<Document> collection = this.db.getDatabase().getCollection("2024");
 
         Bson filterStage = filtroGenerico(datos);
@@ -169,5 +167,5 @@ public class QuerysMongoDB {
         long count = collection.countDocuments(filterStage);
         return count;
     }
-    
+
 }

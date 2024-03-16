@@ -16,12 +16,12 @@ public class AutomataDatos{
     public IteradorElementoTablaWeb iteradorTabla;
     public IteradorPorURL iteradorURL;
     @Getter private Map<String, Integer> indicesSeccionesMain;
-    @Getter private Map<String, Integer> indicesSeccionesAside;
+    //@Getter private Map<String, Integer> indicesSeccionesAside;
 
     public AutomataDatos(WebDriver driver) {
         this.driver = driver;
         this.indicesSeccionesMain = new HashMap<>();
-        this.indicesSeccionesAside = new HashMap<>();
+        //this.indicesSeccionesAside = new HashMap<>();
         this.iteradorTabla = new IteradorElementoTablaWeb(this.driver);
         this.iteradorURL = new IteradorPorURL(this.driver);
     }
@@ -50,6 +50,7 @@ public class AutomataDatos{
         }
     }
     
+    /*
     public void busquedaIndicesSeccionesAside(){
         
         for (int i = 12; i >= 1; i--) {
@@ -62,5 +63,6 @@ public class AutomataDatos{
             } catch (NoSuchElementException e) {}
         }
     }
+    */
       
 }

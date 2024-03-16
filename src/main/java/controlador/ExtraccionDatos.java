@@ -33,7 +33,7 @@ public class ExtraccionDatos {
             
             Usuario usuario = this.PerfilCompleto(newDriver);
             System.out.println(usuario);
-            db.SubirUsuario(usuario);
+            db.InsertarDocumento(usuario);
             db.marcarDocumentoComoVisitado(elemento.get_id());
             
             newDriver.close(); 

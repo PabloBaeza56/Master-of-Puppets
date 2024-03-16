@@ -33,7 +33,7 @@ public class BusquedaLinks {
         while (!this.iterador.esUltimaPagina(this.driver)) {
             this.driver.get(cadenaPreparada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
-            this.mongo.InsertarURL(arregloFinal);
+            this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }
     }
@@ -46,7 +46,7 @@ public class BusquedaLinks {
        while (!this.iterador.esUltimaPagina(this.driver)) {
             driver.get(rutaObtenida.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
-            this.mongo.InsertarURL(arregloFinal);
+            this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }
     }
@@ -58,7 +58,7 @@ public class BusquedaLinks {
         while (!this.iterador.esUltimaPagina(this.driver)) {
             this.driver.get(urlDeseada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
-            this.mongo.InsertarURL(arregloFinal);
+            this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }
     }

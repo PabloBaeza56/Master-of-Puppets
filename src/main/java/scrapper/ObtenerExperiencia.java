@@ -95,7 +95,7 @@ public final class ObtenerExperiencia extends MinadoDatos {
 
             WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));
             
-            String NombreEmpresa = super.scrapyTextV2(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+            String NombreEmpresa = super.obtenerTexto(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
   
             this.movilizador.iteradorTabla.setSubcadenaParte1("./div[2]/ul/li[");
             this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]/div/a");
