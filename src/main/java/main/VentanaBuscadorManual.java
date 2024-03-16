@@ -4,6 +4,9 @@
  */
 package main;
 
+import database.MongoDBConnection;
+import objetosConcretos.LinkUsuario;
+
 /**
  *
  * @author pablo
@@ -16,6 +19,7 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
     public VentanaBuscadorManual() {
         initComponents();
         setResizable(false);
+        botonEjecutarBusqueda.setEnabled(false);
     }
 
     /**
@@ -47,6 +51,11 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
         campoEntradaBuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoEntradaBuscadorActionPerformed(evt);
+            }
+        });
+        campoEntradaBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoEntradaBuscadorKeyReleased(evt);
             }
         });
 
@@ -135,9 +144,18 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-        String CadenaBusqueda;
-        CadenaBusqueda = campoEntradaBuscador.getText();
+         
+        String CadenaBusqueda = campoEntradaBuscador.getText();
         System.out.println(CadenaBusqueda + "busqueda Manual");
+        
+        LinkUsuario user = new LinkUsuario();
+        MongoDBConnection db = MongoDBConnection.getInstance();
+        if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
+            
+            user.setVisitado(Boolean.FALSE);
+            user.setUrlUsuario(CadenaBusqueda);
+            db.InsertarURL(user);
+        }
         
         PantallaPrincipal modal = new PantallaPrincipal();
         modal.setVisible(true);
@@ -151,6 +169,16 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
+
+    private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased
+        String text = campoEntradaBuscador.getText();
+
+        if (text.isEmpty()) {
+            botonEjecutarBusqueda.setEnabled(false);
+        } else {
+            botonEjecutarBusqueda.setEnabled(true);
+        }
+    }//GEN-LAST:event_campoEntradaBuscadorKeyReleased
 
     /**
      * @param args the command line arguments

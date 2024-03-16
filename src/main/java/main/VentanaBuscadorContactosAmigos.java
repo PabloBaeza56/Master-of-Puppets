@@ -4,6 +4,16 @@
  */
 package main;
 
+import database.MongoDBConnection;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 /**
  *
  * @author pablo
@@ -16,6 +26,8 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     public VentanaBuscadorContactosAmigos() {
         initComponents();
         setResizable(false);
+        
+        
     }
 
     /**
@@ -27,12 +39,20 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botonRegresar = new javax.swing.JButton();
         campoEntradaBuscador = new javax.swing.JTextField();
+        botonRegresar = new javax.swing.JButton();
         botonEjecutarBusqueda = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        MongoDBConnection db = MongoDBConnection.getInstance();
+        ComboBoxPivote = new javax.swing.JComboBox<>();
+
+        campoEntradaBuscador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoEntradaBuscadorActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,12 +61,6 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresarActionPerformed(evt);
-            }
-        });
-
-        campoEntradaBuscador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoEntradaBuscadorActionPerformed(evt);
             }
         });
 
@@ -88,6 +102,14 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Ingrese la URL del perfil el cual esta conectado (es su \"amigo\"):");
 
+        ComboBoxPivote.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ComboBoxPivote.setModel(new javax.swing.DefaultComboBoxModel<String>(db.obtenerNombresUsuariosDesdeMongoDB().toArray(new String[0])));
+        ComboBoxPivote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxPivoteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,20 +117,21 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoEntradaBuscador)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(22, 22, 22)))
-                .addContainerGap())
+                        .addGap(28, 28, 28))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(botonEjecutarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(botonEjecutarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(ComboBoxPivote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,11 +140,11 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoEntradaBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ComboBoxPivote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(botonEjecutarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -136,9 +159,24 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-        String CadenaBusqueda;
-        CadenaBusqueda = campoEntradaBuscador.getText();
-        System.out.println(CadenaBusqueda + "Amigo");
+
+        String CadenaBusqueda = (String) ComboBoxPivote.getSelectedItem();
+        MongoDBConnection db = MongoDBConnection.getInstance();
+        String URLasociadoNombre = db.buscarURLasociadoConNombrePivote(CadenaBusqueda);
+        
+        WebDriver driver = new ChromeDriver();
+        try {
+            ControladorMaestro controler = new ControladorMaestro();
+            controler.inyectarCookies( driver );
+        } catch (IOException | ParseException ex) {
+            Logger.getLogger(VentanaBuscadorCadena.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+        BusquedaLinks buscador = new BusquedaLinks(driver);
+        buscador.pivoteSimple(URLasociadoNombre);
+        driver.quit();
+        
+        db.eliminarDuplicadosPorUrlUsuario();
         
         PantallaPrincipal modal = new PantallaPrincipal();
         modal.setVisible(true);
@@ -153,35 +191,20 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
+    private void ComboBoxPivoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxPivoteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxPivoteActionPerformed
+
     /**
      * @param args the command line arguments
+     * @throws javax.swing.UnsupportedLookAndFeelException
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public static void main(String args[]) throws UnsupportedLookAndFeelException {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaBuscadorContactosAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaBuscadorContactosAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaBuscadorContactosAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaBuscadorContactosAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Establece el look and feel predeterminado del sistema
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -192,6 +215,7 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboBoxPivote;
     private javax.swing.JButton botonEjecutarBusqueda;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JTextField campoEntradaBuscador;

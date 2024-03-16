@@ -319,5 +319,39 @@ public class MongoDBConnection {
             }
         }
     }
+      
+      
+    public  List<String> obtenerNombresUsuariosDesdeMongoDB() {
+        List<String> nombresUsuarios = new ArrayList<>();
+        
+        MongoCollection<Document> collection = this.getDatabase().getCollection("Pivotes");
+
+            // Utiliza el método distinct() para obtener los nombres de usuario distintos
+            List<Object> resultados = collection.distinct("nombre", String.class).into(new ArrayList<>());
+
+            // Convierte los resultados a una lista de String
+            for (Object resultado : resultados) {
+                nombresUsuarios.add((String) resultado);
+            }
+       
+
+        return nombresUsuarios;
+    }  
+    
+    
+    public String buscarURLasociadoConNombrePivote(String nombreABuscar){
+        
+        MongoCollection<Document> collection = this.getDatabase().getCollection("Pivotes");
+            
+        Document filtro = new Document("nombre", nombreABuscar);
+            
+        Document resultado = collection.find(filtro).first();
+            
+        
+        String url = resultado.getString("UrlUsuario");
+        System.out.println("URL encontrada para " + nombreABuscar + ": " + url);
+        return url;
+    }        
+          
 
 }
