@@ -1,6 +1,5 @@
 package automata;
 
-import database.ArrayListQueue;
 import java.util.List;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -9,14 +8,12 @@ import org.openqa.selenium.WebElement;
 
 public class IteradorPorURL implements IteradorPaginasBusqueda {
 
-    private final ArrayListQueue cola;
     @Getter private int paginaActual;
     private final WebDriver driver;
 
 
     public IteradorPorURL(WebDriver driver) {
         this.driver = driver;
-        this.cola = new ArrayListQueue();
         this.paginaActual = 1;
     }
 

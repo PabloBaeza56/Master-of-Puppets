@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
-import objetosConcretos.LinkUsuario;
+import modelo.LinkUsuario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -86,12 +86,9 @@ public class MinadoDatos {
     }
 
     public static ArrayList<LinkUsuario> obtenerElementosNoDuplicados(ArrayList<LinkUsuario> listaLinks) {
-        // Utilizamos un HashSet para almacenar elementos únicos
+
         Set<LinkUsuario> setLinks = new HashSet<>(listaLinks);
-
-        // Creamos una nueva lista para almacenar los elementos únicos
         ArrayList<LinkUsuario> listaNoDuplicados = new ArrayList<>(setLinks);
-
         return listaNoDuplicados;
     }
     

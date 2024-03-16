@@ -1,12 +1,11 @@
 package scrapper;
 
-import automata.BuscarPorBarraBusqueda;
 import automata.IteradorPorURL;
+import database.InserccionDatos;
 import database.MongoDBConnection;
 import java.util.ArrayList;
-import objetosConcretos.Fechas;
-import objetosConcretos.LinkUsuario;
-import objetosConcretos.UsuarioPivote;
+import modelo.LinkUsuario;
+import modelo.UsuarioPivote;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +35,7 @@ public class ObtenerContactosPivote extends MinadoDatos {
         
       
         cadenaSalida = cadenaSalida.replace("&origin=MEMBER_PROFILE_CANNED_SEARCH", "&origin=MEMBER_PROFILE_CANNED_SEARCH&page=XXXXX");
-        MongoDBConnection mongo = MongoDBConnection.getInstance();
+        InserccionDatos mongo = new InserccionDatos();
         while (!this.iterador.esUltimaPagina(this.driver)) {
             this.driver.get(cadenaSalida.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal =this.minador.obtenerLinksUsuariosLinkedIn();
@@ -49,7 +48,7 @@ public class ObtenerContactosPivote extends MinadoDatos {
     public void ActualizarPivotes(){
         super.driver.get("https://www.linkedin.com/mynetwork/invite-connect/connections/");
          super.esperarSegundos(10);
-         MongoDBConnection mongo = MongoDBConnection.getInstance();
+         InserccionDatos mongo = new InserccionDatos();
         int i = 1;
         while (true){
             try {

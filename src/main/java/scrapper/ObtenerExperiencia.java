@@ -1,8 +1,8 @@
 package scrapper;
 
 import java.util.ArrayList;
-import objetosConcretos.Experiencia;
-import objetosConcretos.Fechas;
+import modelo.Experiencia;
+import modelo.Fechas;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;

@@ -2,8 +2,7 @@ package scrapper;
 
 import automata.AutomataDatos;
 import java.util.ArrayList;
-import java.util.function.Consumer;
-import objetosConcretos.Educacion;
+import modelo.Educacion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
