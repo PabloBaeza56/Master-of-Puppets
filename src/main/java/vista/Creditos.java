@@ -86,7 +86,7 @@ public class Creditos extends javax.swing.JFrame {
         jLabel2.setText("Pablo Ernesto Baeza Lara");
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jLabel3.setText("Juan Daniel Kao");
+        jLabel3.setText("Juan Daniel Kao Pech");
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         jLabel4.setText("Alex Enrique Dzul López");
@@ -115,24 +115,23 @@ public class Creditos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(199, 199, 199)
                         .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
+                                .addGap(110, 110, 110)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)))
+                                    .addComponent(jLabel5)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
+                                .addGap(161, 161, 161)
                                 .addComponent(jLabel3)))
-                        .addGap(17, 17, 17))
-                    .addComponent(jLabel5))
-                .addContainerGap(129, Short.MAX_VALUE))
+                        .addGap(0, 123, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

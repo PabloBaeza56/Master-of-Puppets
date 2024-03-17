@@ -8,6 +8,7 @@ vista\PantallaPrincipal$6.class
 vista\CambiarUsuario.class
 vista\CambiarUsuario$3.class
 modelo\Usuario$UsuarioBuilder.class
+vista\IngresarUsuario$5.class
 database\InserccionDatos.class
 vista\PantallaPrincipal$3.class
 vista\QueryPromdioNumeroEmpleos$9.class
@@ -17,6 +18,7 @@ vista\QueryPromdioDuracion$8.class
 vista\VentanaBuscadorPorURL$4.class
 vista\QueryPromdioNumeroEmpleos$10.class
 vista\VentanaBuscadorContactosAmigos$1.class
+vista\IngresarUsuario$2.class
 scrapper\MinadoDatos.class
 vista\Creditos$1.class
 vista\QueryEmpresasTrabajadas$9.class
@@ -41,6 +43,7 @@ vista\QueryPromdioDuracion$7.class
 vista\PantallaPrincipal$13.class
 vista\CambiarUsuario$2.class
 vista\PantallaPrincipal$8.class
+vista\IngresarUsuario$4.class
 vista\VentanaBuscadorCadena$2.class
 vista\QueryPromdioNumeroEmpleos$4.class
 database\MongoDBConnection$MongoDBConnectionHolder.class
@@ -63,6 +66,7 @@ vista\Creditos.class
 vista\QueryPromdioDuracion$1.class
 vista\VentanaBuscadorCadena$1.class
 vista\VentanaBuscadorManual$4.class
+vista\IngresarUsuario$3.class
 automata\AutomataDatos.class
 vista\QueryEmpresasTrabajadas$5.class
 vista\VentanaBuscadorContactosAmigos$5.class
@@ -78,6 +82,7 @@ vista\VentanaExtraccionMultiple$1.class
 vista\QueryPromdioDuracion$6.class
 vista\QueryPromdioNumeroEmpleos$2.class
 vista\VentanaBuscadorManual$6.class
+vista\IngresarUsuario$1.class
 vista\VentanaBuscadorManual.class
 vista\PantallaPrincipal$7.class
 vista\QueryEmpresasTrabajadas$2.class
@@ -99,6 +104,7 @@ vista\VentanaBuscadorCadena$5.class
 scrapper\NewMain.class
 vista\VentanaExtraccionMultiple.class
 modelo\LinkUsuario.class
+vista\IngresarUsuario.class
 vista\PantallaPrincipal$10.class
 vista\VentanaBuscadorContactosAmigos$6.class
 vista\VentanaBuscadorPorURL$5.class

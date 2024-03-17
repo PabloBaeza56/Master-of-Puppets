@@ -14,3 +14,4 @@ public class datosBasicos {
     @Setter private String leyenda;
     @Setter private String ubicacion;  
 }
+

@@ -18,15 +18,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
  *
  * @author pablo
  */
-public class CambiarUsuario extends javax.swing.JFrame {
+public class IngresarUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form CambiarUsuario
      */
-    public CambiarUsuario() {
+    public IngresarUsuario() {
         initComponents();
         setResizable(false);
-        ejecutarCambioBoton.setEnabled(false);
+        ejecutarCambioBoton.setEnabled(false); 
     }
 
     /**
@@ -45,7 +45,6 @@ public class CambiarUsuario extends javax.swing.JFrame {
         ejecutarCambioBoton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        botonRegresar1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,17 +73,17 @@ public class CambiarUsuario extends javax.swing.JFrame {
         jLabel2.setText("Ingrese su contraseña: ");
 
         ejecutarCambioBoton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ejecutarCambioBoton.setText("Ejecutar Cambio");
+        ejecutarCambioBoton.setText("Iniciar Sesion");
         ejecutarCambioBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ejecutarCambioBotonActionPerformed(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Cambiar usuario de LinkedIn");
+        jLabel3.setText("Ingresar usuario de LinkedIn");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,14 +102,6 @@ public class CambiarUsuario extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        botonRegresar1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        botonRegresar1.setText("Regresar");
-        botonRegresar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresar1ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Verifique previamente que los datos introducidos sean correctos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,9 +112,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ejecutarCambioBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(198, 198, 198))
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +146,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(contraseniaTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ejecutarCambioBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ejecutarCambioBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -170,59 +157,49 @@ public class CambiarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_contraseniaTextBoxActionPerformed
 
-    private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_botonRegresar1ActionPerformed
-
     private void ejecutarCambioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarCambioBotonActionPerformed
         String UsuarioTextBox = usuarioTextBox.getText().trim();
         String ContraseniaTextBox = contraseniaTextBox.getText().trim();
+        
+        WebDriver driver = new ChromeDriver(); 
+        driver.get("https://www.linkedin.com/login");
+        
+        WebElement inputUser =  driver.findElement(By.id("username"));
+        inputUser.sendKeys(UsuarioTextBox);
 
-        if (ControladorMaestro.leerValorProperties("config.properties", "correo").equals(UsuarioTextBox) && ControladorMaestro.leerValorProperties("config.properties", "contrasenia").equals(ContraseniaTextBox)) {
-            //System.out.println("No se tienen que actualizar las cookies"); 
+        WebElement inputPassword =  driver.findElement(By.id("password"));
+        inputPassword.sendKeys(ContraseniaTextBox);
+
+        inputPassword.sendKeys(Keys.ENTER);
+        
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (InterruptedException e) {}
+            
+        if (driver.getCurrentUrl().equals("https://www.linkedin.com/feed/")){
+            driver.quit();
+            //System.out.println("Inicio de sesion correcto");
+
+            if (ControladorMaestro.leerValorProperties("config.properties", "correo").equals(UsuarioTextBox) && ControladorMaestro.leerValorProperties("config.properties", "contrasenia").equals(ContraseniaTextBox)){
+                //System.out.println("No se tienen que actualizar las cookies");    
+            } else {
+                //System.out.println("Las cookies se deben de actualizar");
+                ControladorMaestro.modificarArchivoProperties("config.properties", "correo", UsuarioTextBox);
+                ControladorMaestro.modificarArchivoProperties("config.properties", "contrasenia", ContraseniaTextBox);
+                ControladorMaestro.escribirEnArchivoFechaActualMas10Dias();
+            }
+            
             PantallaPrincipal modal = new PantallaPrincipal();
             modal.setVisible(true);
             this.dispose();
         } else {
-            WebDriver driver = new ChromeDriver();
-            driver.get("https://www.linkedin.com/login");
-
-            WebElement inputUser = driver.findElement(By.id("username"));
-            inputUser.sendKeys(UsuarioTextBox);
-
-            WebElement inputPassword = driver.findElement(By.id("password"));
-            inputPassword.sendKeys(ContraseniaTextBox);
-
-            inputPassword.sendKeys(Keys.ENTER);
-
-            try {
-                Thread.sleep(10 * 1000);
-            } catch (InterruptedException e) {}
-
-            if (driver.getCurrentUrl().equals("https://www.linkedin.com/feed/")) {
-                driver.quit();
-                //System.out.println("Inicio de sesion correcto");
-                
-                //System.out.println("Actualizando cookies sesion valida");
-                ControladorMaestro.modificarArchivoProperties("config.properties", "correo", UsuarioTextBox);
-                ControladorMaestro.modificarArchivoProperties("config.properties", "contrasenia", ContraseniaTextBox);
-                ControladorMaestro.escribirEnArchivoFechaActualMas10Dias();
-                
-                PantallaPrincipal modal = new PantallaPrincipal();
-                modal.setVisible(true);
-                this.dispose();
-            } else {
-                driver.quit();
-                //System.out.println("Inicio de sesion FALLIDO");
-                JOptionPane.showMessageDialog(this, "Error: Usuario y/o Contraseña incorrectos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
-                CambiarUsuario modal = new CambiarUsuario();
-                modal.setVisible(true);
-                this.dispose();
-            }
+            driver.quit();
+            //System.out.println("Inicio de sesion FALLIDO");  
+            JOptionPane.showMessageDialog(this, "Error: Usuario y/o Contraseña incorrectos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
+            IngresarUsuario modal = new IngresarUsuario();
+            modal.setVisible(true);
+            this.dispose(); 
         }
-
     }//GEN-LAST:event_ejecutarCambioBotonActionPerformed
 
     private void usuarioTextBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioTextBoxKeyReleased
@@ -233,6 +210,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
         this.verificarCamposTexto();
     }//GEN-LAST:event_contraseniaTextBoxKeyReleased
 
+   
     public static void main(String args[]) {
         try {
             // Establece el look and feel predeterminado del sistema
@@ -241,17 +219,19 @@ public class CambiarUsuario extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CambiarUsuario().setVisible(true);
+                new IngresarUsuario().setVisible(true);
             }
         });
     }
-
+    
     private void verificarCamposTexto() {
         String ContraseniaTextBox = contraseniaTextBox.getText().trim();
         String UsuarioTextBox = usuarioTextBox.getText().trim();
+        
 
         // Verificar si algún campo de texto está vacío
-        if (!UsuarioTextBox.isEmpty() && !ContraseniaTextBox.isEmpty()) {
+        if (!UsuarioTextBox.isEmpty() && !ContraseniaTextBox.isEmpty()) 
+        {
             ejecutarCambioBoton.setEnabled(true);
         } else {
             ejecutarCambioBoton.setEnabled(false);
@@ -259,7 +239,6 @@ public class CambiarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonRegresar1;
     private javax.swing.JTextField contraseniaTextBox;
     private javax.swing.JButton ejecutarCambioBoton;
     private javax.swing.JLabel jLabel1;

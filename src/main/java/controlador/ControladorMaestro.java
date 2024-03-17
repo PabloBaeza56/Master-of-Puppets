@@ -26,56 +26,57 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public final class ControladorMaestro {
-    
+
     @Setter private String correo;
     @Setter private String contrasenia;
-    Map<String, String> cookiesMap;
+    private Map<String, String> cookiesMap;
 
     public ControladorMaestro() throws IOException, ParseException {
-        
+
         Date fechaArchivo = this.leerFechaArchivo("fecha_actual.txt");
         Calendar fechaActual = this.obtenerFechaActual();
         Date fechaActualDate = fechaActual.getTime();
-        
+
         System.out.println(fechaArchivo);
         System.out.println(fechaActualDate);
-        
-        if (this.haPasadoUnaSemana( fechaActualDate, fechaArchivo)) {
+
+        if (this.haPasadoUnaSemana(fechaActualDate, fechaArchivo)) {
             System.out.println("Las cookies del archivo han expirado");
-            WebDriver driver = new ChromeDriver(); 
+            WebDriver driver = new ChromeDriver();
             this.cargarPropiedades();
             this.iniciarSesion(driver);
             this.guardarCookiesInicioSesion(driver);
             this.escribirEnArchivoFechaActual();
-            driver.quit();   
+            driver.quit();
             System.out.println("Actualizacion finalizada");
         } else {
             System.out.println("Las cookies del archivo estan vigentes");
         }
     }
-    
+
     private void cargarPropiedades() {
         Properties propiedades = new Properties();
-        
+
         try (FileInputStream input = new FileInputStream("config.properties")) {
             propiedades.load(input);
             setCorreo(propiedades.getProperty("correo"));
             setContrasenia(propiedades.getProperty("contrasenia"));
-        } catch (IOException e) {}   
+        } catch (IOException e) {
+        }
     }
 
     private void iniciarSesion(WebDriver driver) {
         driver.get("https://www.linkedin.com/login");
-        
-        WebElement inputUser =  driver.findElement(By.id("username"));
+
+        WebElement inputUser = driver.findElement(By.id("username"));
         inputUser.sendKeys(this.correo);
 
-        WebElement inputPassword =  driver.findElement(By.id("password"));
+        WebElement inputPassword = driver.findElement(By.id("password"));
         inputPassword.sendKeys(this.contrasenia);
 
         inputPassword.sendKeys(Keys.ENTER);
     }
-    
+
     private void guardarCookiesInicioSesion(WebDriver driver) {
         Set<Cookie> cookies = driver.manage().getCookies();
         this.cookiesMap = new HashMap<>();
@@ -83,10 +84,10 @@ public final class ControladorMaestro {
             this.cookiesMap.put(cookie.getName(), cookie.getValue());
         }
         guardarCookiesEnArchivo("cookies.txt");
-      
+
     }
-    
-     private void guardarCookiesEnArchivo(String nombreArchivo) {
+
+    private void guardarCookiesEnArchivo(String nombreArchivo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (Map.Entry<String, String> entry : cookiesMap.entrySet()) {
                 writer.write(entry.getKey() + "=" + entry.getValue());
@@ -97,7 +98,7 @@ public final class ControladorMaestro {
             System.err.println("Error al guardar las cookies: " + e.getMessage());
         }
     }
-     
+
     protected Map<String, String> leerCookiesDesdeArchivo(String nombreArchivo) {
         this.cookiesMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
@@ -112,46 +113,44 @@ public final class ControladorMaestro {
         } catch (IOException e) {
             System.err.println("Error al leer las cookies desde el archivo: " + e.getMessage());
         }
-      
+
         return cookiesMap;
     }
-      
-    
-    
+
     protected void cargarCookiesInicioSesion(Map<String, String> cookiesMap, WebDriver driver) {
         for (Map.Entry<String, String> entry : cookiesMap.entrySet()) {
             Cookie cookie = new Cookie(entry.getKey(), entry.getValue());
             driver.manage().addCookie(cookie);
         }
     }
+
+    public void inyectarCookies(WebDriver driver) {
+        driver.get("https://www.linkedin.com/login");
+        Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
+        this.cargarCookiesInicioSesion(cookies, driver);
+        driver.navigate().refresh();
+
+    }
     
     public static void escribirEnArchivoFechaActualMas10Dias() {
 
-        // Obtener la fecha actual
         Date fechaActual = new Date();
 
-        // Crear un objeto Calendar y establecerlo en la fecha actual
         Calendar calendario = Calendar.getInstance();
         calendario.setTime(fechaActual);
 
-        // Agregar 10 días a la fecha actual
         calendario.add(Calendar.DAY_OF_YEAR, 10);
 
-        // Obtener la fecha después de agregar 10 días
         Date fechaMas10Dias = calendario.getTime();
 
-        // Formatear la fecha
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechaFormateada = formato.format(fechaMas10Dias);
 
-        // Nombre del archivo
         String nombreArchivo = "fecha_actual.txt";
 
-        // Ruta del archivo
         String rutaArchivo = System.getProperty("user.dir") + File.separator + nombreArchivo;
 
         try {
-            // Escribir la fecha en el archivo
             try (FileWriter escritor = new FileWriter(rutaArchivo)) {
                 escritor.write(fechaFormateada);
             }
@@ -161,8 +160,7 @@ public final class ControladorMaestro {
         }
     }
 
-    
-    private void escribirEnArchivoFechaActual(){
+    private void escribirEnArchivoFechaActual() {
 
         Date fechaActual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -180,9 +178,9 @@ public final class ControladorMaestro {
         } catch (IOException e) {
             System.out.println("Error al crear el archivo: " + e.getMessage());
         }
-        
+
     }
-    
+
     protected Date leerFechaArchivo(String rutaArchivo) throws IOException, ParseException {
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
             String fechaArchivoTexto = lector.readLine();
@@ -190,40 +188,25 @@ public final class ControladorMaestro {
             return formato.parse(fechaArchivoTexto);
         }
     }
-    
+
     protected Calendar obtenerFechaActual() {
         return Calendar.getInstance();
     }
-    
-   protected boolean haPasadoUnaSemana(Date fechaArchivo, Date fechaActual) {
-    // Crear un objeto Calendar para la fecha actual
-    Calendar calFechaActual = Calendar.getInstance();
-    calFechaActual.setTime(fechaActual);
 
-    // Crear un objeto Calendar para la fecha del archivo
-    Calendar calFechaArchivo = Calendar.getInstance();
-    calFechaArchivo.setTime(fechaArchivo);
+    protected boolean haPasadoUnaSemana(Date fechaArchivo, Date fechaActual) {
+        Calendar calFechaActual = Calendar.getInstance();
+        calFechaActual.setTime(fechaActual);
 
-    // Obtener la diferencia en milisegundos entre las fechas
-    long diferenciaEnMilisegundos = calFechaActual.getTimeInMillis() - calFechaArchivo.getTimeInMillis();
+        Calendar calFechaArchivo = Calendar.getInstance();
+        calFechaArchivo.setTime(fechaArchivo);
 
-    // Convertir la diferencia a días
-    long diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+        long diferenciaEnMilisegundos = calFechaActual.getTimeInMillis() - calFechaArchivo.getTimeInMillis();
 
-    // Verificar si la diferencia es mayor o igual a 7 días
-    return diferenciaEnDias >= 7;
-}
+        long diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
 
-
-    
-    public void inyectarCookies(WebDriver driver ){
-         driver.get("https://www.linkedin.com/login");
-            Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
-            this.cargarCookiesInicioSesion(cookies, driver);
-            driver.navigate().refresh();
-        
+        return diferenciaEnDias >= 7;
     }
-    
+
     public static void modificarArchivoProperties(String rutaArchivo, String clave, String nuevoValor) {
         Properties properties = new Properties();
         OutputStream output = null;
@@ -233,10 +216,8 @@ public final class ControladorMaestro {
             inputStream = new FileInputStream(rutaArchivo);
             properties.load(inputStream);
 
-            // Modificamos la propiedad
             properties.setProperty(clave, nuevoValor);
 
-            // Guardamos los cambios en el archivo
             output = new FileOutputStream(rutaArchivo);
             properties.store(output, null);
 
@@ -258,8 +239,27 @@ public final class ControladorMaestro {
         }
     }
 
-    
-   
+    public static String leerValorProperties(String rutaArchivo, String clave) {
+        Properties properties = new Properties();
+        FileInputStream inputStream = null;
 
-  
+        try {
+            inputStream = new FileInputStream(rutaArchivo);
+            properties.load(inputStream);
+
+            String valor = properties.getProperty(clave);
+
+            return valor;
+        } catch (IOException io) {
+            return null;
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
 }
