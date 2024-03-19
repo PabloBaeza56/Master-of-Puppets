@@ -24,7 +24,7 @@ McCall define la usabilidad como el esfuerzo requerido para aprender, operar, in
 * **_Aprendizaje:_** atributos que facilitan la familiarización inicial del usuario con el software y la transición del modo actual de operación.
 
 ## Caso Real Donde se Encuentra la Usabilidad en el Diseño de Software
-A continuación se hará un mención del proceso de diseño de un software matemático para el desarrollo de pensamiento matemático en un aula de clase y la metodología que siguieron para la usabilidad de este.
+A continuación se hará un mención del proceso de diseño de un software matemático para el desarrollo de pensamiento crítico en un aula de clase y la metodología que siguieron para la usabilidad de este.
 En pocas palabras, el software consiste en una aplicación que proponga ejercicios matemáticos a estudiantes utilizando los modelos de aprendizaje *_Problem Based Learning_* y orientado al logro.
 
 ### Actividades
@@ -95,3 +95,7 @@ Otra manera de medir la usabilidad es a través de cuestionarios de satisfacció
 ### Pruebas de Usabilidad
 A través de una muestra significativa de nuestros usuarios, ofrecerles el uso del software para poder analizar el comportamiento de los usuarios con el sistema, permitiendo identificar problemas de usabilidad y mejorar la experiencia del usuario.
 La intención sería realizar pruebas presenciales donde el equipo esté en contacto directo con el usuario.
+
+## Referencias
+* https://repositorio.uc.cl/server/api/core/bitstreams/10ee7142-a35e-4788-9a4c-c20d4f0db83f/content
+* https://apps.dtic.mil/sti/pdfs/ADA049014.pdf
