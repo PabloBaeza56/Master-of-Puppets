@@ -100,4 +100,25 @@ Para la tolerancia a errores contamos con las siguientes métricas:
 
 Las métricas para la simplicidad son las siguientes:
 
-#### 
+#### Medida de Estructura de Diseño:
+
+- Diseño organizado de manera descendente: Un gráfico jerárquico de módulos del sistema generalmente está disponible o es fácil de construir a partir de la documentación de diseño. Debe reflejar la noción aceptada de diseño descendente. El sistema está organizado en una estructura de árbol jerárquico, donde cada nivel del árbol representa descripciones de detalles de procesamiento de niveles inferiores.
+
+- No hay funciones duplicadas: Las descripciones de las funciones que debe realizar cada módulo en el diseño y la función real realizada por el módulo codificado deben ser evaluadas para asegurarse de que no estén duplicadas por otros módulos.
+
+- Independencia de módulos: El procesamiento realizado dentro de un módulo no debe depender de la fuente de entrada o del destino de la salida. Esta regla se puede aplicar a la descripción del módulo durante el diseño y al módulo codificado durante la implementación. La medida para este elemento se basa en el número de módulos que no cumplen con esta regla.
+
+- El procesamiento de los módulos no depende del procesamiento previo: El procesamiento realizado dentro de un módulo no debe depender del conocimiento o de los resultados del procesamiento previo, por ejemplo, la primera vez que se pasa por el módulo, la enésima vez, etc. Esta regla se aplica como se describe anteriormente, tanto en el diseño como en la implementación.
+
+- Cada descripción de módulo incluye entrada, salida, procesamiento y limitaciones: Se debe desarrollar documentación que describa la entrada, salida, procesamiento y limitaciones para cada módulo durante el diseño y estar disponible durante la implementación. La medida para este elemento se basa en el número de módulos que no tienen esta información documentada.
+
+- Cada módulo tiene una entrada única y una salida única: La determinación del número de módulos que violan esta regla en el diseño y la implementación se puede realizar y es la base para la métrica.
+
+- No hay datos globales: Esta es una medida binaria que identifica la complejidad añadida a un sistema por el uso de datos globales. Si no existen datos globales, esta medida es 1; si existen datos globales, es 0.
+
+#### Medida de la Complejidad del Flujo de Datos y Control:
+
+- Esta métrica puede medirse a partir de la representación de diseño (por ejemplo, diagramas de flujo) y automáticamente desde el código. Se utiliza un análisis de flujo de ruta e información de conjunto/utilización de variables a lo largo de cada camino. Una variable se considera "activa" en un nodo si puede ser utilizada nuevamente a lo largo de ese camino en el programa. La medida de complejidad se basa en sumar la "actividad" de todas las variables a lo largo de todos los caminos en el programa.
+
+## Métricas a usar en el proyecto
+
