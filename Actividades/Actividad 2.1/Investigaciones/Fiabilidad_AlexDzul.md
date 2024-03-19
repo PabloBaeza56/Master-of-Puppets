@@ -122,3 +122,20 @@ Las métricas para la simplicidad son las siguientes:
 
 ## Métricas a usar en el proyecto
 
+Para definir algunas métricas para la usabilidad de STEAM-RADAR utilizaremos los atributos del cual consiste este concepto según McCall:
+
+| Criterio | Métrica |
+|--------------|--------------|
+| Precisión   | Se verificó que las funciones de las bibliotecas a usar dan los resultados esperados    |
+| Precisión   | Número de pérfiles scrappeados que no coincida su información scrappeada con la visible en su perfil   |
+| Tolerancia a errores   | El programa sigue en funcionamiento tras un error    |
+| Tolerancia a errores   | Existe un método para verificar los datos de entrada antes del procesamiento    |
+| Consistencia/Tolerancia a errores   | Número de modulos que no siguen las conveciones de métodos para el manejo de errores    |
+| Consistencia   | Número de modulos que no siguen las convenciones de entrada  y salida    |
+| Consistencia   | Número de modulos que no utilizan la representación estandar de los datos    |
+| Simplicidad   | Número de modulos que dependen de los resultados de otros modulos    |
+| Simplicidad   | Número de modulos que no tienen una descripción completa (descripcion, entrada, salida, limitaciones) en la documentación   |
+| Simplicidad    | No existen funciones que tengan la misma funcionalidad    |
+
+## Referencia
+* https://apps.dtic.mil/sti/pdfs/ADA049014.pdf
