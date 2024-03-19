@@ -47,4 +47,10 @@ Tomando en cuenta el ejemplo práctico mencionado anteriormente consideramos com
 
 ![Reporte de Resultados](Images/reporteSonarQube.png)
 
+## Referencias
+---
+* https://alarcos.esi.uclm.es/per/fruiz/curs/mso/trans/S3.pdf
+* https://www.redalyc.org/journal/3783/378370462021/html/
+* https://www.redalyc.org/journal/3783/378366538004/html/
+
 
