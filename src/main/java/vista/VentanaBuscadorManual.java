@@ -1,17 +1,17 @@
 package vista;
 
-import database.InserccionDatos;
-import database.MongoDBConnection;
+import controlador.ControladoresConcretos;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import modelo.LinkUsuario;
 
 public class VentanaBuscadorManual extends javax.swing.JFrame {
 
-    public VentanaBuscadorManual() {
+    private ControladoresConcretos controlador;
+    public VentanaBuscadorManual(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);
         botonEjecutarBusqueda.setEnabled(false);
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -125,41 +125,24 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-         
         String CadenaBusqueda = campoEntradaBuscador.getText();
-        System.out.println(CadenaBusqueda + "busqueda Manual");
-        
-        LinkUsuario user = new LinkUsuario();
-        InserccionDatos db = new InserccionDatos();
-        if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
-            
-            user.setVisitado(Boolean.FALSE);
-            user.setUrlUsuario(CadenaBusqueda);
-            db.InsertarDocumento(user);
-        }
-        
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();
+        controlador.VentanaBuscadorManual(CadenaBusqueda, this);
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
     private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased
         String text = campoEntradaBuscador.getText();
-
         if (text.isEmpty()) {
             botonEjecutarBusqueda.setEnabled(false);
         } else {
@@ -169,16 +152,12 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
-            // Establece el look and feel predeterminado del sistema
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaBuscadorManual().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new VentanaBuscadorManual(controlador).setVisible(true);
         });
     }
 

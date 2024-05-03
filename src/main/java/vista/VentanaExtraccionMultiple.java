@@ -1,19 +1,16 @@
 package vista;
 
-import controlador.ExtraccionDatos;
-import controlador.ControladorMaestro;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controlador.ControladoresConcretos;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class VentanaExtraccionMultiple extends javax.swing.JFrame {
+    private ControladoresConcretos controlador;
 
-    public VentanaExtraccionMultiple() {
+    public VentanaExtraccionMultiple(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -135,42 +132,20 @@ public class VentanaExtraccionMultiple extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-        String CadenaBusqueda;
-        CadenaBusqueda = String.valueOf(seleccionadorExtraccion.getValue()); // Obtiene el valor como String
-
-        int numero = Integer.parseInt(CadenaBusqueda);
-        //System.out.println(numero + " (numero Busqueda)");
-        
-        try {
-            ControladorMaestro controler = new ControladorMaestro();
-            ExtraccionDatos extractor = new ExtraccionDatos();
-            extractor.MinadoUsuariosTotal(controler, numero);
-        } catch (IOException ex) {
-            Logger.getLogger(VentanaExtraccionMultiple.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaExtraccionMultiple.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-
-        // Ahora puedes usar 'numero' como un entero
-
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();  
+        int elementosObtener = Integer.parseInt(String.valueOf(seleccionadorExtraccion.getValue())); 
+        controlador.VentanaExtraccionMultiple(elementosObtener, this);
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
 
@@ -179,10 +154,8 @@ public class VentanaExtraccionMultiple extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaExtraccionMultiple().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new VentanaExtraccionMultiple().setVisible(true);
         });
     }
 

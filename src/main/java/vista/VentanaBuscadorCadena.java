@@ -1,22 +1,19 @@
 package vista;
 
-import controlador.ControladorMaestro;
-import controlador.BusquedaLinks;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import controlador.ControladoresConcretos;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 public class VentanaBuscadorCadena extends javax.swing.JFrame {
-
-    public VentanaBuscadorCadena() {
+    
+    private ControladoresConcretos controlador;
+    public VentanaBuscadorCadena(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);
         botonEjecutarBusqueda.setEnabled(false);
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -130,44 +127,24 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-        String CadenaBusqueda;
-        CadenaBusqueda = campoEntradaBuscador.getText().trim();
-        System.out.println(CadenaBusqueda + "Cadena");
-        
-        WebDriver driver = new ChromeDriver();
-        try {
-            ControladorMaestro controler = new ControladorMaestro();
-            controler.inyectarCookies( driver );
-        } catch (IOException | ParseException ex) {
-            Logger.getLogger(VentanaBuscadorCadena.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-        BusquedaLinks buscador = new BusquedaLinks(driver);
-        buscador.insercionIndirectaBuscadorURL(CadenaBusqueda);
-        driver.quit();
-        
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();
+        String CadenaBusqueda = campoEntradaBuscador.getText().trim();
+        controlador.VentanaBuscadorCadena(CadenaBusqueda, this);      
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
     private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased
         String text = campoEntradaBuscador.getText();
-    // Verificar si el campo de texto está vacío
         if (text.isEmpty()) {
             botonEjecutarBusqueda.setEnabled(false);
         } else {
@@ -177,12 +154,11 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
-            // Establece el look and feel predeterminado del sistema
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new VentanaBuscadorCadena().setVisible(true);
+            //new VentanaBuscadorCadena(controlador).setVisible(true);
         });
     }
 

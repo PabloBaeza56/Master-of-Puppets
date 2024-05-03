@@ -13,6 +13,5 @@ public class Experiencia {
     @Setter private String nombreEmpresa;
     @Setter private String puestoEmpleado;
     @Setter private Fechas permanenciaEmpleado;
-    @Setter private String ubicacionEmpleado;
-   
+    @Setter private String ubicacionEmpleado;  
 }

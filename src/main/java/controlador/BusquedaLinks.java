@@ -16,7 +16,7 @@ public class BusquedaLinks {
     private final ObtenerContactosPivote pivoteador;
     private final MinadoDatos minador ;
     private final WebDriver driver;
-    private InserccionDatos mongo;
+    private final InserccionDatos mongo;
     
     public BusquedaLinks(WebDriver driver){
         this.driver = driver;
@@ -69,9 +69,5 @@ public class BusquedaLinks {
     
     public void pivotesPropios_Conectados_(){
         this.pivoteador.ActualizarPivotes();
-    }
-    
-    
-    
-    
+    }  
 }

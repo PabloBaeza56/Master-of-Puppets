@@ -11,8 +11,8 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 @ToString
 public class LinkUsuario {
+    
     @Setter @Getter private ObjectId _id;
     @Setter @Getter private String UrlUsuario;
     @Setter @Getter private Boolean visitado;
-
 }

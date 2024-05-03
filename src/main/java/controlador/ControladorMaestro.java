@@ -1,22 +1,20 @@
 package controlador;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -30,28 +28,29 @@ public final class ControladorMaestro {
     @Setter private String correo;
     @Setter private String contrasenia;
     private Map<String, String> cookiesMap;
+    @Getter Cache<Object, Object> cache;
 
     public ControladorMaestro() throws IOException, ParseException {
+        Utilidades manejadorFechas = new Utilidades();
 
-        Date fechaArchivo = this.leerFechaArchivo("fecha_actual.txt");
-        Calendar fechaActual = this.obtenerFechaActual();
-        Date fechaActualDate = fechaActual.getTime();
+        Date fechaArchivo = manejadorFechas.leerFechaArchivo("fecha_actual.txt");
+        Date fechaActualDate = manejadorFechas.obtenerFechaActual().getTime();
 
-        System.out.println(fechaArchivo);
-        System.out.println(fechaActualDate);
-
-        if (this.haPasadoUnaSemana(fechaActualDate, fechaArchivo)) {
+        if (manejadorFechas.haPasadoUnaSemana( fechaArchivo, fechaActualDate)) {
             System.out.println("Las cookies del archivo han expirado");
             WebDriver driver = new ChromeDriver();
             this.cargarPropiedades();
             this.iniciarSesion(driver);
             this.guardarCookiesInicioSesion(driver);
-            this.escribirEnArchivoFechaActual();
+            manejadorFechas.escribirEnArchivoFechaActual();
             driver.quit();
             System.out.println("Actualizacion finalizada");
         } else {
             System.out.println("Las cookies del archivo estan vigentes");
         }
+        cache = Caffeine.newBuilder().maximumSize(1000).build();
+        Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
+        cache.put(1L, cookies);
     }
 
     private void cargarPropiedades() {
@@ -61,8 +60,7 @@ public final class ControladorMaestro {
             propiedades.load(input);
             setCorreo(propiedades.getProperty("correo"));
             setContrasenia(propiedades.getProperty("contrasenia"));
-        } catch (IOException e) {
-        }
+        } catch (IOException e) {}
     }
 
     private void iniciarSesion(WebDriver driver) {
@@ -99,7 +97,7 @@ public final class ControladorMaestro {
         }
     }
 
-    protected Map<String, String> leerCookiesDesdeArchivo(String nombreArchivo) {
+    public Map<String, String> leerCookiesDesdeArchivo(String nombreArchivo) {
         this.cookiesMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
@@ -125,141 +123,12 @@ public final class ControladorMaestro {
     }
 
     public void inyectarCookies(WebDriver driver) {
+        System.out.println("Agregando las cookies desde el cache");
         driver.get("https://www.linkedin.com/login");
-        Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
+        //Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
+        Map<String, String> cookies = (Map<String, String>) cache.getIfPresent(1L);
         this.cargarCookiesInicioSesion(cookies, driver);
         driver.navigate().refresh();
 
     }
-    
-    public static void escribirEnArchivoFechaActualMas10Dias() {
-
-        Date fechaActual = new Date();
-
-        Calendar calendario = Calendar.getInstance();
-        calendario.setTime(fechaActual);
-
-        calendario.add(Calendar.DAY_OF_YEAR, 10);
-
-        Date fechaMas10Dias = calendario.getTime();
-
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String fechaFormateada = formato.format(fechaMas10Dias);
-
-        String nombreArchivo = "fecha_actual.txt";
-
-        String rutaArchivo = System.getProperty("user.dir") + File.separator + nombreArchivo;
-
-        try {
-            try (FileWriter escritor = new FileWriter(rutaArchivo)) {
-                escritor.write(fechaFormateada);
-            }
-            System.out.println("Se ha creado el archivo '" + nombreArchivo + "' correctamente.");
-        } catch (IOException e) {
-            System.out.println("Error al crear el archivo: " + e.getMessage());
-        }
-    }
-
-    private void escribirEnArchivoFechaActual() {
-
-        Date fechaActual = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String fechaFormateada = formato.format(fechaActual);
-
-        String nombreArchivo = "fecha_actual.txt";
-
-        String rutaArchivo = System.getProperty("user.dir") + File.separator + nombreArchivo;
-
-        try {
-            try (FileWriter escritor = new FileWriter(rutaArchivo)) {
-                escritor.write(fechaFormateada);
-            }
-            System.out.println("Se ha creado el archivo '" + nombreArchivo + "' correctamente.");
-        } catch (IOException e) {
-            System.out.println("Error al crear el archivo: " + e.getMessage());
-        }
-
-    }
-
-    protected Date leerFechaArchivo(String rutaArchivo) throws IOException, ParseException {
-        try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
-            String fechaArchivoTexto = lector.readLine();
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return formato.parse(fechaArchivoTexto);
-        }
-    }
-
-    protected Calendar obtenerFechaActual() {
-        return Calendar.getInstance();
-    }
-
-    protected boolean haPasadoUnaSemana(Date fechaArchivo, Date fechaActual) {
-        Calendar calFechaActual = Calendar.getInstance();
-        calFechaActual.setTime(fechaActual);
-
-        Calendar calFechaArchivo = Calendar.getInstance();
-        calFechaArchivo.setTime(fechaArchivo);
-
-        long diferenciaEnMilisegundos = calFechaActual.getTimeInMillis() - calFechaArchivo.getTimeInMillis();
-
-        long diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
-
-        return diferenciaEnDias >= 7;
-    }
-
-    public static void modificarArchivoProperties(String rutaArchivo, String clave, String nuevoValor) {
-        Properties properties = new Properties();
-        OutputStream output = null;
-        FileInputStream inputStream = null;
-
-        try {
-            inputStream = new FileInputStream(rutaArchivo);
-            properties.load(inputStream);
-
-            properties.setProperty(clave, nuevoValor);
-
-            output = new FileOutputStream(rutaArchivo);
-            properties.store(output, null);
-
-            System.out.println("Archivo properties modificado correctamente.");
-        } catch (IOException io) {
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                }
-            }
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-    }
-
-    public static String leerValorProperties(String rutaArchivo, String clave) {
-        Properties properties = new Properties();
-        FileInputStream inputStream = null;
-
-        try {
-            inputStream = new FileInputStream(rutaArchivo);
-            properties.load(inputStream);
-
-            String valor = properties.getProperty(clave);
-
-            return valor;
-        } catch (IOException io) {
-            return null;
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-    }
-
 }

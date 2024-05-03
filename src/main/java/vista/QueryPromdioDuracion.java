@@ -1,19 +1,19 @@
 package vista;
 
-import database.QuerysMongoDB;
+import controlador.ControladoresConcretos;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class QueryPromdioDuracion extends javax.swing.JFrame {
 
-    public QueryPromdioDuracion() {
+    private ControladoresConcretos controlador;
+    public QueryPromdioDuracion(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);
         botonEjecutarBusqueda.setEnabled(false); 
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -234,36 +234,21 @@ public class QueryPromdioDuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-
-        String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();
-        String CampoUniversidadEspaniol = campoUniversidadEspaniol.getText().trim();
-        String CampoUniversidadIngles = campoUniversidadIngles.getText().trim();
-        String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
-        String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
-        
+  
          Map<String, String> datos = new HashMap<String, String>() {{
-            put("acronimoUniversidad", CampoUniversidadAcronimo);
-            put("nombreUniversidadEspaniol", CampoUniversidadEspaniol);
-            put("nombreUniversidadIngles", CampoUniversidadIngles);
+            put("acronimoUniversidad", campoUniversidadAcronimo.getText().trim());
+            put("nombreUniversidadEspaniol", campoUniversidadEspaniol.getText().trim());
+            put("nombreUniversidadIngles", campoUniversidadIngles.getText().trim());
             
-            put("nombreCarreraEspaniol", NombreCarreraEspaniol);
-            put("nombreCarreraIngles", NombreCarreraIngles);
+            put("nombreCarreraEspaniol", nombreCarreraEspaniol.getText().trim());
+            put("nombreCarreraIngles", nombreCarreraIngles.getText().trim());
         }};
          
-        QuerysMongoDB db = new QuerysMongoDB();
-        double resultado = db.obtenerPromedioDuracionEmpleo(datos);
-        
-        JOptionPane.showMessageDialog(this, resultado + "   Meses en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
-        
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();
+        controlador.QueryPromdioDuracion(datos, this);      
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
@@ -296,12 +281,11 @@ public class QueryPromdioDuracion extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
-            // Establece el look and feel predeterminado del sistema
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new QueryPromdioDuracion().setVisible(true);
+            //new QueryPromdioDuracion(controlador).setVisible(true);
         });
     }
     
@@ -312,7 +296,6 @@ public class QueryPromdioDuracion extends javax.swing.JFrame {
         String NombreCarreraEspaniol = nombreCarreraEspaniol.getText().trim();
         String NombreCarreraIngles = nombreCarreraIngles.getText().trim();
 
-        // Verificar si algún campo de texto está vacío
         if (!CampoUniversidadAcronimo.isEmpty() && !CampoUniversidadEspaniol.isEmpty() &&
             !CampoUniversidadIngles.isEmpty() && !NombreCarreraEspaniol.isEmpty() &&   
             !NombreCarreraIngles.isEmpty()) 

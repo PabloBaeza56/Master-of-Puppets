@@ -1,24 +1,17 @@
 package vista;
 
-import controlador.ControladorMaestro;
-import controlador.BusquedaLinks;
+import controlador.ControladoresConcretos;
 import database.BusquedaDatos;
-import database.InserccionDatos;
-import database.MongoDBConnection;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
 
-    public VentanaBuscadorContactosAmigos() {
+    private ControladoresConcretos controlador;
+    public VentanaBuscadorContactosAmigos(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);   
+        this.controlador = controlador;
     }
 
     @SuppressWarnings("unchecked")
@@ -139,61 +132,34 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
-
         String CadenaBusqueda = (String) ComboBoxPivote.getSelectedItem();
-        BusquedaDatos db = new BusquedaDatos();
-        String URLasociadoNombre = db.buscarUrlAsociadoConNombrePivote(CadenaBusqueda);
-        
-        WebDriver driver = new ChromeDriver();
-        try {
-            ControladorMaestro controler = new ControladorMaestro();
-            controler.inyectarCookies( driver );
-        } catch (IOException | ParseException ex) {
-            Logger.getLogger(VentanaBuscadorCadena.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     
-        BusquedaLinks buscador = new BusquedaLinks(driver);
-        buscador.pivoteSimple(URLasociadoNombre);
-        driver.quit();
-        
-                InserccionDatos dbx = new InserccionDatos();
-        dbx.eliminarDuplicadosPorUrlUsuario();
-        
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
-        this.dispose();
+        controlador.VentanaBuscadorContactosAmigos(CadenaBusqueda, this);
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
     private void ComboBoxPivoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxPivoteActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_ComboBoxPivoteActionPerformed
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
         try {
-            // Establece el look and feel predeterminado del sistema
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaBuscadorContactosAmigos().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new VentanaBuscadorContactosAmigos(controlador).setVisible(true);
         });
     }
 

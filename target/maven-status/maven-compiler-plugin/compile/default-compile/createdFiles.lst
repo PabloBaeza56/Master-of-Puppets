@@ -8,7 +8,6 @@ vista\PantallaPrincipal$6.class
 vista\CambiarUsuario.class
 vista\CambiarUsuario$3.class
 modelo\Usuario$UsuarioBuilder.class
-vista\IngresarUsuario$5.class
 database\InserccionDatos.class
 vista\PantallaPrincipal$3.class
 vista\QueryPromdioNumeroEmpleos$9.class
@@ -23,7 +22,6 @@ scrapper\MinadoDatos.class
 vista\Creditos$1.class
 vista\QueryEmpresasTrabajadas$9.class
 scrapper\ObtenerEducacion.class
-vista\VentanaExtraccionMultiple$5.class
 vista\QueryPromdioDuracion$10.class
 vista\QueryPromdioDuracion$2.class
 database\QuerysMongoDB.class
@@ -32,6 +30,7 @@ vista\QueryPromdioDuracion.class
 vista\PantallaPrincipal$1.class
 modelo\Usuario.class
 automata\IteradorPorURL.class
+controlador\Utilidades.class
 vista\VentanaBuscadorContactosAmigos$3.class
 vista\Creditos$2.class
 vista\VentanaBuscadorPorURL$2.class
@@ -40,10 +39,8 @@ vista\QueryEmpresasTrabajadas$10.class
 vista\QueryEmpresasTrabajadas$3.class
 database\MongoDBConnection.class
 vista\QueryPromdioDuracion$7.class
-vista\PantallaPrincipal$13.class
 vista\CambiarUsuario$2.class
 vista\PantallaPrincipal$8.class
-vista\IngresarUsuario$4.class
 vista\VentanaBuscadorCadena$2.class
 vista\QueryPromdioNumeroEmpleos$4.class
 database\MongoDBConnection$MongoDBConnectionHolder.class
@@ -54,7 +51,6 @@ controlador\ExtraccionDatos.class
 vista\VentanaExtraccionMultiple$3.class
 vista\VentanaBuscadorPorURL$1.class
 vista\PantallaPrincipal$12.class
-vista\Creditos$3.class
 vista\PantallaPrincipal$2.class
 automata\BuscarPorBarraBusqueda.class
 vista\VentanaBuscadorContactosAmigos$4.class
@@ -78,10 +74,10 @@ vista\VentanaBuscadorCadena.class
 modelo\Fechas.class
 controlador\ControladorMaestro.class
 vista\VentanaBuscadorManual$3.class
+controlador\ControladoresConcretos.class
 vista\VentanaExtraccionMultiple$1.class
 vista\QueryPromdioDuracion$6.class
 vista\QueryPromdioNumeroEmpleos$2.class
-vista\VentanaBuscadorManual$6.class
 vista\IngresarUsuario$1.class
 vista\VentanaBuscadorManual.class
 vista\PantallaPrincipal$7.class
@@ -91,7 +87,6 @@ vista\QueryPromdioNumeroEmpleos$8.class
 vista\CambiarUsuario$1.class
 vista\CambiarUsuario$4.class
 vista\QueryPromdioDuracion$9.class
-vista\VentanaBuscadorPorURL$6.class
 vista\VentanaBuscadorPorURL$3.class
 vista\PantallaPrincipal$11.class
 vista\QueryPromdioNumeroEmpleos$5.class
@@ -101,21 +96,17 @@ automata\IteradorPaginasBusqueda.class
 controlador\BusquedaLinks.class
 vista\QueryPromdioDuracion$3.class
 vista\VentanaBuscadorCadena$5.class
-scrapper\NewMain.class
 vista\VentanaExtraccionMultiple.class
 modelo\LinkUsuario.class
 vista\IngresarUsuario.class
 vista\PantallaPrincipal$10.class
-vista\VentanaBuscadorContactosAmigos$6.class
 vista\VentanaBuscadorPorURL$5.class
 vista\QueryEmpresasTrabajadas$6.class
 vista\QueryPromdioNumeroEmpleos$1.class
 scrapper\ObtenerExperiencia.class
 vista\VentanaBuscadorContactosAmigos.class
 vista\PantallaPrincipal$5.class
-vista\CambiarUsuario$5.class
 vista\QueryPromdioNumeroEmpleos.class
-vista\CambiarUsuario$6.class
 vista\VentanaBuscadorManual$1.class
 vista\VentanaBuscadorCadena$4.class
 vista\QueryPromdioNumeroEmpleos$7.class

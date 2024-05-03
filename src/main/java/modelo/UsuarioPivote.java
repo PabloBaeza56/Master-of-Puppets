@@ -11,9 +11,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UsuarioPivote {
+    
     @Setter @Getter private String nombre;
     @Setter @Getter private String UrlUsuario;
-
 }
 
 

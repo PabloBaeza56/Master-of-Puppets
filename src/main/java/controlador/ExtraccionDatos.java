@@ -32,7 +32,6 @@ public class ExtraccionDatos {
             newDriver.get(elemento.getUrlUsuario());
             
             Usuario usuario = this.PerfilCompleto(newDriver);
-            System.out.println(usuario);
             db.InsertarDocumento(usuario);
             db.marcarDocumentoComoVisitado(elemento.get_id());
             
@@ -43,16 +42,12 @@ public class ExtraccionDatos {
     private Usuario PerfilCompleto(WebDriver driver) {
         AutomataDatos movilizador = new AutomataDatos(driver);
         movilizador.busquedaIndicesSeccionesMain();
-        
-        ObtenerDatosCabecera obtenerCabecera = new ObtenerDatosCabecera(driver);
-        ObtenerExperiencia obtenerExperiencia = new ObtenerExperiencia(driver, movilizador);
-        ObtenerEducacion obtenerEducacion = new ObtenerEducacion(driver, movilizador);
-        
+ 
         
         Usuario usuario = new Usuario.UsuarioBuilder()
-                    .informacionPersonal(obtenerCabecera.seccionCabcecera())
-                    .experienciaLaboral(obtenerExperiencia.seccionExperiencia())
-                    .educacion(obtenerEducacion.seccionEducacion())
+                    .informacionPersonal(new ObtenerDatosCabecera(driver).seccionCabcecera())
+                    .experienciaLaboral(new ObtenerExperiencia(driver, movilizador).seccionExperiencia())
+                    .educacion(new ObtenerEducacion(driver, movilizador).seccionEducacion())
                     .build();
         
         return usuario;

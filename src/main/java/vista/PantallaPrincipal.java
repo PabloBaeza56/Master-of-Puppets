@@ -1,13 +1,20 @@
 package vista;
 
+import controlador.ControladoresConcretos;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
 
-    public PantallaPrincipal() {
+    protected ControladoresConcretos controlador;
+    public PantallaPrincipal() throws IOException, ParseException {
         initComponents();
         setResizable(false);
+        controlador = new ControladoresConcretos();
         
     }
 
@@ -330,75 +337,63 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaBuscadorCadena modal = new VentanaBuscadorCadena();
+        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       VentanaBuscadorCadena modal = new VentanaBuscadorCadena();
+       VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        VentanaBuscadorCadena modal = new VentanaBuscadorCadena();
+        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        VentanaBuscadorContactosAmigos modal = new VentanaBuscadorContactosAmigos();
+        VentanaBuscadorContactosAmigos modal = new VentanaBuscadorContactosAmigos(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        VentanaExtraccionMultiple modal = new VentanaExtraccionMultiple();
+        VentanaExtraccionMultiple modal = new VentanaExtraccionMultiple(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        VentanaBuscadorManual modal = new VentanaBuscadorManual();
+        VentanaBuscadorManual modal = new VentanaBuscadorManual(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        VentanaBuscadorPorURL modal = new VentanaBuscadorPorURL();
+        VentanaBuscadorPorURL modal = new VentanaBuscadorPorURL(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        QueryPromdioDuracion modal = new QueryPromdioDuracion();
+        QueryPromdioDuracion modal = new QueryPromdioDuracion(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        QueryEmpresasTrabajadas modal = new QueryEmpresasTrabajadas();
+        QueryEmpresasTrabajadas modal = new QueryEmpresasTrabajadas(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        QueryPromdioNumeroEmpleos modal = new QueryPromdioNumeroEmpleos();
+        QueryPromdioNumeroEmpleos modal = new QueryPromdioNumeroEmpleos(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         Creditos modal = new Creditos();
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        CambiarUsuario modal = new CambiarUsuario();
+        CambiarUsuario modal = new CambiarUsuario(controlador);
         modal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     public static void main(String args[]) {
@@ -407,10 +402,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new PantallaPrincipal().setVisible(true);
-                
+            } catch (IOException | ParseException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
