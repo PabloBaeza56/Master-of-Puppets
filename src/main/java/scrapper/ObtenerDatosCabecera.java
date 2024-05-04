@@ -1,5 +1,6 @@
 package scrapper;
 
+import modelo.RelativeXpath;
 import modelo.datosBasicos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -30,7 +31,7 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
 
         super.settearMinadoObligatorio(
                 elementoBase.findElement(By.xpath("./div[1]/div[1]")),
-                ".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]",
+                new RelativeXpath(".//span[contains(@class, 'artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-bottom')]"),
                 "Nombre Persona",
                 this.cabecera::setNombre
         );
@@ -43,7 +44,7 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
 
         super.settearMinadoObligatorio(
                 elementoBase.findElement(By.xpath("./div[2]")),
-                ".//span[contains(@class, 'text-body-small inline t-black--light break-words')]",
+                new RelativeXpath(".//span[contains(@class, 'text-body-small inline t-black--light break-words')]"),
                 "Ubicacion Persona",
                 this.cabecera::setUbicacion
         );

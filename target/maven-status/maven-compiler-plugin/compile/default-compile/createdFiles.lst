@@ -42,6 +42,7 @@ vista\QueryPromdioDuracion$7.class
 vista\CambiarUsuario$2.class
 vista\PantallaPrincipal$8.class
 vista\VentanaBuscadorCadena$2.class
+scrapper\Automatron.class
 vista\QueryPromdioNumeroEmpleos$4.class
 database\MongoDBConnection$MongoDBConnectionHolder.class
 vista\VentanaExtraccionMultiple$2.class
@@ -62,11 +63,9 @@ modelo\datosBasicos.class
 vista\Creditos.class
 vista\QueryPromdioDuracion$1.class
 vista\VentanaBuscadorCadena$1.class
-scrapper\IteradorTablaWebSimplificado.class
 vista\VentanaBuscadorManual$4.class
 vista\IngresarUsuario$3.class
 scrapper\MandatoryElementException.class
-automata\AutomataDatos.class
 vista\QueryEmpresasTrabajadas$5.class
 vista\VentanaBuscadorContactosAmigos$5.class
 vista\VentanaExtraccionMultiple$4.class

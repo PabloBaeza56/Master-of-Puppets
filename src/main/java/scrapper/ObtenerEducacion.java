@@ -1,20 +1,19 @@
 package scrapper;
 
-import automata.AutomataDatos;
+import automata.Automatron;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Educacion;
+import modelo.RelativeXpath;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
-    private final IteradorTablaWebSimplificado movilizador;
+    private final Automatron movilizador;
     private final ArrayList<Educacion> listaEducacion;
 
-    public ObtenerEducacion(WebDriver driver, IteradorTablaWebSimplificado movilizador) {
+    public ObtenerEducacion(WebDriver driver, Automatron movilizador) {
         super(driver);
         this.movilizador = movilizador;
         this.listaEducacion = new ArrayList<>();
@@ -33,11 +32,11 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
             try {
                 Educacion educacionPersona = new Educacion();
 
-                super.settearMinadoObligatorio(elementoBase, "./div/div/div/div/span[1]", "setCentroEducativo ", educacionPersona::setCentroEducativo);
+                super.settearMinadoObligatorio(elementoBase, new RelativeXpath("./div/div/div/div/span[1]"), "setCentroEducativo ", educacionPersona::setCentroEducativo);
 
-                super.settearMinadoOpcional(elementoBase, "./span[1]/span[1]", educacionPersona::setGradoAcademico);
+                super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[1]/span[1]"), educacionPersona::setGradoAcademico);
 
-                super.settearMinadoOpcional(elementoBase, "./span[2]/span[1]", (String fecha) -> {
+                super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[2]/span[1]"), (String fecha) -> {
                     try {
                         String[] partesFecha = fecha.split("-");
                         educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));
@@ -47,14 +46,13 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
                 });
 
                 listaEducacion.add(educacionPersona);
-            } catch (MandatoryElementException ex) {
-            }
+            } catch (MandatoryElementException ex) {}
 
         };
 
         movilizador.procesarElementos(secciondeseada, subcadenaParte1, subcadenaParte2, iterable);
 
-        return listaEducacion;
+        return this.listaEducacion;
     }
 
 }

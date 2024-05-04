@@ -9,7 +9,6 @@ import modelo.LinkUsuario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import scrapper.Mineable;
 import static scrapper.Mineable.obtenerElementosNoDuplicados;
 import scrapper.ObtenerContactosPivote;
 
@@ -18,7 +17,6 @@ public class BusquedaLinks {
     private final IteradorPorURL iterador;
     private final BuscarPorBarraBusqueda buscador;
     private final ObtenerContactosPivote pivoteador;
-    private final Mineable minador ;
     private final WebDriver driver;
     private final InserccionDatos mongo;
     
@@ -27,7 +25,6 @@ public class BusquedaLinks {
         this.buscador = new BuscarPorBarraBusqueda(driver);
         this.iterador = new IteradorPorURL(driver);
         this.pivoteador = new ObtenerContactosPivote(driver);
-        this.minador =  new Mineable(driver);
         this.mongo = new InserccionDatos();
     }
     

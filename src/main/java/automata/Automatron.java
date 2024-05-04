@@ -1,6 +1,5 @@
-package scrapper;
+package automata;
 
-import automata.IteradorElementoTablaWeb;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -10,11 +9,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class IteradorTablaWebSimplificado extends IteradorElementoTablaWeb{
+public class Automatron extends IteradorElementoTablaWeb{
     
     @Getter public final Map<String, Integer> indicesSeccionesMain;
 
-    public IteradorTablaWebSimplificado(WebDriver driver) {
+    public Automatron(WebDriver driver) {
         super(driver);
         this.indicesSeccionesMain = new HashMap<>();
     }

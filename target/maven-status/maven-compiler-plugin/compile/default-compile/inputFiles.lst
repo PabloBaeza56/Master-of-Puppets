@@ -2,11 +2,11 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\mod
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\BuscarPorBarraBusqueda.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\VentanaBuscadorContactosAmigos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\BusquedaDatos.java
-C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\IteradorTablaWebSimplificado.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\VentanaBuscadorPorURL.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\IteradorElementoTablaWeb.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\QueryEmpresasTrabajadas.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\MandatoryElementException.java
+C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\Automatron.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\Experiencia.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\datosBasicos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\VentanaBuscadorCadena.java
@@ -18,7 +18,6 @@ C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\con
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\database\QuerysMongoDB.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\modelo\UsuarioPivote.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\controlador\Utilidades.java
-C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\AutomataDatos.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\automata\IteradorPorURL.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\vista\CambiarUsuario.java
 C:\Users\pablo\OneDrive\Documentos\NetBeansProjects\STEM-RADAR\src\main\java\scrapper\MandatorySectionException.java

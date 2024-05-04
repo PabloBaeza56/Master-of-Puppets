@@ -1,11 +1,13 @@
 package scrapper;
 
-import automata.AutomataDatos;
+
+import automata.Automatron;
 import automata.IteradorPorURL;
 import database.InserccionDatos;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.LinkUsuario;
+import modelo.RelativeXpath;
 import modelo.UsuarioPivote;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,16 +17,16 @@ import static scrapper.Mineable.obtenerElementosNoDuplicados;
 public class ObtenerContactosPivote extends Mineable {
 
     private final IteradorPorURL iterador;
-    private final Mineable minador;
+
     private final InserccionDatos mongo;
-    private final AutomataDatos movilizador;
+    private final Automatron movilizador;
 
     public ObtenerContactosPivote(WebDriver driver) {
         super(driver);
-        this.minador = new Mineable(super.driver);
+  
         this.iterador = new IteradorPorURL(driver);
         this.mongo = new InserccionDatos();
-        this.movilizador = new AutomataDatos(driver);
+        this.movilizador = new Automatron(driver);
     }
     
     public ArrayList<LinkUsuario> obtenerLinksUsuariosLinkedIn() {
@@ -78,21 +80,21 @@ public class ObtenerContactosPivote extends Mineable {
         super.driver.get("https://www.linkedin.com/mynetwork/invite-connect/connections/");
         super.esperaImplicita();
 
-        this.movilizador.iteradorTabla.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div/div/div[2]/div/div/main/div/section/div[2]/div[1]/ul/li[");
-        this.movilizador.iteradorTabla.setSubcadenaParte2("]");
-        while (this.movilizador.iteradorTabla.existeSiguienteElemento()) {
+        this.movilizador.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div/div/div[2]/div/div/main/div/section/div[2]/div[1]/ul/li[");
+        this.movilizador.setSubcadenaParte2("]");
+        while (this.movilizador.existeSiguienteElemento()) {
 
             super.esperaExplicita(1);
             UsuarioPivote user = new UsuarioPivote();
 
-            WebElement elementoBase = super.driver.findElement(By.xpath(this.movilizador.iteradorTabla.getXpathActual()));
+            WebElement elementoBase = super.driver.findElement(By.xpath(this.movilizador.getXpathActual()));
 
-            super.settearMinadoOpcional(elementoBase, "./div/div/div[1]/a/span[2]", cadenaNombre -> {
+            super.settearMinadoOpcional(elementoBase, new RelativeXpath("./div/div/div[1]/a/span[2]"), cadenaNombre -> {
                 if (!cadenaNombre.isEmpty()) {
                     user.setNombre(cadenaNombre);
                 }
             });
-            super.settearMinadoOpcional(elementoBase, "./div/div/div[2]/a/span[2]", cadenaNombre -> {
+            super.settearMinadoOpcional(elementoBase, new RelativeXpath("./div/div/div[2]/a/span[2]"), cadenaNombre -> {
                 if (!cadenaNombre.isEmpty()) {
                     user.setNombre(cadenaNombre);
                 }
@@ -100,10 +102,10 @@ public class ObtenerContactosPivote extends Mineable {
 
             user.setUrlUsuario(super.obtenerLink(elementoBase));
             this.mongo.InsertarDocumento(user);
-            this.movilizador.iteradorTabla.siguienteElemento();
+            this.movilizador.siguienteElemento();
 
         }
-        this.movilizador.iteradorTabla.reiniciarIterador();
+        this.movilizador.reiniciarIterador();
     }
 
 }

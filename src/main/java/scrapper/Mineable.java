@@ -1,11 +1,13 @@
 package scrapper;
 
+import automata.Automatron;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
+import modelo.RelativeXpath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -30,9 +32,9 @@ public class Mineable {
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
-    protected String minarTextoOpcional(WebElement elementoBase, String selector) {
+    protected String minarTextoOpcional(WebElement elementoBase, RelativeXpath selector) {
         try {
-            WebElement elemento = elementoBase.findElement(By.xpath(selector));
+            WebElement elemento = elementoBase.findElement(By.xpath(selector.getValue()));
             String[] texto = elemento.getText().split("\\n");
             return texto[0];
         } catch (NoSuchElementException e) {
@@ -40,14 +42,14 @@ public class Mineable {
         }
     }
 
-    public void settearMinadoOpcional(WebElement elementoBase, String selector, Consumer<String> setter) {
+    public void settearMinadoOpcional(WebElement elementoBase, RelativeXpath selector, Consumer<String> setter) {
         String dato = minarTextoOpcional(elementoBase, selector);
         setter.accept(dato);
     }
 
-    protected String minarTextoObligatorio(WebElement elementoBase, String selector, String nombreElementoMinable) throws MandatoryElementException {
+    protected String minarTextoObligatorio(WebElement elementoBase, RelativeXpath selector, String nombreElementoMinable) throws MandatoryElementException {
         try {
-            WebElement elemento = elementoBase.findElement(By.xpath(selector));
+            WebElement elemento = elementoBase.findElement(By.xpath(selector.getValue()));
             String[] texto = elemento.getText().split("\\n");
             return texto[0];
         } catch (NoSuchElementException e) {
@@ -55,7 +57,7 @@ public class Mineable {
         }
     }
 
-    public void settearMinadoObligatorio(WebElement elementoBase, String selector, String nombreElementoMinable, Consumer<String> setter) throws MandatoryElementException {
+    public void settearMinadoObligatorio(WebElement elementoBase, RelativeXpath selector, String nombreElementoMinable, Consumer<String> setter) throws MandatoryElementException {
         String dato = minarTextoObligatorio(elementoBase, selector, nombreElementoMinable);
         setter.accept(dato);
     }
@@ -86,7 +88,7 @@ public class Mineable {
         return new ArrayList<>(set);
     }
     
-    public Integer MinadoSeccionObligatoria(IteradorTablaWebSimplificado movilizador, String seccion) throws MandatorySectionException{
+    public Integer MinadoSeccionObligatoria(Automatron movilizador, String seccion) throws MandatorySectionException{
         try {
             return movilizador.getIndicesSeccionesMain().get(seccion);
         } catch (NullPointerException e) {
