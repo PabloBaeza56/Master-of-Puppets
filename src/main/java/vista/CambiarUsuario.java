@@ -3,6 +3,8 @@ package vista;
 import controlador.ControladoresConcretos;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -151,7 +153,11 @@ public class CambiarUsuario extends javax.swing.JFrame {
         String UsuarioTextBox = usuarioTextBox.getText().trim();
         String ContraseniaTextBox = contraseniaTextBox.getText().trim();
         
-        controlador.cambiarUsuarioLinkedin(UsuarioTextBox, ContraseniaTextBox, this);
+        try {
+            controlador.cambiarUsuarioLinkedin(UsuarioTextBox, ContraseniaTextBox, this);
+        } catch (IOException | ParseException ex) {
+            Logger.getLogger(CambiarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ejecutarCambioBotonActionPerformed
 
     private void usuarioTextBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioTextBoxKeyReleased

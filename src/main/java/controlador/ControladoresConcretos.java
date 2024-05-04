@@ -20,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import scrapper.MandatoryElementException;
 import vista.CambiarUsuario;
 import vista.IngresarUsuario;
 import vista.QueryEmpresasTrabajadas;
@@ -79,7 +80,7 @@ public class ControladoresConcretos {
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
-    public void cambiarUsuarioLinkedin(String UsuarioTextBox, String ContraseniaTextBox, CambiarUsuario objeto) {
+    public void cambiarUsuarioLinkedin(String UsuarioTextBox, String ContraseniaTextBox, CambiarUsuario objeto) throws IOException, ParseException {
         String correoGuardado = this.utilidades.leerValorProperties("config.properties", "correo");
         String contraseniaGuardada = this.utilidades.leerValorProperties("config.properties", "contrasenia");
 
@@ -105,7 +106,7 @@ public class ControladoresConcretos {
         }
     }
 
-    public void IngresarUsuario(String UsuarioTextBox, String ContraseniaTextBox, IngresarUsuario objeto) {
+    public void IngresarUsuario(String UsuarioTextBox, String ContraseniaTextBox, IngresarUsuario objeto) throws IOException, ParseException {
         String paginaActual = this.intentarInicioDeSesion(UsuarioTextBox, ContraseniaTextBox);
 
         if (paginaActual.equals("https://www.linkedin.com/feed/")) {
@@ -238,7 +239,7 @@ public class ControladoresConcretos {
         JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void VentanaExtraccionMultiple(int elementosObtener, VentanaExtraccionMultiple objeto) {
+    public void VentanaExtraccionMultiple(int elementosObtener, VentanaExtraccionMultiple objeto) throws MandatoryElementException {
 
         JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 

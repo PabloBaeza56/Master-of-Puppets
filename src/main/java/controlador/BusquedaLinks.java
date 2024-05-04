@@ -4,9 +4,13 @@ import automata.BuscarPorBarraBusqueda;
 import automata.IteradorPorURL;
 import database.InserccionDatos;
 import java.util.ArrayList;
+import java.util.List;
 import modelo.LinkUsuario;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import scrapper.MinadoDatos;
+import org.openqa.selenium.WebElement;
+import scrapper.Mineable;
+import static scrapper.Mineable.obtenerElementosNoDuplicados;
 import scrapper.ObtenerContactosPivote;
 
 public class BusquedaLinks {
@@ -14,7 +18,7 @@ public class BusquedaLinks {
     private final IteradorPorURL iterador;
     private final BuscarPorBarraBusqueda buscador;
     private final ObtenerContactosPivote pivoteador;
-    private final MinadoDatos minador ;
+    private final Mineable minador ;
     private final WebDriver driver;
     private final InserccionDatos mongo;
     
@@ -23,8 +27,34 @@ public class BusquedaLinks {
         this.buscador = new BuscarPorBarraBusqueda(driver);
         this.iterador = new IteradorPorURL(driver);
         this.pivoteador = new ObtenerContactosPivote(driver);
-        this.minador =  new MinadoDatos(driver);
+        this.minador =  new Mineable(driver);
         this.mongo = new InserccionDatos();
+    }
+    
+    
+     public ArrayList<LinkUsuario> obtenerLinksUsuariosLinkedIn() {
+        
+        List<WebElement> enlaces = driver.findElements(By.tagName("a"));
+
+        ArrayList<LinkUsuario> elementosValidos = new ArrayList<>();
+
+        for (WebElement enlace : enlaces) {
+            String url = enlace.getAttribute("href");
+            if (url != null && url.contains("https://www.linkedin.com/in/")) {
+                char primerChar = url.charAt(28);
+
+                if (Character.isLowerCase(primerChar)) {
+                    LinkUsuario user = new LinkUsuario();
+                    user.setVisitado(Boolean.FALSE);
+                    user.setUrlUsuario(url);
+                    elementosValidos.add(user);
+                }
+            }
+        }
+
+        ArrayList<LinkUsuario> arregloFinal = obtenerElementosNoDuplicados(elementosValidos);
+
+        return arregloFinal;
     }
     
     public void insercionIndirectaBuscadorURL(String cadenaDeseada){
@@ -32,7 +62,7 @@ public class BusquedaLinks {
 
         while (!this.iterador.esUltimaPagina(this.driver)) {
             this.driver.get(cadenaPreparada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
-            ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
+            ArrayList<LinkUsuario> arregloFinal = this.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }
@@ -45,7 +75,7 @@ public class BusquedaLinks {
         
        while (!this.iterador.esUltimaPagina(this.driver)) {
             driver.get(rutaObtenida.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
-            ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
+            ArrayList<LinkUsuario> arregloFinal = this.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }
@@ -57,7 +87,7 @@ public class BusquedaLinks {
         
         while (!this.iterador.esUltimaPagina(this.driver)) {
             this.driver.get(urlDeseada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
-            ArrayList<LinkUsuario> arregloFinal = this.minador.obtenerLinksUsuariosLinkedIn();
+            ArrayList<LinkUsuario> arregloFinal = this.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);
             this.iterador.siguientePagina();
         }

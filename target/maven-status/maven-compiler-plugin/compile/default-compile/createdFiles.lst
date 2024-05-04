@@ -12,13 +12,13 @@ database\InserccionDatos.class
 vista\PantallaPrincipal$3.class
 vista\QueryPromdioNumeroEmpleos$9.class
 vista\VentanaBuscadorManual$5.class
+scrapper\ScrapeableProduct.class
 vista\QueryEmpresasTrabajadas$1.class
 vista\QueryPromdioDuracion$8.class
 vista\VentanaBuscadorPorURL$4.class
 vista\QueryPromdioNumeroEmpleos$10.class
 vista\VentanaBuscadorContactosAmigos$1.class
 vista\IngresarUsuario$2.class
-scrapper\MinadoDatos.class
 vista\Creditos$1.class
 vista\QueryEmpresasTrabajadas$9.class
 scrapper\ObtenerEducacion.class
@@ -50,6 +50,7 @@ vista\PantallaPrincipal.class
 controlador\ExtraccionDatos.class
 vista\VentanaExtraccionMultiple$3.class
 vista\VentanaBuscadorPorURL$1.class
+scrapper\Mineable.class
 vista\PantallaPrincipal$12.class
 vista\PantallaPrincipal$2.class
 automata\BuscarPorBarraBusqueda.class
@@ -63,6 +64,7 @@ vista\QueryPromdioDuracion$1.class
 vista\VentanaBuscadorCadena$1.class
 vista\VentanaBuscadorManual$4.class
 vista\IngresarUsuario$3.class
+scrapper\MandatoryElementException.class
 automata\AutomataDatos.class
 vista\QueryEmpresasTrabajadas$5.class
 vista\VentanaBuscadorContactosAmigos$5.class

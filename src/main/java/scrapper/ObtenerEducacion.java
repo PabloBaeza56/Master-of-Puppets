@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ObtenerEducacion extends MinadoDatos {
+public class ObtenerEducacion extends Mineable {
     private final AutomataDatos movilizador;
     
     public ObtenerEducacion(WebDriver driver, AutomataDatos movilizador) {
@@ -16,25 +16,25 @@ public class ObtenerEducacion extends MinadoDatos {
     }
 
     public ArrayList<Educacion> seccionEducacion() {
-        super.esperarFinCargaPagina();
+        super.esperaImplicita();
         ArrayList<Educacion> listaEducacion = new ArrayList<>();
         Integer secciondeseada = this.movilizador.getIndicesSeccionesMain().get("Educación");
-        super.esperarSegundos(2);
+        super.esperaExplicita(2);
     
         this.movilizador.iteradorTabla.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + secciondeseada + "]/div[3]/ul/li[");
         this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]/div[1]/a");
         
         while (this.movilizador.iteradorTabla.existeSiguienteElemento()) {
-            super.esperarFinCargaPagina();
+            super.esperaImplicita();
             
             Educacion educacionPersona = new Educacion();
             WebElement elementoBase = super.driver.findElement(By.xpath(this.movilizador.iteradorTabla.getXpathActual()));
             
-            super.extraerDato(elementoBase, "./div/div/div/div/span[1]", educacionPersona::setCentroEducativo);
+            super.settearMinadoOpcional(elementoBase, "./div/div/div/div/span[1]", educacionPersona::setCentroEducativo);
             
-            super.extraerDato(elementoBase, "./span[1]/span[1]", educacionPersona::setGradoAcademico);
+            super.settearMinadoOpcional(elementoBase, "./span[1]/span[1]", educacionPersona::setGradoAcademico);
             
-            super.extraerDato(elementoBase, "./span[2]/span[1]", (String fecha) -> {
+            super.settearMinadoOpcional(elementoBase, "./span[2]/span[1]", (String fecha) -> {
                 try{
                     String[] partesFecha = fecha.split("-");
                     educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));

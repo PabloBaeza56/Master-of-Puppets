@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import automata.AutomataDatos;
 
-public final class ObtenerExperiencia extends MinadoDatos {
+public final class ObtenerExperiencia extends Mineable {
 
     private final Integer seccionDeseada;
     private final ArrayList<Integer> indicesCasoSimple;
@@ -70,19 +70,19 @@ public final class ObtenerExperiencia extends MinadoDatos {
 
             WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
 
-            super.extraerDato(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
+            super.settearMinadoOpcional(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
             
-            super.extraerDato(elementoBase, ".//span[@class='t-14 t-normal']", dato -> {
+            super.settearMinadoOpcional(elementoBase, ".//span[@class='t-14 t-normal']", dato -> {
                 String primeraSubcadena = dato.split("·")[0].trim();
                 elementoExperiencia.setNombreEmpresa(primeraSubcadena);
             });
             
-            super.extraerDato(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", cadenaFecha -> {
+            super.settearMinadoOpcional(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", cadenaFecha -> {
                 Fechas fechaFormateada = new Fechas(cadenaFecha);
                 elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
             });
             
-            super.extraerDato(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
+            super.settearMinadoOpcional(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
  
             this.elementoCasoSimple.add(elementoExperiencia);
         }
@@ -95,7 +95,7 @@ public final class ObtenerExperiencia extends MinadoDatos {
 
             WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));
             
-            String NombreEmpresa = super.obtenerTexto(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
+            String NombreEmpresa = super.minarTextoOpcional(elementoBase, ".//div[@class='display-flex flex-wrap align-items-center full-height']");
   
             this.movilizador.iteradorTabla.setSubcadenaParte1("./div[2]/ul/li[");
             this.movilizador.iteradorTabla.setSubcadenaParte2("]/div/div[2]/div/a");
@@ -106,14 +106,14 @@ public final class ObtenerExperiencia extends MinadoDatos {
 
                 elementoExperiencia.setNombreEmpresa(NombreEmpresa);
                    
-                super.extraerDato(elementoConcreto, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
+                super.settearMinadoOpcional(elementoConcreto, ".//div[@class='display-flex flex-wrap align-items-center full-height']", elementoExperiencia::setPuestoEmpleado);
                     
-                super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", Duracion -> {
+                super.settearMinadoOpcional(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", Duracion -> {
                     Fechas fechaFormateada = new Fechas(Duracion);
                     elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                 });
                     
-                super.extraerDato(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
+                super.settearMinadoOpcional(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][2]", elementoExperiencia::setUbicacionEmpleado);
                     
                 this.elementoCasoCompuesto.add(elementoExperiencia);
                 this.movilizador.iteradorTabla.siguienteElemento();

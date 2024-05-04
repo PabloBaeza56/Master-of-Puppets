@@ -10,6 +10,7 @@ import database.InserccionDatos;
 import java.util.List;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
+import scrapper.MandatoryElementException;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerExperiencia;
 
@@ -17,7 +18,7 @@ import scrapper.ObtenerExperiencia;
 public class ExtraccionDatos {
     
     
-    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar){
+    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar) throws MandatoryElementException{
         
         InserccionDatos db = new InserccionDatos();
         BusquedaDatos busqueda = new BusquedaDatos();
@@ -32,25 +33,31 @@ public class ExtraccionDatos {
             newDriver.get(elemento.getUrlUsuario());
             
             Usuario usuario = this.PerfilCompleto(newDriver);
-            db.InsertarDocumento(usuario);
-            db.marcarDocumentoComoVisitado(elemento.get_id());
+            if (usuario != null) {
+                db.InsertarDocumento(usuario);
+                db.marcarDocumentoComoVisitado(elemento.get_id());
+            }
             
             newDriver.close(); 
         }
     }
     
-    private Usuario PerfilCompleto(WebDriver driver) {
+    private Usuario PerfilCompleto(WebDriver driver) throws MandatoryElementException {
         AutomataDatos movilizador = new AutomataDatos(driver);
         movilizador.busquedaIndicesSeccionesMain();
  
+        try {
+            Usuario usuario = new Usuario.UsuarioBuilder()
+                        .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
+                        //.experienciaLaboral(new ObtenerExperiencia(driver, movilizador).seccionExperiencia())
+                        .educacion(new ObtenerEducacion(driver, movilizador).seccionEducacion())
+                        .build();
+            return usuario;
+        } catch (MandatoryElementException e){
+            return null;
+        }
         
-        Usuario usuario = new Usuario.UsuarioBuilder()
-                    .informacionPersonal(new ObtenerDatosCabecera(driver).seccionCabcecera())
-                    .experienciaLaboral(new ObtenerExperiencia(driver, movilizador).seccionExperiencia())
-                    .educacion(new ObtenerEducacion(driver, movilizador).seccionEducacion())
-                    .build();
         
-        return usuario;
     }
 
 }

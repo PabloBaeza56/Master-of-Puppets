@@ -1,8 +1,11 @@
 package vista;
 
 import controlador.ControladoresConcretos;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import scrapper.MandatoryElementException;
 
 public class VentanaExtraccionMultiple extends javax.swing.JFrame {
     private ControladoresConcretos controlador;
@@ -137,7 +140,11 @@ public class VentanaExtraccionMultiple extends javax.swing.JFrame {
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
         int elementosObtener = Integer.parseInt(String.valueOf(seleccionadorExtraccion.getValue())); 
-        controlador.VentanaExtraccionMultiple(elementosObtener, this);
+        try {
+            controlador.VentanaExtraccionMultiple(elementosObtener, this);
+        } catch (MandatoryElementException ex) {
+            Logger.getLogger(VentanaExtraccionMultiple.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
