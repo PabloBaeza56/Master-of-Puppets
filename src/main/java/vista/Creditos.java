@@ -149,16 +149,7 @@ public class Creditos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
-    public static void main(String args[]) {
-        try {
-            // Establece el look and feel predeterminado del sistema
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        }
-        java.awt.EventQueue.invokeLater(() -> {
-            new Creditos().setVisible(true);
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonRegresar;

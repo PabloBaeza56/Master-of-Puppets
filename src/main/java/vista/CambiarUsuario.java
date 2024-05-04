@@ -168,15 +168,6 @@ public class CambiarUsuario extends javax.swing.JFrame {
         this.verificarCamposTexto();
     }//GEN-LAST:event_contraseniaTextBoxKeyReleased
 
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        }
-        java.awt.EventQueue.invokeLater(() -> {
-            //new CambiarUsuario(controlador).setVisible(true);
-        });
-    }
 
     private void verificarCamposTexto() {
         String ContraseniaTextBox = contraseniaTextBox.getText().trim();

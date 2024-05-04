@@ -152,16 +152,6 @@ public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
     
     }//GEN-LAST:event_ComboBoxPivoteActionPerformed
 
-    public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        }
-
-        java.awt.EventQueue.invokeLater(() -> {
-            //new VentanaBuscadorContactosAmigos(controlador).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBoxPivote;

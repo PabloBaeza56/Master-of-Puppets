@@ -278,15 +278,6 @@ public class QueryEmpresasTrabajadas extends javax.swing.JFrame {
         this.verificarCamposTexto();
     }//GEN-LAST:event_nombreCarreraInglesKeyReleased
 
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        }
-        java.awt.EventQueue.invokeLater(() -> {
-            //new QueryEmpresasTrabajadas(controlador).setVisible(true);
-        });
-    }
     
     private void verificarCamposTexto() {
         String CampoUniversidadAcronimo = campoUniversidadAcronimo.getText().trim();

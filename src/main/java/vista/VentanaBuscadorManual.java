@@ -150,16 +150,6 @@ public class VentanaBuscadorManual extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoEntradaBuscadorKeyReleased
 
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        }
-
-        java.awt.EventQueue.invokeLater(() -> {
-            //new VentanaBuscadorManual(controlador).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEjecutarBusqueda;
