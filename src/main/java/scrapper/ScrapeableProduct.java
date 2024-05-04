@@ -1,5 +1,5 @@
 package scrapper;
 
 public interface ScrapeableProduct<T> {
-    T reclamarDatos() throws MandatoryElementException;   
+    T reclamarDatos() throws MandatoryElementException, MandatorySectionException;   
 }

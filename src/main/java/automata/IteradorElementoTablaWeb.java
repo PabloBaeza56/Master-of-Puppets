@@ -1,17 +1,20 @@
 package automata;
 
+import java.time.Duration;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     
     @Getter private Integer IndiceFilatabla;
-    private final WebDriver driver;
-    @Setter private String subcadenaParte1;
-    @Setter private String subcadenaParte2;
+    public final WebDriver driver;
+    @Getter @Setter public String subcadenaParte1;
+    @Getter @Setter public String subcadenaParte2;
     
     public IteradorElementoTablaWeb(WebDriver driver){
         this.driver = driver;
@@ -47,6 +50,11 @@ public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     @Override
     public void reiniciarIterador(){
         this.IndiceFilatabla = 1;
+    }
+
+    public void esperaImplicita() {
+         WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
     

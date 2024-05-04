@@ -8,9 +8,13 @@ import automata.AutomataDatos;
 import database.BusquedaDatos;
 import database.InserccionDatos;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
+import scrapper.IteradorTablaWebSimplificado;
 import scrapper.MandatoryElementException;
+import scrapper.MandatorySectionException;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerExperiencia;
 
@@ -18,7 +22,7 @@ import scrapper.ObtenerExperiencia;
 public class ExtraccionDatos {
     
     
-    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar) throws MandatoryElementException{
+    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar) {
         
         InserccionDatos db = new InserccionDatos();
         BusquedaDatos busqueda = new BusquedaDatos();
@@ -32,30 +36,35 @@ public class ExtraccionDatos {
  
             newDriver.get(elemento.getUrlUsuario());
             
-            Usuario usuario = this.PerfilCompleto(newDriver);
-            if (usuario != null) {
+            Usuario usuario;
+            try {
+                usuario = this.PerfilCompleto(newDriver);
                 db.InsertarDocumento(usuario);
                 db.marcarDocumentoComoVisitado(elemento.get_id());
+            } catch (MandatoryElementException | MandatorySectionException ex) {
+                Logger.getLogger(ExtraccionDatos.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             
             newDriver.close(); 
         }
     }
     
-    private Usuario PerfilCompleto(WebDriver driver) throws MandatoryElementException {
-        AutomataDatos movilizador = new AutomataDatos(driver);
+    private Usuario PerfilCompleto(WebDriver driver) throws MandatoryElementException, MandatorySectionException {
+        IteradorTablaWebSimplificado movilizador = new IteradorTablaWebSimplificado(driver);
         movilizador.busquedaIndicesSeccionesMain();
  
         try {
             Usuario usuario = new Usuario.UsuarioBuilder()
                         .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
                         //.experienciaLaboral(new ObtenerExperiencia(driver, movilizador).seccionExperiencia())
-                        .educacion(new ObtenerEducacion(driver, movilizador).seccionEducacion())
+                        .educacion(new ObtenerEducacion(driver, movilizador).reclamarDatos())
                         .build();
             return usuario;
-        } catch (MandatoryElementException e){
+        } catch (MandatoryElementException| MandatorySectionException e){
             return null;
         }
+
         
         
     }

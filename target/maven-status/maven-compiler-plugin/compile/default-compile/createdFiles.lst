@@ -62,6 +62,7 @@ modelo\datosBasicos.class
 vista\Creditos.class
 vista\QueryPromdioDuracion$1.class
 vista\VentanaBuscadorCadena$1.class
+scrapper\IteradorTablaWebSimplificado.class
 vista\VentanaBuscadorManual$4.class
 vista\IngresarUsuario$3.class
 scrapper\MandatoryElementException.class
@@ -81,6 +82,7 @@ vista\VentanaExtraccionMultiple$1.class
 vista\QueryPromdioDuracion$6.class
 vista\QueryPromdioNumeroEmpleos$2.class
 vista\IngresarUsuario$1.class
+scrapper\MandatorySectionException.class
 vista\VentanaBuscadorManual.class
 vista\PantallaPrincipal$7.class
 vista\QueryEmpresasTrabajadas$2.class

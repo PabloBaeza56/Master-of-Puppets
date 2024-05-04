@@ -16,14 +16,14 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
     }
 
     @Override
-    public datosBasicos reclamarDatos() throws MandatoryElementException {
+    public datosBasicos reclamarDatos() throws MandatoryElementException, MandatorySectionException {
         super.esperaImplicita();
 
         WebElement elementoBase = null;
         try {
             elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
         } catch (NoSuchElementException e) {
-            throw new MandatoryElementException("Cabecera no encontrada");
+            throw new MandatorySectionException("Cabecera no encontrada");
         }
 
         assert elementoBase != null : "elementoBase es null (Cabecera)";

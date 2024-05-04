@@ -35,7 +35,7 @@ public class AutomataDatos{
         wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
     }
 
-    public void busquedaIndicesSeccionesMain(){
+    public void busquedaIndicesSeccionesMainx(){
      
         for (int i = 12; i >= 1; i--) {
             try {

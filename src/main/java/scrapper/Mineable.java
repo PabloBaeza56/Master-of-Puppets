@@ -85,5 +85,14 @@ public class Mineable {
         Set<T> set = new HashSet<>(lista);
         return new ArrayList<>(set);
     }
+    
+    public Integer MinadoSeccionObligatoria(IteradorTablaWebSimplificado movilizador, String seccion) throws MandatorySectionException{
+        try {
+            return movilizador.getIndicesSeccionesMain().get(seccion);
+        } catch (NullPointerException e) {
+            throw new MandatorySectionException("El seccion concreta " + seccion + " no se pudo obtener (Obligatorio)");
+        }
+        
+    }
 
 }
