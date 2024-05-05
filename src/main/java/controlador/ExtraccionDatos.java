@@ -11,60 +11,56 @@ import java.util.List;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
 import automata.Automatron;
+import java.net.SocketException;
 import scrapper.MandatoryElementException;
-import scrapper.MandatorySectionException;
+import scrapper.NotFoundFatalSectionException;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerExperiencia;
 
-
 @NoArgsConstructor
 public class ExtraccionDatos {
-    
-    
+
     public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar) {
-        
+
         InserccionDatos db = new InserccionDatos();
         BusquedaDatos busqueda = new BusquedaDatos();
         db.eliminarDuplicadosPorUrlUsuario();
         List<LinkUsuario> documentos = busqueda.obtenerDocumentos(numeroLinksBuscar);
-     
+
         for (LinkUsuario elemento : documentos) {
-            
+
             WebDriver newDriver = new ChromeDriver();
             controler.inyectarCookies(newDriver);
- 
+
             newDriver.get(elemento.getUrlUsuario());
-            
-            Usuario usuario;
-            try {
-                usuario = this.PerfilCompleto(newDriver);
+
+            Usuario usuario = this.PerfilCompleto(newDriver);
+            System.out.println(usuario);
+            if (usuario != null) {
                 db.InsertarDocumento(usuario);
-            } catch (MandatoryElementException | MandatorySectionException ex) {} finally {
-                db.marcarDocumentoComoVisitado(elemento.get_id());
             }
-            
-            
-            newDriver.close(); 
+
+            db.marcarDocumentoComoVisitado(elemento.get_id());
+
+            newDriver.close();
         }
     }
-    
-    private Usuario PerfilCompleto(WebDriver driver) throws MandatoryElementException, MandatorySectionException {
+
+    private Usuario PerfilCompleto(WebDriver driver) {
         Automatron movilizador = new Automatron(driver);
         movilizador.busquedaIndicesSeccionesMain();
- 
+
         try {
             Usuario usuario = new Usuario.UsuarioBuilder()
-                        .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
-                        .experienciaLaboral(new ObtenerExperiencia(driver, movilizador).reclamarDatos())
-                        .educacion(new ObtenerEducacion(driver, movilizador).reclamarDatos())
-                        .build();
+                    .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
+                    .experienciaLaboral(new ObtenerExperiencia(driver, movilizador).reclamarDatos())
+                    .educacion(new ObtenerEducacion(driver, movilizador).reclamarDatos())
+                    .build();
             return usuario;
-        } catch (MandatoryElementException| MandatorySectionException e){
+        } catch (MandatoryElementException | NotFoundFatalSectionException e) {
             return null;
         }
 
-        
-        
     }
 
 }

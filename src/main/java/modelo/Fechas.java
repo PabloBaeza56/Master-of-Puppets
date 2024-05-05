@@ -23,7 +23,9 @@ public final class Fechas {
     }
     
     public void ObtenerFecha( String Fecha){
+    
         String[] elementos = Fecha.split(" - | · ");
+ 
         try {
             this.setFechaInicio(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[0]));
         } catch (ArrayIndexOutOfBoundsException e){}

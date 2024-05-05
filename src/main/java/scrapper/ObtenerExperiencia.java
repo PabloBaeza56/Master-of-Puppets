@@ -1,6 +1,9 @@
 package scrapper;
 
 import automata.Automatron;
+import controlador.ControladorMaestro;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import modelo.Experiencia;
 import modelo.Fechas;
@@ -9,11 +12,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.RelativeXpath;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public final class ObtenerExperiencia extends Mineable implements ScrapeableProduct {
 
-    private final Integer seccionDeseada;
+    private Integer seccionDeseada;
     private final ArrayList<Integer> indicesCasoSimple;
     private final ArrayList<Integer> indicesCasoCompuesto;
     private final Automatron movilizador;
@@ -25,20 +31,32 @@ public final class ObtenerExperiencia extends Mineable implements ScrapeableProd
         this.indicesCasoSimple = new ArrayList<>();
         this.indicesCasoCompuesto = new ArrayList<>();
         this.elementosExperiencia = new ArrayList<>();
-        this.seccionDeseada = this.movilizador.getIndicesSeccionesMain().get("Experiencia");
+        
+    }
+    
+    @Override
+    public Boolean existeSeccion() {
+       if (movilizador.getIndicesSeccionesMain().get("Experiencia") != null){
+           this.seccionDeseada = this.movilizador.getIndicesSeccionesMain().get("Experiencia");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public ArrayList<Experiencia> reclamarDatos() throws MandatorySectionException {
-        this.determinarTipoSecciones();
-        this.seccionExperienciaCasoSimple();
-
-        this.seccionExperienciaCasoCompuesto();
-
-        return this.elementosExperiencia;
+    public ArrayList<Experiencia> reclamarDatos() throws MandatoryElementException {
+        if (this.existeSeccion()){
+            this.determinarTipoElementosExperiencia();
+            this.seccionExperienciaCasoSimple();
+            this.seccionExperienciaCasoCompuesto();
+            return this.elementosExperiencia;
+        } else {
+            return null;
+        }
     }
 
-    private void determinarTipoSecciones() {
+    private void determinarTipoElementosExperiencia() {
 
         String subcadenaParte1 = "/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[";
         String subcadenaParte2 = "]/div/div[2]";
@@ -60,10 +78,10 @@ public final class ObtenerExperiencia extends Mineable implements ScrapeableProd
 
     }
 
-    private void seccionExperienciaCasoSimple() {
+    private void seccionExperienciaCasoSimple() throws MandatoryElementException {
 
         for (int i : this.indicesCasoSimple) {
-            try {
+           
                 Experiencia elementoExperiencia = new Experiencia();
 
                 WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));///div/div/div/div/div/div/span[1]
@@ -78,62 +96,95 @@ public final class ObtenerExperiencia extends Mineable implements ScrapeableProd
                             String primeraSubcadena = dato.split("·")[0].trim();
                             elementoExperiencia.setNombreEmpresa(primeraSubcadena);
                         });
-
-                /*
-                super.settearMinadoObligatorio(elementoBase, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]",
-                        "Fechas Usuario(Experiencia)",
+               
+                
+                super.settearMinadoObligatorio(elementoBase, new RelativeXpath("./div[1]/div/span[2]/span[1]"),
+                        "Fechas A",
                         cadenaFecha -> {
                             Fechas fechaFormateada = new Fechas(cadenaFecha);
                             elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                         });
-                */
+
 
                 super.settearMinadoOpcional(elementoBase, new RelativeXpath(".//span[contains(@class, 't-14 t-normal t-black--light')][2]"), elementoExperiencia::setUbicacionEmpleado);
 
                 this.elementosExperiencia.add(elementoExperiencia);
-            } catch (MandatoryElementException e) {
-                break;
-            }
+            
         }
     }
 
-    private void seccionExperienciaCasoCompuesto() {
+   private void seccionExperienciaCasoCompuesto() throws MandatoryElementException {
+
 
         for (int i : this.indicesCasoCompuesto) {
 
-            WebElement elementoCimiento = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));
-            String NombreEmpresa = super.minarTextoOpcional(elementoCimiento, new RelativeXpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"));
-            if (NombreEmpresa.equals("")) {
-                break;
-            }
+            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + this.seccionDeseada + "]/div[3]/ul/li[" + i + "]/div/div[2]"));
+            
+            String NombreEmpresa = super.minarTextoObligatorio(elementoBase, new RelativeXpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"), "Nombre Empresa");
+  
+            this.movilizador.setSubcadenaParte1("./div[2]/ul/li[");
+            this.movilizador.setSubcadenaParte2("]/div/div[2]/div/a");
+            while (this.movilizador.existeSiguienteElemento(elementoBase)) {
+                Experiencia elementoExperiencia = new Experiencia();
+           
+                WebElement elementoConcreto = elementoBase.findElement(By.xpath(this.movilizador.getXpathActual())); 
 
-            String subcadenaParte1 = "./div[2]/ul/li[";
-            String subcadenaParte2 = "]/div/div[2]/div/a";
-            Consumer<WebElement> iterable = elementoBase -> {
+                elementoExperiencia.setNombreEmpresa(NombreEmpresa);
+                
+                   
+                super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"), "Puesto Empleo Usuario",elementoExperiencia::setPuestoEmpleado);
+                
                 try {
-
-                    Experiencia elementoExperiencia = new Experiencia();
-
-                    WebElement elementoConcreto = elementoBase.findElement(By.xpath(this.movilizador.getXpathActual()));
-
-                    elementoExperiencia.setNombreEmpresa(NombreEmpresa);
-
-                    super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath(".//div[@class='display-flex flex-wrap align-items-center full-height']"), "PuestoEmpleado Usuario (Xp Compuesta)", elementoExperiencia::setPuestoEmpleado);
-
-                    /*
-                    super.settearMinadoObligatorio(elementoConcreto, ".//span[contains(@class, 't-14 t-normal t-black--light')][1]", "Duracion Usuario Xp Compuesta", Duracion -> {
+                    super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath("./span[1]/span[1]"), "Duracion Empleo Usuario", Duracion -> {
+                        System.out.println(Duracion);
                         Fechas fechaFormateada = new Fechas(Duracion);
                         elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                     });
-                     */
-                    super.settearMinadoOpcional(elementoConcreto, new RelativeXpath(".//span[contains(@class, 't-14 t-normal t-black--light')][2]"), elementoExperiencia::setUbicacionEmpleado);
-                    this.elementosExperiencia.add(elementoExperiencia);
-                } catch (MandatoryElementException e) {
+                } catch (ArrayIndexOutOfBoundsException e){
+                    super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath("./span[2]/span[2]"), "Duracion Empleo Usuario", Duracion -> {
+                        System.out.println(Duracion);
+                        Fechas fechaFormateada = new Fechas(Duracion);
+                        elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
+                    });
                 }
-            };
-            movilizador.procesarElementos(this.seccionDeseada, subcadenaParte1, subcadenaParte2, iterable);
 
+                    
+                super.settearMinadoOpcional(elementoConcreto, new RelativeXpath(".//span[contains(@class, 't-14 t-normal t-black--light')][2]"), elementoExperiencia::setUbicacionEmpleado);
+                    
+                this.elementosExperiencia.add(elementoExperiencia);
+                this.movilizador.siguienteElemento();
+            }
+            this.movilizador.reiniciarIterador();
         }
     }
+
+    public static void main(String[] args) throws IOException, ParseException {
+        
+        WebDriver newDriver = null;
+        try {
+            ControladorMaestro controller = new ControladorMaestro();
+             newDriver = new ChromeDriver();
+            Automatron movilizador2 = new Automatron(newDriver);
+
+            controller.inyectarCookies(newDriver);
+
+            newDriver.get("https://www.linkedin.com/in/alejandro-behau/");
+            movilizador2.busquedaIndicesSeccionesMain();
+
+            ObtenerExperiencia xp = new ObtenerExperiencia(newDriver, movilizador2);
+            System.out.println(xp.reclamarDatos());
+
+        } catch ( MandatoryElementException ex) {
+            Logger.getLogger(ObtenerExperiencia.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            newDriver.close();
+        }
+
+
+      
+
+    }
+
+    
 
 }

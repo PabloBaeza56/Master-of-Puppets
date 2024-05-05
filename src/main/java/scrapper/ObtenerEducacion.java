@@ -17,13 +17,31 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
         super(driver);
         this.movilizador = movilizador;
         this.listaEducacion = new ArrayList<>();
-
+    }
+    
+    @Override
+    public Boolean existeSeccion() {
+        if (movilizador.getIndicesSeccionesMain().get("Educacion") != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public ArrayList<Educacion> reclamarDatos() throws MandatoryElementException {
+        if (this.existeSeccion()){
+            return this.minarDatosEducacion();
+        } else {
+            return null;
+        }
     }
 
-    @Override
-    public ArrayList<Educacion> reclamarDatos() throws MandatorySectionException {
 
-        Integer secciondeseada = super.MinadoSeccionObligatoria(movilizador, "Educación");
+    private ArrayList<Educacion> minarDatosEducacion() {
+
+        Integer secciondeseada = movilizador.getIndicesSeccionesMain().get("Educacion");
+        
 
         String subcadenaParte1 = "/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + secciondeseada + "]/div[3]/ul/li[";
         String subcadenaParte2 = "]/div/div[2]/div[1]/a";
@@ -37,12 +55,11 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
                 super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[1]/span[1]"), educacionPersona::setGradoAcademico);
 
                 super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[2]/span[1]"), (String fecha) -> {
-                    try {
+                    
                         String[] partesFecha = fecha.split("-");
                         educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));
                         educacionPersona.setAnioEgreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[1].trim()));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                    }
+                    
                 });
 
                 listaEducacion.add(educacionPersona);
@@ -54,5 +71,9 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
         return this.listaEducacion;
     }
+
+    
+
+    
 
 }

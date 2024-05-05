@@ -27,6 +27,7 @@ vista\QueryPromdioDuracion$2.class
 database\QuerysMongoDB.class
 scrapper\ObtenerDatosCabecera.class
 vista\QueryPromdioDuracion.class
+modelo\RelativeXpath.class
 vista\PantallaPrincipal$1.class
 modelo\Usuario.class
 automata\IteradorPorURL.class
@@ -42,7 +43,6 @@ vista\QueryPromdioDuracion$7.class
 vista\CambiarUsuario$2.class
 vista\PantallaPrincipal$8.class
 vista\VentanaBuscadorCadena$2.class
-scrapper\Automatron.class
 vista\QueryPromdioNumeroEmpleos$4.class
 database\MongoDBConnection$MongoDBConnectionHolder.class
 vista\VentanaExtraccionMultiple$2.class
@@ -81,8 +81,8 @@ vista\VentanaExtraccionMultiple$1.class
 vista\QueryPromdioDuracion$6.class
 vista\QueryPromdioNumeroEmpleos$2.class
 vista\IngresarUsuario$1.class
-scrapper\MandatorySectionException.class
 vista\VentanaBuscadorManual.class
+scrapper\NotFoundFatalSectionException.class
 vista\PantallaPrincipal$7.class
 vista\QueryEmpresasTrabajadas$2.class
 vista\PantallaPrincipal$4.class
@@ -110,6 +110,7 @@ scrapper\ObtenerExperiencia.class
 vista\VentanaBuscadorContactosAmigos.class
 vista\PantallaPrincipal$5.class
 vista\QueryPromdioNumeroEmpleos.class
+automata\Automatron.class
 vista\VentanaBuscadorManual$1.class
 vista\VentanaBuscadorCadena$4.class
 vista\QueryPromdioNumeroEmpleos$7.class

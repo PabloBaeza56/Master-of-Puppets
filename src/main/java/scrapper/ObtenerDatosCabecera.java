@@ -15,17 +15,31 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
         super(driver);
         this.cabecera = new datosBasicos();
     }
-
+    
     @Override
-    public datosBasicos reclamarDatos() throws MandatoryElementException, MandatorySectionException {
+    public Boolean existeSeccion() {
+        try {
+            WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
+            return true;
+        } catch (NoSuchElementException e){
+            return false;
+        }
+    }
+    
+    @Override
+    public datosBasicos reclamarDatos() throws MandatoryElementException, NotFoundFatalSectionException {
+         if (this.existeSeccion()){
+            return this.minarDatos();
+        } else {
+            throw new NotFoundFatalSectionException("No se encontro la cabecera");
+        }
+    }
+
+
+    public datosBasicos minarDatos() throws MandatoryElementException {
         super.esperaImplicita();
 
-        WebElement elementoBase = null;
-        try {
-            elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
-        } catch (NoSuchElementException e) {
-            throw new MandatorySectionException("Cabecera no encontrada");
-        }
+        WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
 
         assert elementoBase != null : "elementoBase es null (Cabecera)";
 
@@ -51,6 +65,8 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
 
         return this.cabecera;
     }
+
+    
 
     
 
