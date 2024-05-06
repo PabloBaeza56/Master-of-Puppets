@@ -7,6 +7,7 @@ vista\VentanaBuscadorCadena$3.class
 vista\PantallaPrincipal$6.class
 vista\CambiarUsuario.class
 vista\CambiarUsuario$3.class
+modelo\asService.class
 modelo\Usuario$UsuarioBuilder.class
 database\InserccionDatos.class
 vista\PantallaPrincipal$3.class
@@ -36,13 +37,16 @@ vista\VentanaBuscadorContactosAmigos$3.class
 vista\Creditos$2.class
 vista\VentanaBuscadorPorURL$2.class
 modelo\Experiencia.class
+scrapper\MiClase.class
 vista\QueryEmpresasTrabajadas$10.class
 vista\QueryEmpresasTrabajadas$3.class
+modelo\ArregloColeccionesDB.class
 database\MongoDBConnection.class
 vista\QueryPromdioDuracion$7.class
 vista\CambiarUsuario$2.class
 vista\PantallaPrincipal$8.class
 vista\VentanaBuscadorCadena$2.class
+vista\CambiarColeccion$1.class
 vista\QueryPromdioNumeroEmpleos$4.class
 database\MongoDBConnection$MongoDBConnectionHolder.class
 vista\VentanaExtraccionMultiple$2.class
@@ -74,6 +78,7 @@ scrapper\ObtenerContactosPivote.class
 vista\QueryEmpresasTrabajadas$8.class
 vista\VentanaBuscadorCadena.class
 modelo\Fechas.class
+vista\CambiarColeccion.class
 controlador\ControladorMaestro.class
 vista\VentanaBuscadorManual$3.class
 controlador\ControladoresConcretos.class

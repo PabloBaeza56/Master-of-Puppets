@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class CambiarUsuario extends javax.swing.JFrame {
     private ControladoresConcretos controlador;
@@ -181,8 +179,8 @@ public class CambiarUsuario extends javax.swing.JFrame {
     }
     
     public void cambiarPanel() throws IOException, ParseException{
-        PantallaPrincipal modal = new PantallaPrincipal();
-        modal.setVisible(true);
+        //PantallaPrincipal modal = new PantallaPrincipal();
+        //modal.setVisible(true);
         this.dispose();
     }
     

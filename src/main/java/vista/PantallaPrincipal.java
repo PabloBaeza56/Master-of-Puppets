@@ -1,5 +1,7 @@
 package vista;
 
+
+
 import controlador.ControladoresConcretos;
 import java.io.IOException;
 import java.text.ParseException;
@@ -7,15 +9,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import modelo.ArregloColeccionesDB;
+
+
+
 
 public class PantallaPrincipal extends javax.swing.JFrame {
 
     protected ControladoresConcretos controlador;
-    public PantallaPrincipal() throws IOException, ParseException {
+
+    public PantallaPrincipal(String coleccionSelecionada) throws IOException, ParseException {
         initComponents();
         setResizable(false);
-        controlador = new ControladoresConcretos();
-        
+        System.out.println(coleccionSelecionada);
+        this.controlador = new ControladoresConcretos(coleccionSelecionada);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,6 +34,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
@@ -45,6 +53,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        cambiarColeccion = new javax.swing.JButton();
 
         jButton1.setText("Buscador Cadena");
         jButton1.setToolTipText("");
@@ -88,6 +97,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jButton13.setText("jButton13");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -300,6 +311,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        cambiarColeccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cambiarColeccion.setText("Cambiar Coleccion");
+        cambiarColeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarColeccionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -309,8 +328,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(cambiarColeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -328,8 +352,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cambiarColeccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -337,52 +364,52 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
+        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
+       VentanaBuscadorCadena modal = new VentanaBuscadorCadena(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(controlador);
+        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        VentanaBuscadorContactosAmigos modal = new VentanaBuscadorContactosAmigos(controlador);
+        VentanaBuscadorContactosAmigos modal = new VentanaBuscadorContactosAmigos(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        VentanaExtraccionMultiple modal = new VentanaExtraccionMultiple(controlador);
+        VentanaExtraccionMultiple modal = new VentanaExtraccionMultiple(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        VentanaBuscadorManual modal = new VentanaBuscadorManual(controlador);
+        VentanaBuscadorManual modal = new VentanaBuscadorManual(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        VentanaBuscadorPorURL modal = new VentanaBuscadorPorURL(controlador);
+        VentanaBuscadorPorURL modal = new VentanaBuscadorPorURL(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        QueryPromdioDuracion modal = new QueryPromdioDuracion(controlador);
+        QueryPromdioDuracion modal = new QueryPromdioDuracion(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        QueryEmpresasTrabajadas modal = new QueryEmpresasTrabajadas(controlador);
+        QueryEmpresasTrabajadas modal = new QueryEmpresasTrabajadas(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        QueryPromdioNumeroEmpleos modal = new QueryPromdioNumeroEmpleos(controlador);
+        QueryPromdioNumeroEmpleos modal = new QueryPromdioNumeroEmpleos(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -392,9 +419,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        CambiarUsuario modal = new CambiarUsuario(controlador);
+        CambiarUsuario modal = new CambiarUsuario(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void cambiarColeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarColeccionActionPerformed
+        this.dispose();
+        CambiarColeccion modal = new CambiarColeccion();
+        modal.setVisible(true);
+    }//GEN-LAST:event_cambiarColeccionActionPerformed
 
     public static void main(String args[]) {
         //Turkish March Mozart - Rondo Alla Turca
@@ -404,7 +437,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                new PantallaPrincipal().setVisible(true);
+                new PantallaPrincipal("default").setVisible(true);
+                
             } catch (IOException | ParseException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -412,10 +446,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cambiarColeccion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

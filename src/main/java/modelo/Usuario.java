@@ -17,7 +17,7 @@ public class Usuario {
     @Setter private datosBasicos informacionPersonal;
 
     
-    public static class UsuarioBuilder {
+    public static class UsuarioBuilder implements asService{
         @Setter private ArrayList<Experiencia> experienciaLaboral;
         @Setter private ArrayList<Educacion> educacion;
         @Setter private datosBasicos informacionPersonal;
@@ -32,7 +32,7 @@ public class Usuario {
             return this;
         }
 
-        public UsuarioBuilder educacion(ArrayList<Educacion> educacion) {
+        public UsuarioBuilder educacion(ArrayList<Educacion> educacion)  {
             this.educacion = educacion;
             return this;
         }
@@ -42,6 +42,7 @@ public class Usuario {
             return this;
         }
 
+        @Override
         public Usuario build() {
             return new Usuario(experienciaLaboral, educacion, informacionPersonal);
         }

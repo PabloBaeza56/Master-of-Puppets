@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,11 @@ public class LinkUsuario {
     
     @Setter @Getter private ObjectId _id;
     @Setter @Getter private String UrlUsuario;
-    @Setter @Getter private Boolean visitado;
+    @Setter @Getter private ArrayList<String> coleccionesDondeHaSidoUsado;
+    
+     public LinkUsuario(ObjectId _id, String UrlUsuario) {
+        this._id = _id;
+        this.UrlUsuario = UrlUsuario;
+        this.coleccionesDondeHaSidoUsado = new ArrayList<>();
+    }
 }

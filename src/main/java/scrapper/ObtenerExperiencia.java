@@ -136,13 +136,13 @@ public final class ObtenerExperiencia extends Mineable implements ScrapeableProd
                 
                 try {
                     super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath("./span[1]/span[1]"), "Duracion Empleo Usuario", Duracion -> {
-                        System.out.println(Duracion);
+                   
                         Fechas fechaFormateada = new Fechas(Duracion);
                         elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                     });
                 } catch (ArrayIndexOutOfBoundsException e){
                     super.settearMinadoObligatorio(elementoConcreto, new RelativeXpath("./span[2]/span[2]"), "Duracion Empleo Usuario", Duracion -> {
-                        System.out.println(Duracion);
+             
                         Fechas fechaFormateada = new Fechas(Duracion);
                         elementoExperiencia.setPermanenciaEmpleado(fechaFormateada);
                     });

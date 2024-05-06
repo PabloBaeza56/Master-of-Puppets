@@ -136,7 +136,7 @@ public class IngresarUsuario extends javax.swing.JFrame {
         String ContraseniaTextBox = contraseniaTextBox.getText().trim();
        
         try { 
-            new ControladoresConcretos().IngresarUsuario(UsuarioTextBox,ContraseniaTextBox, this );
+            new ControladoresConcretos("").IngresarUsuario(UsuarioTextBox,ContraseniaTextBox, this );
         } catch (IOException | ParseException ex) {
             Logger.getLogger(IngresarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,7 +173,7 @@ public class IngresarUsuario extends javax.swing.JFrame {
     }
     
     public void cambiarPanel() throws IOException, ParseException{
-        PantallaPrincipal modal = new PantallaPrincipal();
+        PantallaPrincipal modal = new PantallaPrincipal("default");
         modal.setVisible(true);
         this.dispose();
     }

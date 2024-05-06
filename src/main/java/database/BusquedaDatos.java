@@ -3,9 +3,11 @@ package database;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import modelo.LinkUsuario;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class BusquedaDatos {
 
@@ -52,7 +54,7 @@ public class BusquedaDatos {
         return url;
     }
 
-    public List<LinkUsuario> obtenerDocumentos(int cantidad) {
+    public List<LinkUsuario> obtenerDocumentos(int cantidad, String elemento) {
         List<LinkUsuario> listaLinks = new ArrayList<>();
 
         MongoCollection<Document> collection = this.db.getDatabase().getCollection("Links");
@@ -66,7 +68,8 @@ public class BusquedaDatos {
 
         int cantidadReal = (int) Math.min(totalDocumentos, cantidad);
 
-        Document filtro = new Document("visitado", false);
+        // Modifica el filtro para buscar documentos donde "coleccionesDondeHaSidoUsado" no contiene el elemento
+        Document filtro = new Document("coleccionesDondeHaSidoUsado", new Document("$nin", Arrays.asList(elemento)));
 
         try (MongoCursor<Document> cursor = collection.find(filtro).limit(cantidadReal).iterator()) {
             while (cursor.hasNext()) {
@@ -80,10 +83,10 @@ public class BusquedaDatos {
     }
 
     private LinkUsuario documentoALinkUsuario(Document doc) {
-
-        String urlUsuario = doc.getString("UrlUsuario");
-        Boolean visitado = doc.getBoolean("visitado");
-        return new LinkUsuario(doc.getObjectId("_id"), urlUsuario, visitado);
-    }
+    ObjectId id = doc.getObjectId("_id");
+    String urlUsuario = doc.getString("UrlUsuario");
+    List<String> colecciones = doc.getList("coleccionesDondeHaSidoUsado", String.class);
+    return new LinkUsuario(id, urlUsuario, (ArrayList<String>) colecciones);
+}
 
 }

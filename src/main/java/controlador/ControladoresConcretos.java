@@ -6,6 +6,7 @@ import database.QuerysMongoDB;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scrapper.MandatoryElementException;
+import vista.CambiarColeccion;
 import vista.CambiarUsuario;
 import vista.IngresarUsuario;
 import vista.QueryEmpresasTrabajadas;
@@ -37,11 +39,13 @@ public class ControladoresConcretos {
     private final Utilidades utilidades;
     private final QuerysMongoDB querysDB;
     private final ControladorMaestro controler;
+    private String coleccionSelecionada;
 
-    public ControladoresConcretos() throws IOException, ParseException {
-        utilidades = new Utilidades();
-        querysDB = new QuerysMongoDB();
-        controler = new ControladorMaestro();
+    public ControladoresConcretos(String coleccionSelecionada) throws IOException, ParseException {
+        this.utilidades = new Utilidades();
+        this.querysDB = new QuerysMongoDB();
+        this.controler = new ControladorMaestro();
+        this.coleccionSelecionada = coleccionSelecionada;
     }
 
     public static <T> void volverInicio(JFrame pantallaPrincipal, T objeto) {
@@ -122,7 +126,9 @@ public class ControladoresConcretos {
                 this.utilidades.escribirEnArchivoFechaActualMas10Dias();
             }
 
-            objeto.cambiarPanel();
+            //objeto.cambiarPanel();
+            CambiarColeccion cambiarColeccion = new vista.CambiarColeccion();
+            cambiarColeccion.setVisible(true);
         } else {
             //System.out.println("Inicio de sesion FALLIDO");  
             JOptionPane.showMessageDialog(objeto, "Error: Usuario y/o Contraseña incorrectos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
@@ -200,7 +206,7 @@ public class ControladoresConcretos {
         driver.quit();
 
         InserccionDatos dbx = new InserccionDatos();
-        dbx.eliminarDuplicadosPorUrlUsuario();
+        dbx.eliminarDocumentosDuplicadosSinColecciones();
 
         objeto.dispose();
 
@@ -215,7 +221,7 @@ public class ControladoresConcretos {
         InserccionDatos db = new InserccionDatos();
 
         if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
-            user.setVisitado(Boolean.FALSE);
+            //user.setVisitado(Boolean.FALSE);
             user.setUrlUsuario(CadenaBusqueda);
             db.InsertarDocumento(user);
         }
@@ -244,7 +250,7 @@ public class ControladoresConcretos {
         JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
         ExtraccionDatos extractor = new ExtraccionDatos();
-        extractor.MinadoUsuariosTotal(this.controler, elementosObtener);
+        extractor.MinadoUsuariosTotal(this.controler, elementosObtener, this.coleccionSelecionada);
 
         objeto.dispose();
         JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);

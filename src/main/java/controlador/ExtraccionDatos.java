@@ -11,7 +11,6 @@ import java.util.List;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
 import automata.Automatron;
-import java.net.SocketException;
 import scrapper.MandatoryElementException;
 import scrapper.NotFoundFatalSectionException;
 import scrapper.ObtenerDatosCabecera;
@@ -20,12 +19,12 @@ import scrapper.ObtenerExperiencia;
 @NoArgsConstructor
 public class ExtraccionDatos {
 
-    public void MinadoUsuariosTotal(ControladorMaestro controler, Integer numeroLinksBuscar) {
-
+    public void MinadoUsuariosTotal(ControladorMaestro controler, int numeroLinksBuscar, String coleccionSelecionada) {
+     
         InserccionDatos db = new InserccionDatos();
         BusquedaDatos busqueda = new BusquedaDatos();
-        db.eliminarDuplicadosPorUrlUsuario();
-        List<LinkUsuario> documentos = busqueda.obtenerDocumentos(numeroLinksBuscar);
+        db.eliminarDocumentosDuplicadosSinColecciones();
+        List<LinkUsuario> documentos = busqueda.obtenerDocumentos(numeroLinksBuscar, coleccionSelecionada);
 
         for (LinkUsuario elemento : documentos) {
 
@@ -35,12 +34,12 @@ public class ExtraccionDatos {
             newDriver.get(elemento.getUrlUsuario());
 
             Usuario usuario = this.PerfilCompleto(newDriver);
-            System.out.println(usuario);
+
             if (usuario != null) {
-                db.InsertarDocumento(usuario);
+                db.InsertarDocumento(usuario, coleccionSelecionada);
             }
 
-            db.marcarDocumentoComoVisitado(elemento.get_id());
+            db.marcarDocumentoComoVisitado(elemento.get_id(),coleccionSelecionada);
 
             newDriver.close();
         }

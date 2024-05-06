@@ -42,7 +42,7 @@ public class BusquedaLinks {
 
                 if (Character.isLowerCase(primerChar)) {
                     LinkUsuario user = new LinkUsuario();
-                    user.setVisitado(Boolean.FALSE);
+                    //user.setVisitado(Boolean.FALSE);
                     user.setUrlUsuario(url);
                     elementosValidos.add(user);
                 }
