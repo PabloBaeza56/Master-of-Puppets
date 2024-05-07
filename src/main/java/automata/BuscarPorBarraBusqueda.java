@@ -6,15 +6,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-
 public class BuscarPorBarraBusqueda {
 
     private final WebDriver driver;
-    
-    public BuscarPorBarraBusqueda(WebDriver driver){
+
+    public BuscarPorBarraBusqueda(WebDriver driver) {
         this.driver = driver;
     }
-    
+
     public String metodoURL(String cadena) {
         String[] lineas = cadena.split(" ");
         String cadenaSalida;
@@ -38,31 +37,32 @@ public class BuscarPorBarraBusqueda {
         preCadena.append(nuevoArreglo[index - 1]);
 
         cadenaSalida = "https://www.linkedin.com/search/results/people/?keywords=" + preCadena.toString() + "&origin=GLOBAL_SEARCH_HEADER&page=XXXXX&sid=";
-             
+
         return cadenaSalida;
     }
-    
+
     public String metodoDirecto(String cadena) {
         WebElement inputField = this.driver.findElement(By.xpath("/html/body/div[5]/header/div/div/div/div[1]/input"));
         inputField.sendKeys(cadena);
         inputField.sendKeys(Keys.ENTER);
-          
-       int IndicePersonas = 0;
-       for (int i = 1; i < 7; i++){
-           try {
-                WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+i+"]/button"));
-                if (button.getText().equals("Personas")){        
-                    IndicePersonas = i;
-                    break; 
-                }
-           } catch (NoSuchElementException e) {}                                               
-       }
 
-        WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li["+IndicePersonas+"]/button"));
-                                                                                                
-        button.sendKeys(Keys.ENTER);   
-        
+        int IndicePersonas = 0;
+        for (int i = 1; i < 7; i++) {
+            try {
+                WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li[" + i + "]/button"));
+                if (button.getText().equals("Personas")) {
+                    IndicePersonas = i;
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+            }
+        }
+
+        WebElement button = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div[2]/section/div/nav/div/ul/li[" + IndicePersonas + "]/button"));
+
+        button.sendKeys(Keys.ENTER);
+
         return driver.getCurrentUrl();
     }
-  
+
 }

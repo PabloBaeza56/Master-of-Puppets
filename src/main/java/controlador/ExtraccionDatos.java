@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import modelo.Usuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerEducacion;
-
 import database.BusquedaDatos;
 import database.InserccionDatos;
 import java.util.List;
@@ -48,7 +47,7 @@ public class ExtraccionDatos {
     private Usuario PerfilCompleto(WebDriver driver) {
         Automatron movilizador = new Automatron(driver);
         movilizador.busquedaIndicesSeccionesMain();
-
+     
         try {
             Usuario usuario = new Usuario.UsuarioBuilder()
                     .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
@@ -57,6 +56,8 @@ public class ExtraccionDatos {
                     .build();
             return usuario;
         } catch (MandatoryElementException | NotFoundFatalSectionException e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
             return null;
         }
 

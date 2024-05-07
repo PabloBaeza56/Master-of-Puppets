@@ -17,7 +17,7 @@ public class LinkUsuario {
     @Setter @Getter private String UrlUsuario;
     @Setter @Getter private ArrayList<String> coleccionesDondeHaSidoUsado;
     
-     public LinkUsuario(ObjectId _id, String UrlUsuario) {
+    public LinkUsuario(ObjectId _id, String UrlUsuario) {
         this._id = _id;
         this.UrlUsuario = UrlUsuario;
         this.coleccionesDondeHaSidoUsado = new ArrayList<>();

@@ -1,8 +1,5 @@
 package vista;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 public class Creditos extends javax.swing.JFrame {
 
     public Creditos() {
@@ -149,7 +146,6 @@ public class Creditos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonRegresar;

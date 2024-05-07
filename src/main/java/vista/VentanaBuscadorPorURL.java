@@ -1,8 +1,6 @@
 package vista;
 
 import controlador.ControladoresConcretos;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class VentanaBuscadorPorURL extends javax.swing.JFrame {
 

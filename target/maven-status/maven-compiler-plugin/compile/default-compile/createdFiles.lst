@@ -21,6 +21,7 @@ vista\QueryPromdioNumeroEmpleos$10.class
 vista\VentanaBuscadorContactosAmigos$1.class
 vista\IngresarUsuario$2.class
 vista\Creditos$1.class
+modelo\CssSelector.class
 vista\QueryEmpresasTrabajadas$9.class
 scrapper\ObtenerEducacion.class
 vista\QueryPromdioDuracion$10.class
@@ -28,7 +29,6 @@ vista\QueryPromdioDuracion$2.class
 database\QuerysMongoDB.class
 scrapper\ObtenerDatosCabecera.class
 vista\QueryPromdioDuracion.class
-modelo\RelativeXpath.class
 vista\PantallaPrincipal$1.class
 modelo\Usuario.class
 automata\IteradorPorURL.class
@@ -37,10 +37,10 @@ vista\VentanaBuscadorContactosAmigos$3.class
 vista\Creditos$2.class
 vista\VentanaBuscadorPorURL$2.class
 modelo\Experiencia.class
-scrapper\MiClase.class
 vista\QueryEmpresasTrabajadas$10.class
 vista\QueryEmpresasTrabajadas$3.class
 modelo\ArregloColeccionesDB.class
+modelo\fechasExperiencia.class
 database\MongoDBConnection.class
 vista\QueryPromdioDuracion$7.class
 vista\CambiarUsuario$2.class
@@ -71,16 +71,17 @@ vista\VentanaBuscadorManual$4.class
 vista\IngresarUsuario$3.class
 scrapper\MandatoryElementException.class
 vista\QueryEmpresasTrabajadas$5.class
+scrapper\Testeable.class
 vista\VentanaBuscadorContactosAmigos$5.class
 vista\VentanaExtraccionMultiple$4.class
 modelo\Educacion.class
 scrapper\ObtenerContactosPivote.class
 vista\QueryEmpresasTrabajadas$8.class
 vista\VentanaBuscadorCadena.class
-modelo\Fechas.class
 vista\CambiarColeccion.class
 controlador\ControladorMaestro.class
 vista\VentanaBuscadorManual$3.class
+vista\PantallaPrincipal$14.class
 controlador\ControladoresConcretos.class
 vista\VentanaExtraccionMultiple$1.class
 vista\QueryPromdioDuracion$6.class

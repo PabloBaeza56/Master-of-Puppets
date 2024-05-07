@@ -2,8 +2,6 @@ package vista;
 
 import controlador.ControladoresConcretos;
 import database.BusquedaDatos;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class VentanaBuscadorContactosAmigos extends javax.swing.JFrame {
 

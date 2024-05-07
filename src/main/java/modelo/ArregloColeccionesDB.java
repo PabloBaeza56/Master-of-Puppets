@@ -16,13 +16,13 @@ public class ArregloColeccionesDB implements Serializable {
 
     public ArregloColeccionesDB() {
         lista = new ArrayList<>();
-      
+
     }
 
     public void agregarDato(String dato) {
         lista.add(dato);
     }
-    
+
     public void eliminarDato(String dato) {
         lista.remove(dato);
     }
@@ -33,7 +33,6 @@ public class ArregloColeccionesDB implements Serializable {
         }
     }
 
-    // Método para guardar los datos en un archivo
     public void guardarDatos() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(this.nombreArchivo))) {
             out.writeObject(this);
@@ -42,8 +41,7 @@ public class ArregloColeccionesDB implements Serializable {
         }
     }
 
-    // Método para cargar los datos desde un archivo
-     public ArregloColeccionesDB cargarDatos() {
+    public ArregloColeccionesDB cargarDatos() {
         ArregloColeccionesDB datos = null;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.nombreArchivo))) {
             datos = (ArregloColeccionesDB) in.readObject();
@@ -52,7 +50,7 @@ public class ArregloColeccionesDB implements Serializable {
         }
         return datos;
     }
-    
+
     public ArrayList<String> obtenerLista() {
         return lista;
     }

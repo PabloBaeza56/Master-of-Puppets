@@ -3,8 +3,6 @@ package vista;
 import controlador.ControladoresConcretos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import scrapper.MandatoryElementException;
 
 public class VentanaExtraccionMultiple extends javax.swing.JFrame {

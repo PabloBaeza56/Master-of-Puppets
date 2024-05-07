@@ -1,14 +1,11 @@
 package vista;
 
-
 import controlador.ControladoresConcretos;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 
 public class VentanaBuscadorCadena extends javax.swing.JFrame {
-    
+
     private ControladoresConcretos controlador;
+
     public VentanaBuscadorCadena(ControladoresConcretos controlador) {
         initComponents();
         setResizable(false);
@@ -132,7 +129,7 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
 
     private void botonEjecutarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaActionPerformed
         String CadenaBusqueda = campoEntradaBuscador.getText().trim();
-        controlador.VentanaBuscadorCadena(CadenaBusqueda, this);      
+        controlador.VentanaBuscadorCadena(CadenaBusqueda, this);
     }//GEN-LAST:event_botonEjecutarBusquedaActionPerformed
 
     private void campoEntradaBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorActionPerformed
@@ -140,7 +137,7 @@ public class VentanaBuscadorCadena extends javax.swing.JFrame {
     }//GEN-LAST:event_campoEntradaBuscadorActionPerformed
 
     private void botonEjecutarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEjecutarBusquedaMouseClicked
- 
+
     }//GEN-LAST:event_botonEjecutarBusquedaMouseClicked
 
     private void campoEntradaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaBuscadorKeyReleased

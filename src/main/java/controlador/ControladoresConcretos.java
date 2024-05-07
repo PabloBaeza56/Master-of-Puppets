@@ -6,7 +6,6 @@ import database.QuerysMongoDB;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -39,7 +38,7 @@ public class ControladoresConcretos {
     private final Utilidades utilidades;
     private final QuerysMongoDB querysDB;
     private final ControladorMaestro controler;
-    private String coleccionSelecionada;
+    private final String coleccionSelecionada;
 
     public ControladoresConcretos(String coleccionSelecionada) throws IOException, ParseException {
         this.utilidades = new Utilidades();
@@ -49,12 +48,11 @@ public class ControladoresConcretos {
     }
 
     public static <T> void volverInicio(JFrame pantallaPrincipal, T objeto) {
-        pantallaPrincipal.setVisible(true); // Mostrar la pantalla principal
-        if (objeto instanceof JFrame) { // Verificar si el objeto es una instancia de JFrame
-            JFrame frame = (JFrame) objeto; // Realizar un casting del objeto a JFrame
-            frame.dispose(); // Eliminar el objeto JFrame
+        pantallaPrincipal.setVisible(true);
+        if (objeto instanceof JFrame) {
+            JFrame frame = (JFrame) objeto;
+            frame.dispose();
         } else {
-            // Si el objeto no es una instancia de JFrame, imprimir un mensaje de error
             System.err.println("El objeto no es una instancia de JFrame y no puede ser eliminado.");
         }
     }
@@ -126,13 +124,13 @@ public class ControladoresConcretos {
                 this.utilidades.escribirEnArchivoFechaActualMas10Dias();
             }
 
-            //objeto.cambiarPanel();
+            objeto.dispose();
             CambiarColeccion cambiarColeccion = new vista.CambiarColeccion();
             cambiarColeccion.setVisible(true);
         } else {
             //System.out.println("Inicio de sesion FALLIDO");  
             JOptionPane.showMessageDialog(objeto, "Error: Usuario y/o Contraseña incorrectos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
-            objeto.cambiarPanel();
+            //objeto.cambiarPanel();
         }
     }
 
@@ -187,7 +185,7 @@ public class ControladoresConcretos {
 
         BusquedaLinks buscador = new BusquedaLinks(driver);
         buscador.insercionIndirectaBuscadorURL(CadenaBusqueda);
-        driver.quit();
+        driver.close();
 
         objeto.dispose();
         JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -198,15 +196,17 @@ public class ControladoresConcretos {
         BusquedaDatos db = new BusquedaDatos();
         String URLasociadoNombre = db.buscarUrlAsociadoConNombrePivote(CadenaBusqueda);
 
-        WebDriver driver = new ChromeDriver();
-        this.controler.inyectarCookies(driver);
+        WebDriver driverA = new ChromeDriver();
+        this.controler.inyectarCookies(driverA);
+        BusquedaLinks buscadorA = new BusquedaLinks(driverA);
+        buscadorA.pivotesPropios_Conectados_();
+        driverA.close();
 
-        BusquedaLinks buscador = new BusquedaLinks(driver);
-        buscador.pivoteSimple(URLasociadoNombre);
-        driver.quit();
-
-        InserccionDatos dbx = new InserccionDatos();
-        dbx.eliminarDocumentosDuplicadosSinColecciones();
+        WebDriver driverB = new ChromeDriver();
+        this.controler.inyectarCookies(driverB);
+        BusquedaLinks buscadorB = new BusquedaLinks(driverB);
+        buscadorB.pivoteSimple(URLasociadoNombre);
+        driverB.close();
 
         objeto.dispose();
 
@@ -221,7 +221,6 @@ public class ControladoresConcretos {
         InserccionDatos db = new InserccionDatos();
 
         if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
-            //user.setVisitado(Boolean.FALSE);
             user.setUrlUsuario(CadenaBusqueda);
             db.InsertarDocumento(user);
         }

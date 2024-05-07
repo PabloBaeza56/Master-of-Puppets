@@ -8,9 +8,9 @@ import org.openqa.selenium.WebElement;
 
 public class IteradorPorURL implements IteradorPaginasBusqueda {
 
-    @Getter private int paginaActual;
+    @Getter
+    private int paginaActual;
     private final WebDriver driver;
-
 
     public IteradorPorURL(WebDriver driver) {
         this.driver = driver;
@@ -21,7 +21,7 @@ public class IteradorPorURL implements IteradorPaginasBusqueda {
     public void siguientePagina() {
         this.paginaActual++;
     }
-    
+
     @Override
     public boolean esUltimaPagina(WebDriver driver) {
         boolean fin = false;
@@ -38,9 +38,4 @@ public class IteradorPorURL implements IteradorPaginasBusqueda {
         return fin;
     }
 
-
-
-   
-
-    
 }

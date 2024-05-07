@@ -7,10 +7,8 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class RelativeXpath {
+public class CssSelector {
 
-    @Setter
-    @Getter
-    public String value;
+    @Setter @Getter public String value;
 
 }

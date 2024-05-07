@@ -27,8 +27,8 @@ public final class ControladorMaestro {
 
     @Setter private String correo;
     @Setter private String contrasenia;
-    private Map<String, String> cookiesMap;
     @Getter Cache<Object, Object> cache;
+    private Map<String, String> cookiesMap;
 
     public ControladorMaestro() throws IOException, ParseException {
         Utilidades manejadorFechas = new Utilidades();
@@ -125,7 +125,6 @@ public final class ControladorMaestro {
     public void inyectarCookies(WebDriver driver) {
         System.out.println("Agregando las cookies desde el cache");
         driver.get("https://www.linkedin.com/login");
-        //Map<String, String> cookies = this.leerCookiesDesdeArchivo("cookies.txt");
         Map<String, String> cookies = (Map<String, String>) cache.getIfPresent(1L);
         this.cargarCookiesInicioSesion(cookies, driver);
         driver.navigate().refresh();

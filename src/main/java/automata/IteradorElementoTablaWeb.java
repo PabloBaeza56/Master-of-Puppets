@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     
     @Getter private Integer IndiceFilatabla;
-    public final WebDriver driver;
+    protected final WebDriver driver;
     @Getter @Setter public String subcadenaParte1;
     @Getter @Setter public String subcadenaParte2;
     

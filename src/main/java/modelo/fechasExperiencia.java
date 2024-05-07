@@ -12,13 +12,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public final class Fechas {
+public final class fechasExperiencia {
     @Setter private Date fechaInicio;
     @Setter private Date fechaFin;
     @Setter private String duracionMeses;
     
     
-    public Fechas (String cadenaFecha){
+    public fechasExperiencia (String cadenaFecha){
         this.ObtenerFecha(cadenaFecha);
     }
     

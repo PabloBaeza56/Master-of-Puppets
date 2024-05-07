@@ -1,7 +1,5 @@
 package vista;
 
-
-
 import controlador.ControladoresConcretos;
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,10 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import modelo.ArregloColeccionesDB;
-
-
-
+import scrapper.ObtenerContactosPivote;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
 
@@ -35,6 +30,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
@@ -99,6 +95,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
 
         jButton13.setText("jButton13");
+
+        jButton14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton14.setText("Manual");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -369,7 +373,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       VentanaBuscadorCadena modal = new VentanaBuscadorCadena(this.controlador);
+        VentanaBuscadorCadena modal = new VentanaBuscadorCadena(this.controlador);
         modal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -429,8 +433,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         modal.setVisible(true);
     }//GEN-LAST:event_cambiarColeccionActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
     public static void main(String args[]) {
-        //Turkish March Mozart - Rondo Alla Turca
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -438,7 +445,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new PantallaPrincipal("default").setVisible(true);
-                
+
             } catch (IOException | ParseException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -452,6 +459,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

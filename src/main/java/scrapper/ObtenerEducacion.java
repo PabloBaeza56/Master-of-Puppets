@@ -1,12 +1,13 @@
 package scrapper;
 
 import automata.Automatron;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Educacion;
-import modelo.RelativeXpath;
+import modelo.CssSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +25,7 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
     @Override
     public Boolean existeSeccion() {
-        if (movilizador.getIndicesSeccionesMain().get("Educacion") != null) {
+        if (movilizador.getIndicesSeccionesMain().get("Educación") != null) {
             return true;
         } else {
             return false;
@@ -34,7 +35,9 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
     @Override
     public ArrayList<Educacion> reclamarDatos() throws MandatoryElementException {
         if (this.existeSeccion()) {
+            System.out.println("pase aqui");
             return this.minarDatosEducacion();
+
         } else {
             return null;
         }
@@ -42,7 +45,7 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
     private ArrayList<Educacion> minarDatosEducacion() throws MandatoryElementException {
 
-        Integer secciondeseada = movilizador.getIndicesSeccionesMain().get("Educacion");
+        Integer secciondeseada = movilizador.getIndicesSeccionesMain().get("Educación");
 
         this.movilizador.setSubcadenaParte1("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + secciondeseada + "]/div[3]/ul/li[");
         this.movilizador.setSubcadenaParte2("]/div/div[2]/div[1]/a");
@@ -52,11 +55,11 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
             Educacion educacionPersona = new Educacion();
             WebElement elementoBase = super.driver.findElement(By.xpath(this.movilizador.getXpathActual()));
 
-            super.settearMinadoObligatorio(elementoBase, new RelativeXpath("./div/div/div/div/span[1]"), "setCentroEducativo ", educacionPersona::setCentroEducativo);
+            super.settearMinadoObligatorio(elementoBase, new CssSelector("./div/div/div/div/span[1]"), "setCentroEducativo ", educacionPersona::setCentroEducativo);
 
-            super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[1]/span[1]"), educacionPersona::setGradoAcademico);
+            super.settearMinadoOpcional(elementoBase, new CssSelector("./span[1]/span[1]"), educacionPersona::setGradoAcademico);
 
-            super.settearMinadoOpcional(elementoBase, new RelativeXpath("./span[2]/span[1]"), (String fecha) -> {
+            super.settearMinadoOpcional(elementoBase, new CssSelector("./span[2]/span[1]"), (String fecha) -> {
 
                 String[] partesFecha = fecha.split("-");
                 educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));
@@ -68,7 +71,26 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
             this.movilizador.siguienteElemento();
         }
         this.movilizador.reiniciarIterador();
-        return listaEducacion;
+        return this.listaEducacion;
     }
 
+    public static void main(String[] args) throws IOException, ParseException {
+
+        Testeable test = new Testeable();
+        String url = "https://www.linkedin.com/in/lizeth-susana-vel%C3%A1zquez-lemus-3764542b4/";
+        test.fastTest(url, driver -> {
+
+            Automatron movilizador = new Automatron(driver);
+            movilizador.busquedaIndicesSeccionesMain();
+            System.out.println(movilizador.getIndicesSeccionesMain());
+
+            ObtenerEducacion xp = new ObtenerEducacion(driver, movilizador);
+            try {
+                System.out.println(xp.reclamarDatos());
+            } catch (MandatoryElementException ex) {
+                Logger.getLogger(ObtenerEducacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+    }
 }
