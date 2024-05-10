@@ -23,3 +23,4 @@ public class LinkUsuario {
         this.coleccionesDondeHaSidoUsado = new ArrayList<>();
     }
 }
+

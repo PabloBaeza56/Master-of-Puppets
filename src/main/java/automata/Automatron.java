@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static scrapper.Waitable.esperaExplicita;
+import static scrapper.Waitable.esperaImplicita;
 
 public class Automatron extends IteradorElementoTablaWeb{
     
@@ -18,19 +20,14 @@ public class Automatron extends IteradorElementoTablaWeb{
         this.indicesSeccionesMain = new HashMap<>();
     }
     
-    private void esperaExplicita(int segundos) {
-        try {
-            Thread.sleep(segundos * 1000);
-        } catch (InterruptedException e) {}
-    }
-    
+   
     public void procesarElementos(Integer seccionDeseada, String subcadenaParte1, String subcadenaParte2, Consumer<WebElement> consumer) {
-        super.esperaImplicita();
+        esperaImplicita(super.driver);
         super.setSubcadenaParte1(subcadenaParte1);
         super.setSubcadenaParte2(subcadenaParte2);
 
         while (super.existeSiguienteElemento()) {
-            super.esperaImplicita();
+            esperaImplicita(super.driver);
             WebElement elementoBase = super.driver.findElement(By.xpath(super.getXpathActual()));
             consumer.accept(elementoBase);
 
@@ -43,7 +40,7 @@ public class Automatron extends IteradorElementoTablaWeb{
      
         for (int i = 12; i >= 1; i--) {
             try {
-                this.esperaExplicita(1);
+                esperaExplicita(1);
                 WebElement sectionElement = this.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
                 String texto = sectionElement.getText();
                 this.indicesSeccionesMain.put(texto, i);
@@ -51,5 +48,7 @@ public class Automatron extends IteradorElementoTablaWeb{
             } catch (NoSuchElementException e) {}
         }
     }
+    
+    
     
 }

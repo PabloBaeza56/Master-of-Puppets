@@ -20,6 +20,7 @@ vista\VentanaBuscadorPorURL$4.class
 vista\QueryPromdioNumeroEmpleos$10.class
 vista\VentanaBuscadorContactosAmigos$1.class
 vista\IngresarUsuario$2.class
+vista\PantallaPrincipal$15.class
 vista\Creditos$1.class
 modelo\CssSelector.class
 vista\QueryEmpresasTrabajadas$9.class
@@ -37,6 +38,7 @@ vista\VentanaBuscadorContactosAmigos$3.class
 vista\Creditos$2.class
 vista\VentanaBuscadorPorURL$2.class
 modelo\Experiencia.class
+scrapper\Waitable.class
 vista\QueryEmpresasTrabajadas$10.class
 vista\QueryEmpresasTrabajadas$3.class
 modelo\ArregloColeccionesDB.class
@@ -61,6 +63,7 @@ vista\PantallaPrincipal$2.class
 automata\BuscarPorBarraBusqueda.class
 vista\VentanaBuscadorContactosAmigos$4.class
 vista\QueryEmpresasTrabajadas$4.class
+modelo\fechasEducacion.class
 vista\PantallaPrincipal$9.class
 vista\QueryPromdioNumeroEmpleos$3.class
 modelo\datosBasicos.class
@@ -90,6 +93,7 @@ vista\IngresarUsuario$1.class
 vista\VentanaBuscadorManual.class
 scrapper\NotFoundFatalSectionException.class
 vista\PantallaPrincipal$7.class
+scrapper\ObtenerLinksLinkedin.class
 vista\QueryEmpresasTrabajadas$2.class
 vista\PantallaPrincipal$4.class
 vista\QueryPromdioNumeroEmpleos$8.class

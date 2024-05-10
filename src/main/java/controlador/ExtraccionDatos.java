@@ -10,6 +10,10 @@ import java.util.List;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
 import automata.Automatron;
+import java.util.ArrayList;
+import modelo.Educacion;
+import modelo.Experiencia;
+import modelo.datosBasicos;
 import scrapper.MandatoryElementException;
 import scrapper.NotFoundFatalSectionException;
 import scrapper.ObtenerDatosCabecera;
@@ -19,7 +23,7 @@ import scrapper.ObtenerExperiencia;
 public class ExtraccionDatos {
 
     public void MinadoUsuariosTotal(ControladorMaestro controler, int numeroLinksBuscar, String coleccionSelecionada) {
-     
+
         InserccionDatos db = new InserccionDatos();
         BusquedaDatos busqueda = new BusquedaDatos();
         db.eliminarDocumentosDuplicadosSinColecciones();
@@ -38,7 +42,7 @@ public class ExtraccionDatos {
                 db.InsertarDocumento(usuario, coleccionSelecionada);
             }
 
-            db.marcarDocumentoComoVisitado(elemento.get_id(),coleccionSelecionada);
+            db.marcarDocumentoComoVisitado(elemento.get_id(), coleccionSelecionada);
 
             newDriver.close();
         }
@@ -47,12 +51,12 @@ public class ExtraccionDatos {
     private Usuario PerfilCompleto(WebDriver driver) {
         Automatron movilizador = new Automatron(driver);
         movilizador.busquedaIndicesSeccionesMain();
-     
+
         try {
             Usuario usuario = new Usuario.UsuarioBuilder()
-                    .informacionPersonal(new ObtenerDatosCabecera(driver).reclamarDatos())
-                    .experienciaLaboral(new ObtenerExperiencia(driver, movilizador).reclamarDatos())
-                    .educacion(new ObtenerEducacion(driver, movilizador).reclamarDatos())
+                    .informacionPersonal((datosBasicos) new ObtenerDatosCabecera(driver).minarTemplate())
+                    .experienciaLaboral((ArrayList<Experiencia>) new ObtenerExperiencia(driver, movilizador).minarTemplate())
+                    .educacion((ArrayList<Educacion>) new ObtenerEducacion(driver, movilizador).minarTemplate())
                     .build();
             return usuario;
         } catch (MandatoryElementException | NotFoundFatalSectionException e) {

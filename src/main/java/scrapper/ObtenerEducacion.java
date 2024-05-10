@@ -4,13 +4,16 @@ import automata.Automatron;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Educacion;
 import modelo.CssSelector;
+import modelo.fechasEducacion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static scrapper.Waitable.esperaImplicita;
 
 public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
@@ -21,6 +24,8 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
         super(driver);
         this.movilizador = movilizador;
         this.listaEducacion = new ArrayList<>();
+        
+        
     }
 
     @Override
@@ -32,18 +37,10 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
         }
     }
 
+
     @Override
     public ArrayList<Educacion> reclamarDatos() throws MandatoryElementException {
-        if (this.existeSeccion()) {
-            System.out.println("pase aqui");
-            return this.minarDatosEducacion();
-
-        } else {
-            return null;
-        }
-    }
-
-    private ArrayList<Educacion> minarDatosEducacion() throws MandatoryElementException {
+        esperaImplicita(this. driver);
 
         Integer secciondeseada = movilizador.getIndicesSeccionesMain().get("Educación");
 
@@ -59,13 +56,15 @@ public class ObtenerEducacion extends Mineable implements ScrapeableProduct {
 
             super.settearMinadoOpcional(elementoBase, new CssSelector("./span[1]/span[1]"), educacionPersona::setGradoAcademico);
 
-            super.settearMinadoOpcional(elementoBase, new CssSelector("./span[2]/span[1]"), (String fecha) -> {
+            
 
-                String[] partesFecha = fecha.split("-");
-                educacionPersona.setAnioIngreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[0].trim()));
-                educacionPersona.setAnioEgreso(Educacion.convertirFechaAFechaLegiblePorLaBaseDeDatos(partesFecha[1].trim()));
+            
+                super.settearMinadoOpcional(elementoBase, new CssSelector("./span[2]/span[1]"), (String fecha) -> {
+                    fechasEducacion fechaFormateada = new fechasEducacion(fecha);
+                    educacionPersona.setDuracion(fechaFormateada);
 
-            });
+                });
+            
 
             listaEducacion.add(educacionPersona);
             this.movilizador.siguienteElemento();

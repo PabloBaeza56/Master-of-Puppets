@@ -1,7 +1,6 @@
 package scrapper;
 
 import automata.Automatron;
-import controlador.ControladorMaestro;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.CssSelector;
-import org.openqa.selenium.chrome.ChromeDriver;
+import static scrapper.Waitable.esperaImplicita;
 
 public final class ObtenerExperiencia extends Mineable implements ScrapeableProduct {
 
@@ -46,14 +45,13 @@ public final class ObtenerExperiencia extends Mineable implements ScrapeableProd
 
     @Override
     public ArrayList<Experiencia> reclamarDatos() throws MandatoryElementException {
-        if (this.existeSeccion()){
+          esperaImplicita(this. driver);
+        
             this.determinarTipoElementosExperiencia();
             this.seccionExperienciaCasoSimple();
             this.seccionExperienciaCasoCompuesto();
             return this.elementosExperiencia;
-        } else {
-            return null;
-        }
+        
     }
 
     private void determinarTipoElementosExperiencia() {

@@ -8,6 +8,7 @@ import modelo.LinkUsuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerContactosPivote;
 import scrapper.Mineable;
+import scrapper.ObtenerLinksLinkedin;
 
 public class BusquedaLinks {
 
@@ -16,7 +17,7 @@ public class BusquedaLinks {
     private final ObtenerContactosPivote pivoteador;
     private final WebDriver driver;
     private final InserccionDatos mongo;
-    private final Mineable minable;
+    private final ObtenerLinksLinkedin minable;
 
     public BusquedaLinks(WebDriver driver) {
         this.driver = driver;
@@ -24,13 +25,13 @@ public class BusquedaLinks {
         this.iterador = new IteradorPorURL(driver);
         this.pivoteador = new ObtenerContactosPivote(driver);
         this.mongo = new InserccionDatos();
-        this.minable = new Mineable(driver);
+        this.minable = new ObtenerLinksLinkedin(driver);
     }
 
     public void insercionIndirectaBuscadorURL(String cadenaDeseada) {
         String cadenaPreparada = this.buscador.metodoURL(cadenaDeseada);
 
-        while (!this.iterador.esUltimaPagina(this.driver)) {
+        while (!this.iterador.esUltimaPagina()) {
             this.driver.get(cadenaPreparada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minable.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);
@@ -43,7 +44,7 @@ public class BusquedaLinks {
         rutaObtenida = rutaObtenida.replace("FACETED_SEARCH&", "FACETED_SEARCHL&page=XXXXX&");
         rutaObtenida = rutaObtenida.replace("SWITCH_SEARCH_VERTICAL&", "SWITCH_SEARCH_VERTICAL&page=XXXXX&");
 
-        while (!this.iterador.esUltimaPagina(this.driver)) {
+        while (!this.iterador.esUltimaPagina()) {
             driver.get(rutaObtenida.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minable.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);
@@ -55,7 +56,7 @@ public class BusquedaLinks {
         urlDeseada = urlDeseada.replace("FACETED_SEARCH&", "FACETED_SEARCHL&page=XXXXX&");
         urlDeseada = urlDeseada.replace("SWITCH_SEARCH_VERTICAL&", "SWITCH_SEARCH_VERTICAL&page=XXXXX&");
 
-        while (!this.iterador.esUltimaPagina(this.driver)) {
+        while (!this.iterador.esUltimaPagina()) {
             this.driver.get(urlDeseada.replace("XXXXX", String.valueOf(this.iterador.getPaginaActual())));
             ArrayList<LinkUsuario> arregloFinal = this.minable.obtenerLinksUsuariosLinkedIn();
             this.mongo.InsertarDocumento(arregloFinal);

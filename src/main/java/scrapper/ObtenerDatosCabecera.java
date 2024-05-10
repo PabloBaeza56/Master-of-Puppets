@@ -11,10 +11,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static scrapper.Waitable.esperaImplicita;
 
 public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct {
 
-    private datosBasicos cabecera;
+    private final datosBasicos cabecera;
 
     public ObtenerDatosCabecera(WebDriver driver) {
         super(driver);
@@ -31,17 +32,11 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
         }
     }
 
-    @Override
-    public datosBasicos reclamarDatos() throws MandatoryElementException, NotFoundFatalSectionException {
-        if (this.existeSeccion()) {
-            return this.minarDatos();
-        } else {
-            throw new NotFoundFatalSectionException("No se encontro la cabecera");
-        }
-    }
+  
 
-    public datosBasicos minarDatos() throws MandatoryElementException {
-        super.esperaImplicita();
+    @Override
+    public datosBasicos reclamarDatos() throws MandatoryElementException {
+        esperaImplicita(this.driver);
 
         WebElement elementoBase = super.driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]"));
 
@@ -74,19 +69,15 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
 
         Testeable test = new Testeable();
         String url = "https://www.linkedin.com/in/lizeth-susana-vel%C3%A1zquez-lemus-3764542b4/";
-        test.fastTest(url, driver -> {
-
-            Automatron movilizador = new Automatron(driver);
+        test.fastTest(url, (WebDriver driver1) -> {
+            Automatron movilizador = new Automatron(driver1);
             movilizador.busquedaIndicesSeccionesMain();
             System.out.println(movilizador.getIndicesSeccionesMain());
-
-            ObtenerDatosCabecera xp = new ObtenerDatosCabecera(driver);
+            ObtenerDatosCabecera xp = new ObtenerDatosCabecera(driver1);
             try {
                 System.out.println(xp.reclamarDatos());
             } catch (MandatoryElementException ex) {
                 Logger.getLogger(ObtenerEducacion.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NotFoundFatalSectionException ex) {
-                Logger.getLogger(ObtenerDatosCabecera.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 

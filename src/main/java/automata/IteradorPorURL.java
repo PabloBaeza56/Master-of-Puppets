@@ -22,11 +22,11 @@ public class IteradorPorURL implements IteradorPaginasBusqueda {
         this.paginaActual++;
     }
 
-    @Override
-    public boolean esUltimaPagina(WebDriver driver) {
+    
+    public boolean esUltimaPagina() {
         boolean fin = false;
 
-        List<WebElement> elementosH2 = driver.findElements(By.tagName("h2"));
+        List<WebElement> elementosH2 = this.driver.findElements(By.tagName("h2"));
 
         for (WebElement elemento : elementosH2) {
             String cadena = elemento.getText();

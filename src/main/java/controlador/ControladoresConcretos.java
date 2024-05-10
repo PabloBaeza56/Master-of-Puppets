@@ -5,7 +5,6 @@ import database.InserccionDatos;
 import database.QuerysMongoDB;
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.Duration;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,12 +17,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import scrapper.MandatoryElementException;
+import static scrapper.Waitable.esperaImplicita;
 import vista.CambiarColeccion;
 import vista.CambiarUsuario;
 import vista.IngresarUsuario;
+import vista.PantallaPrincipal;
 import vista.QueryEmpresasTrabajadas;
 import vista.QueryPromdioDuracion;
 import vista.QueryPromdioNumeroEmpleos;
@@ -69,7 +68,7 @@ public class ControladoresConcretos {
 
         inputPassword.sendKeys(Keys.ENTER);
 
-        this.esperarFinCargaPagina(driver);
+        esperaImplicita( driver);
 
         String paginaActual = driver.getCurrentUrl();
         driver.quit();
@@ -77,10 +76,7 @@ public class ControladoresConcretos {
         return paginaActual;
     }
 
-    private void esperarFinCargaPagina(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
-    }
+    
 
     public void cambiarUsuarioLinkedin(String UsuarioTextBox, String ContraseniaTextBox, CambiarUsuario objeto) throws IOException, ParseException {
         String correoGuardado = this.utilidades.leerValorProperties("config.properties", "correo");
@@ -135,124 +131,191 @@ public class ControladoresConcretos {
     }
 
     public void QueryEmpresasTrabajadas(Map<String, String> datos, QueryEmpresasTrabajadas objeto) {
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        Map<String, Integer> resultado = this.querysDB.obtenerEmpresasTrabajadas(datos);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Empresa");
-        model.addColumn("Cantidad");
+            Map<String, Integer> resultado = this.querysDB.obtenerEmpresasTrabajadas(datos);
 
-        for (Map.Entry<String, Integer> entry : resultado.entrySet()) {
-            model.addRow(new Object[]{entry.getKey(), entry.getValue()});
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Empresa");
+            model.addColumn("Cantidad");
+
+            for (Map.Entry<String, Integer> entry : resultado.entrySet()) {
+                model.addRow(new Object[]{entry.getKey(), entry.getValue()});
+            }
+
+            JTable table = new JTable(model);
+            JOptionPane.showMessageDialog(objeto, new JScrollPane(table), "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
-        JTable table = new JTable(model);
-        JOptionPane.showMessageDialog(objeto, new JScrollPane(table), "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
-
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void QueryPromdioDuracion(Map<String, String> datos, QueryPromdioDuracion objeto) {
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        double resultado = this.querysDB.obtenerPromedioDuracionEmpleo(datos);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        JOptionPane.showMessageDialog(objeto, resultado + "   Meses en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+            double resultado = this.querysDB.obtenerPromedioDuracionEmpleo(datos);
 
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(objeto, resultado + "   Meses en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void QueryPromdioNumeroEmpleos(Map<String, String> datos, QueryPromdioNumeroEmpleos objeto) {
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        double resultado = this.querysDB.obtenerPuestosExperienciaPorUsuario(datos);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        JOptionPane.showMessageDialog(objeto, resultado + "   Empleos en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            double resultado = this.querysDB.obtenerPuestosExperienciaPorUsuario(datos);
+
+            JOptionPane.showMessageDialog(objeto, resultado + "   Empleos en Promedio", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void VentanaBuscadorCadena(String CadenaBusqueda, VentanaBuscadorCadena objeto) {
 
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        WebDriver driver = new ChromeDriver();
-        this.controler.inyectarCookies(driver);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        BusquedaLinks buscador = new BusquedaLinks(driver);
-        buscador.insercionIndirectaBuscadorURL(CadenaBusqueda);
-        driver.close();
+            JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            WebDriver driver = new ChromeDriver();
+            this.controler.inyectarCookies(driver);
+
+            BusquedaLinks buscador = new BusquedaLinks(driver);
+            buscador.insercionIndirectaBuscadorURL(CadenaBusqueda);
+            driver.close();
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    public void AccionActualizarPivotes(PantallaPrincipal objeto) {
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+        if (opcion == JOptionPane.OK_OPTION) {
+
+            WebDriver driverA = new ChromeDriver();
+            this.controler.inyectarCookies(driverA);
+            BusquedaLinks buscadorA = new BusquedaLinks(driverA);
+            buscadorA.pivotesPropios_Conectados_();
+            driverA.close();
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            
+
+            
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+
+        }
     }
 
     public void VentanaBuscadorContactosAmigos(String CadenaBusqueda, VentanaBuscadorContactosAmigos objeto) {
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        BusquedaDatos db = new BusquedaDatos();
-        String URLasociadoNombre = db.buscarUrlAsociadoConNombrePivote(CadenaBusqueda);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        WebDriver driverA = new ChromeDriver();
-        this.controler.inyectarCookies(driverA);
-        BusquedaLinks buscadorA = new BusquedaLinks(driverA);
-        buscadorA.pivotesPropios_Conectados_();
-        driverA.close();
+        if (opcion == JOptionPane.OK_OPTION) {
+            BusquedaDatos db = new BusquedaDatos();
+            String URLasociadoNombre = db.buscarUrlAsociadoConNombrePivote(CadenaBusqueda);
 
-        WebDriver driverB = new ChromeDriver();
-        this.controler.inyectarCookies(driverB);
-        BusquedaLinks buscadorB = new BusquedaLinks(driverB);
-        buscadorB.pivoteSimple(URLasociadoNombre);
-        driverB.close();
+            WebDriver driverB = new ChromeDriver();
+            this.controler.inyectarCookies(driverB);
+            BusquedaLinks buscadorB = new BusquedaLinks(driverB);
+            buscadorB.pivoteSimple(URLasociadoNombre);
+            driverB.close();
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        objeto.dispose();
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
 
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void VentanaBuscadorManual(String CadenaBusqueda, VentanaBuscadorManual objeto) {
 
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        LinkUsuario user = new LinkUsuario();
-        InserccionDatos db = new InserccionDatos();
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
-            user.setUrlUsuario(CadenaBusqueda);
-            db.InsertarDocumento(user);
+            JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            LinkUsuario user = new LinkUsuario();
+            InserccionDatos db = new InserccionDatos();
+
+            if (CadenaBusqueda.startsWith("https://www.linkedin.com/in/")) {
+                user.setUrlUsuario(CadenaBusqueda);
+                db.InsertarDocumento(user);
+            }
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void VentanaBuscadorPorURL(String CadenaBusqueda, VentanaBuscadorPorURL objeto) {
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        WebDriver driver = new ChromeDriver();
-        this.controler.inyectarCookies(driver);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        BusquedaLinks buscador = new BusquedaLinks(driver);
-        buscador.metodoURL(CadenaBusqueda);
-        driver.quit();
+            WebDriver driver = new ChromeDriver();
+            this.controler.inyectarCookies(driver);
 
-        objeto.dispose();
+            BusquedaLinks buscador = new BusquedaLinks(driver);
+            buscador.metodoURL(CadenaBusqueda);
+            driver.quit();
 
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void VentanaExtraccionMultiple(int elementosObtener, VentanaExtraccionMultiple objeto) throws MandatoryElementException {
 
-        JOptionPane.showMessageDialog(objeto, "Por favor, espere a que finalice el proceso...", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(objeto, "¿Estas seguro de continuar?, el proceso no se puede parar...", "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        ExtraccionDatos extractor = new ExtraccionDatos();
-        extractor.MinadoUsuariosTotal(this.controler, elementosObtener, this.coleccionSelecionada);
+        if (opcion == JOptionPane.OK_OPTION) {
 
-        objeto.dispose();
-        JOptionPane.showMessageDialog(objeto, "Proceso finalizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            ExtraccionDatos extractor = new ExtraccionDatos();
+            extractor.MinadoUsuariosTotal(this.controler, elementosObtener, this.coleccionSelecionada);
+
+            JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            objeto.dispose();
+        } else {
+            JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
 }
