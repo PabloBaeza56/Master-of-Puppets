@@ -23,6 +23,7 @@ public class IteradorPorURL implements IteradorPaginasBusqueda {
     }
 
     
+    @Override
     public boolean esUltimaPagina() {
         boolean fin = false;
 

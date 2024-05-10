@@ -1,6 +1,6 @@
 package scrapper;
 
-import automata.Automatron;
+import automata.IteradorElementoTablaWeb;
 import automata.IteradorPorURL;
 import database.InserccionDatos;
 import java.util.ArrayList;
@@ -17,14 +17,13 @@ public class ObtenerContactosPivote extends ObtenerLinksLinkedin {
 
     private final IteradorPorURL iterador;
     private final InserccionDatos mongo;
-    private final Automatron movilizador;
+    private final IteradorElementoTablaWeb movilizador;
 
     public ObtenerContactosPivote(WebDriver driver) {
         super(driver);
-
         this.iterador = new IteradorPorURL(driver);
         this.mongo = new InserccionDatos();
-        this.movilizador = new Automatron(driver);
+        this.movilizador = new IteradorElementoTablaWeb(driver);
     }
 
     public void AccederContactosPivotes(String usuarioDeseado) {

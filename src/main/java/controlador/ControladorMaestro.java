@@ -91,9 +91,9 @@ public final class ControladorMaestro {
                 writer.write(entry.getKey() + "=" + entry.getValue());
                 writer.newLine();
             }
-            System.out.println("Cookies guardadas en el archivo '" + nombreArchivo + "'.");
+            //System.out.println("Cookies guardadas en el archivo '" + nombreArchivo + "'.");
         } catch (IOException e) {
-            System.err.println("Error al guardar las cookies: " + e.getMessage());
+            //System.err.println("Error al guardar las cookies: " + e.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public final class ControladorMaestro {
                     cookiesMap.put(partes[0], partes[1]);
                 }
             }
-            System.out.println("Cookies leídas desde el archivo '" + nombreArchivo + "'.");
+            //System.out.println("Cookies leídas desde el archivo '" + nombreArchivo + "'.");
         } catch (IOException e) {
             System.err.println("Error al leer las cookies desde el archivo: " + e.getMessage());
         }

@@ -68,15 +68,13 @@ public class ControladoresConcretos {
 
         inputPassword.sendKeys(Keys.ENTER);
 
-        esperaImplicita( driver);
+        esperaImplicita(driver);
 
         String paginaActual = driver.getCurrentUrl();
         driver.quit();
 
         return paginaActual;
     }
-
-    
 
     public void cambiarUsuarioLinkedin(String UsuarioTextBox, String ContraseniaTextBox, CambiarUsuario objeto) throws IOException, ParseException {
         String correoGuardado = this.utilidades.leerValorProperties("config.properties", "correo");
@@ -225,9 +223,6 @@ public class ControladoresConcretos {
             driverA.close();
             JOptionPane.showMessageDialog(objeto, "La operación ha sido completada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            
-
-            
         } else {
             JOptionPane.showMessageDialog(objeto, "Operación cancelada", "Aviso", JOptionPane.WARNING_MESSAGE);
 

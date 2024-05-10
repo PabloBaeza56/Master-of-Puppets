@@ -120,7 +120,6 @@ scrapper\ObtenerExperiencia.class
 vista\VentanaBuscadorContactosAmigos.class
 vista\PantallaPrincipal$5.class
 vista\QueryPromdioNumeroEmpleos.class
-automata\Automatron.class
 vista\VentanaBuscadorManual$1.class
 vista\VentanaBuscadorCadena$4.class
 vista\QueryPromdioNumeroEmpleos$7.class

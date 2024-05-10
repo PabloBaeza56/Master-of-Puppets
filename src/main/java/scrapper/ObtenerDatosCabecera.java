@@ -1,6 +1,6 @@
 package scrapper;
 
-import automata.Automatron;
+import controlador.ExtraccionDatos;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -32,7 +32,6 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
         }
     }
 
-  
 
     @Override
     public datosBasicos reclamarDatos() throws MandatoryElementException {
@@ -69,15 +68,19 @@ public class ObtenerDatosCabecera extends Mineable implements ScrapeableProduct 
 
         Testeable test = new Testeable();
         String url = "https://www.linkedin.com/in/lizeth-susana-vel%C3%A1zquez-lemus-3764542b4/";
-        test.fastTest(url, (WebDriver driver1) -> {
-            Automatron movilizador = new Automatron(driver1);
-            movilizador.busquedaIndicesSeccionesMain();
-            System.out.println(movilizador.getIndicesSeccionesMain());
-            ObtenerDatosCabecera xp = new ObtenerDatosCabecera(driver1);
+        test.fastTest(url, (WebDriver driver) -> {
+            
+            ExtraccionDatos movilizador = new ExtraccionDatos();
+            movilizador.busquedaIndicesSeccionesMain(driver);
+       
+ 
+            ObtenerDatosCabecera xp = new ObtenerDatosCabecera(driver);
             try {
-                System.out.println(xp.reclamarDatos());
+                System.out.println(xp.minarTemplate());
             } catch (MandatoryElementException ex) {
                 Logger.getLogger(ObtenerEducacion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotFoundFatalSectionException ex) {
+                Logger.getLogger(ObtenerDatosCabecera.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 

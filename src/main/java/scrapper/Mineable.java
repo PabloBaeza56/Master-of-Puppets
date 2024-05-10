@@ -1,6 +1,5 @@
 package scrapper;
 
-import java.time.Duration;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
 import modelo.CssSelector;
@@ -13,8 +12,6 @@ import org.openqa.selenium.WebElement;
 public class Mineable {
 
     protected WebDriver driver;
-
-    
 
     protected String minarTextoOpcional(WebElement elementoBase, CssSelector selector) {
         try {
@@ -31,6 +28,8 @@ public class Mineable {
         setter.accept(dato);
     }
 
+    
+    
     protected String minarTextoObligatorio(WebElement elementoBase, CssSelector selector, String nombreElementoMinable) throws MandatoryElementException {
         try {
             WebElement elemento = elementoBase.findElement(By.xpath(selector.getValue()));
@@ -46,6 +45,9 @@ public class Mineable {
         setter.accept(dato);
     }
 
+    
+    
+    
     protected String minarTextoObligatorio(WebElement elemento, String nombreElementoMinable) throws MandatoryElementException {
         try {
             return elemento.getText();
@@ -58,11 +60,5 @@ public class Mineable {
         String dato = minarTextoObligatorio(elemento, nombreElementoMinable);
         setter.accept(dato);
     }
-    
-    
-
-   
-    
-    
 
 }

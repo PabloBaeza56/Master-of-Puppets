@@ -1,6 +1,5 @@
 package controlador;
 
-import lombok.NoArgsConstructor;
 import modelo.Usuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerEducacion;
@@ -9,18 +8,42 @@ import database.InserccionDatos;
 import java.util.List;
 import modelo.LinkUsuario;
 import org.openqa.selenium.chrome.ChromeDriver;
-import automata.Automatron;
 import java.util.ArrayList;
+import java.util.HashMap;
 import modelo.Educacion;
 import modelo.Experiencia;
 import modelo.datosBasicos;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import scrapper.MandatoryElementException;
 import scrapper.NotFoundFatalSectionException;
 import scrapper.ObtenerDatosCabecera;
 import scrapper.ObtenerExperiencia;
+import static scrapper.Waitable.esperaExplicita;
 
-@NoArgsConstructor
+
 public class ExtraccionDatos {
+
+    public HashMap<String, Integer> indicesSeccionesMain;
+
+    public ExtraccionDatos() {
+
+        this.indicesSeccionesMain = new HashMap<>();
+    }
+
+    public void busquedaIndicesSeccionesMain(WebDriver driver) {
+
+        for (int i = 12; i >= 1; i--) {
+            try {
+                esperaExplicita(1);
+                WebElement sectionElement = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/div/main/section[" + i + "]/div[2]/div/div/div/h2/span[1]"));
+                String texto = sectionElement.getText();
+                this.indicesSeccionesMain.put(texto, i);
+
+            } catch (NoSuchElementException e) {}
+        }
+    }
 
     public void MinadoUsuariosTotal(ControladorMaestro controler, int numeroLinksBuscar, String coleccionSelecionada) {
 
@@ -49,14 +72,13 @@ public class ExtraccionDatos {
     }
 
     private Usuario PerfilCompleto(WebDriver driver) {
-        Automatron movilizador = new Automatron(driver);
-        movilizador.busquedaIndicesSeccionesMain();
+        this.busquedaIndicesSeccionesMain(driver);
 
         try {
             Usuario usuario = new Usuario.UsuarioBuilder()
                     .informacionPersonal((datosBasicos) new ObtenerDatosCabecera(driver).minarTemplate())
-                    .experienciaLaboral((ArrayList<Experiencia>) new ObtenerExperiencia(driver, movilizador).minarTemplate())
-                    .educacion((ArrayList<Educacion>) new ObtenerEducacion(driver, movilizador).minarTemplate())
+                    .experienciaLaboral((ArrayList<Experiencia>) new ObtenerExperiencia(driver, this.indicesSeccionesMain).minarTemplate())
+                    .educacion((ArrayList<Educacion>) new ObtenerEducacion(driver, this.indicesSeccionesMain).minarTemplate())
                     .build();
             return usuario;
         } catch (MandatoryElementException | NotFoundFatalSectionException e) {

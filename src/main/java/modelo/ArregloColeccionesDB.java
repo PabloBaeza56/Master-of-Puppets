@@ -16,7 +16,6 @@ public class ArregloColeccionesDB implements Serializable {
 
     public ArregloColeccionesDB() {
         lista = new ArrayList<>();
-
     }
 
     public void agregarDato(String dato) {

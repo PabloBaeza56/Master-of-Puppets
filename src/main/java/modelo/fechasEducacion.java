@@ -8,10 +8,8 @@ import lombok.Setter;
 
 public final class fechasEducacion {
 
-    @Setter
-    private Date anioIngreso;
-    @Setter
-    private Date anioEgreso;
+    @Setter private Date anioIngreso;
+    @Setter private Date anioEgreso;
 
     public fechasEducacion(String cadenaFecha) {
         if (!cadenaFecha.isEmpty()) {
@@ -26,21 +24,17 @@ public final class fechasEducacion {
 
         try {
             this.setAnioIngreso(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[0]));
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
+        } catch (ArrayIndexOutOfBoundsException e) {}
 
         if (elementos[1].contains("actualidad")) {
             try {
                 this.setAnioEgreso(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(this.ConvertirActualidadEnFecha()));
-            } catch (ArrayIndexOutOfBoundsException e) {
-            }
+            } catch (ArrayIndexOutOfBoundsException e) {}
         } else {
             try {
                 this.setAnioEgreso(this.convertirFechaAFechaLegiblePorLaBaseDeDatos(elementos[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-            }
+            } catch (ArrayIndexOutOfBoundsException e) {}
         }
-
     }
 
     public String ConvertirActualidadEnFecha() {
@@ -72,7 +66,8 @@ public final class fechasEducacion {
                 Date fechaFinal = calendario.getTime();
 
                 return fechaFinal;
-            } catch (ParseException e2) {}
+            } catch (ParseException e2) {
+            }
         }
 
         return null;

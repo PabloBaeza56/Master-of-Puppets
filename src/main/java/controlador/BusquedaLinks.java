@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import modelo.LinkUsuario;
 import org.openqa.selenium.WebDriver;
 import scrapper.ObtenerContactosPivote;
-import scrapper.Mineable;
 import scrapper.ObtenerLinksLinkedin;
 
 public class BusquedaLinks {
 
+    private final WebDriver driver;
     private final IteradorPorURL iterador;
     private final BuscarPorBarraBusqueda buscador;
     private final ObtenerContactosPivote pivoteador;
-    private final WebDriver driver;
     private final InserccionDatos mongo;
     private final ObtenerLinksLinkedin minable;
 

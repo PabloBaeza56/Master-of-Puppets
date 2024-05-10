@@ -8,8 +8,8 @@ import org.openqa.selenium.WebElement;
 
 public class IteradorElementoTablaWeb implements IteradorElementosListaWeb {
     
-    @Getter private Integer IndiceFilatabla;
     protected final WebDriver driver;
+    @Getter private Integer IndiceFilatabla;
     @Getter @Setter public String subcadenaParte1;
     @Getter @Setter public String subcadenaParte2;
     
