@@ -22,7 +22,7 @@ Actualmente ya hemos abusado un poco en el ejemplo de minado de datos, así que 
 
 El controlador maestro es la clase encargada del inicio de sesión, así como del manejo de cookies.
 
-![Clase](Documentacion/Images/ControladorMaestroClase.jpg)
+![Clase](Images/ControladorMaestroClase.jpg)
 
 Como podremos observar lo único público de esta clase es el constructor y la función inyectarCookies. No explicaremos a detalle lo que realiza cada clase debido a que en teoría no contamos con implementación, ahora bien, te preguntaras ¿Dónde está la eficiencia?
 Retrocedamos un poco, recordemos que, para poder acceder a una página web, por lo general requerimos iniciar sesión, hasta el momento no hay ningún problema, iniciamos sesión normalmente, el detalle este que el driver de selenium (la ventana del navegador web), no tiene memoria, un guarda nada. Una vez “cerrado” se pierde todo dato. (Inclusive las cookies de inicio de sesión).
@@ -39,7 +39,7 @@ Además, tenemos otro problema, aunque la lectura de cookies desde un archivo de
 La solución es sencilla y se encuentra en el constructor del Controlador Maestro, a continuación, vamos a exponer un poco de “Pseudocodigo”, el cual 
 permite resolver los problemas anteriormente mencionados sin mucho esfuerzo.
 
-![Constructor](Documentacion/Images/ControladorMaestroConstructor.jpg)
+![Constructor](Images/ControladorMaestroConstructor.jpg)
 
 ## Conclusión:
 Dados los mecanismos propuestos anteriormente, dichos nos permitirán ahorrar tiempo en inicios de sesión innecesarios, así como en la lectura de cookies a través de un cache permitiendo un ahorro significativo de los recursos informáticos, así como una fluidez en general mucho más significativa.
