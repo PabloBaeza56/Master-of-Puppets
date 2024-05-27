@@ -49,4 +49,4 @@ Con esto logramos una clara jerarquía, gracias al polimorfismo. Lo anterior nos
 ## Conclusión
 Como claramente se mencionó, nuestro programa está preparado para extenderse hasta donde sea necesario, cuenta con los elementos estructurales para poder lograr una gran extensibilidad con el menor dolor de cabeza posible.
 
-Asimismo, se cumple con la definición establecida en el modelo de calidad de McCall, pues gracias a la modularidad hecha en el sistema ([Diagrama de Clase](images/Diagrama_Clases.jpg)) podemos observar la capacidad que tiene el software para poder expandirse o modificarse en varios casos sin muchas complicaciones.
+Asimismo, se cumple con la definición establecida en el modelo de calidad de McCall, pues gracias a la modularidad hecha en el sistema ([Diagrama de Clase](Images/Diagrama_Clases.jpg)) podemos observar la capacidad que tiene el software para poder expandirse o modificarse en varios casos sin muchas complicaciones.
