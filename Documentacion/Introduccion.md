@@ -33,19 +33,19 @@ De manera no muy extensiva enumeramos y describimos las librerías empleadas en 
 ### *Selenium-java - versión 4.20.0*
 Librería principal centrada en el manejo del controlador del navegador web, así como en la obtención de los datos en el respectivo HTML.
 
-![selenium-java](images/selenium-java.jpg)
+![selenium-java](Images/selenium-java.jpg)
 
 ### *Mongodb-driver-sync - versión 5.1.0*
 Librería centrada en el manejo y distribución de las funcionalidades relacionadas con la base de datos.
 
-![mongodb-driver-sync](images/mongodb-driver-sync.png)
+![mongodb-driver-sync](Images/mongodb-driver-sync.png)
 
 ### *Gson - versión 2.10.1*
 Librería que permite un mapeo automático de un objeto permitiendo enviar un objeto creado en Java directamente a la base de datos sin la necesidad de una conversión o adaptación. Podríamos decir de manera informal que se trata de un ORM.
 
-![gson](images/gson.png)
+![gson](Images/gson.png)
 
 ### *Lombok - versión 1.18.32*
 Librería que permite la generación interna de setters, getters y constructores.
 
-![lombok](images/lombok.png)
+![lombok](Images/lombok.png)

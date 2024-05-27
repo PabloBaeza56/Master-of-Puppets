@@ -1,5 +1,16 @@
 # Mantenibilidad
 
+## Definicion:
+
+Según McCall, la mantenibilidad se define como la capacidad del software para ser modificado de manera eficiente y efectiva. Los aspectos clave de la mantenibilidad incluyen:
+
+- **Simplicidad**: La capacidad del software para ser fácilmente comprendido, lo que facilita su modificación y extensión.
+- **Modularidad**: La estructura del software que permite que sus componentes sean modificados o reemplazados de manera independiente, sin afectar al sistema completo.
+- **Legibilidad**: La claridad y comprensibilidad del código fuente, que facilita su revisión y actualización por parte de los desarrolladores.
+- **Consistencia**: La uniformidad en el diseño y la implementación del software, que simplifica su mantenimiento y reduce la probabilidad de introducir errores al realizar cambios.
+
+Cada uno de estos atributos contribuye a la percepción general de la mantenibilidad del software y su capacidad para adaptarse a nuevos requisitos, corregir errores y mejorar el rendimiento con un esfuerzo mínimo.
+
 ## Introducción
 
 Cuando se trata de Web Scrapping, los sistemas que usan dicha técnica son bastante sensibles al cambio, debido a que usan como base el código HTML presente en la página web objetivo. Esto implica que si la página web cambia (por mínimo que se pueda apreciar visualmente), podría provocar la inutilización general del sistema, de ahí la vital importancia de que el sistema sea fácil de reparar.
@@ -10,7 +21,7 @@ Debido al extensivo tamaño del sistema, nos limitaremos a mostrar la mantenibil
 
 Una página en HTML no es precisamente un monolito (pensemos en un HTML común y corriente), dicha página está generalmente dividida por “secciones”, las cuales pueden o no ser visibles por el usuario. Pongamos un ejemplo simple:
 
-![Ejemplo de perfil](images/perfil_linkedin.jpg)
+![Ejemplo de perfil](Images/perfil_linkedin.jpg)
 
 En cierta plataforma de búsqueda de empleo en línea, en el perfil de cada respectivo usuario contamos con varias secciones. En el elemento proporcionado podemos apreciar las secciones “Cabecera” (Nombre informal) y “Acerca de”. Por supuesto, existen muchas más secciones (que no necesariamente poseen todos los usuarios), por cuestiones prácticas acotaremos la contextualización a estas 2 secciones de ejemplo.
 
@@ -31,7 +42,7 @@ Un detalle importante a considerar es que existen métodos para acceder directam
 
 Ahora procederemos a mostrar una versión parcial del diagrama de clases, centrado principalmente en el proceso de minado, por lo que para este ejemplo consideraremos despreciables los demás aspectos del proyecto.
 
-![Diagrama de Clases](images/Diagrama_Clases.jpg)
+![Diagrama de Clases](Images/Diagrama_Clases.jpg)
 
 Para apreciar mejor el diagrama es recomendable observarlo en la sección de anexo.
 
@@ -50,7 +61,7 @@ Nota: También las clases anteriormente mencionadas se relacionan con otras clas
 
 Ahora bien, la pregunta que nos interesa responder es: ¿Dónde esta la mantenibilidad en todo esto?
 
-![Diagrama de Clases](images/MinadoDatos.jpg)
+![Diagrama de Clases](Images/MinadoDatos.jpg)
 
 Como se puede apreciar en este diagrama simplificado, cada “sección” es independiente a la otra, por lo que si hubiese una falla (debido a que cambió la página, y por lo tanto su Xpath), no sería un fallo catastrófico que rompiera todo el sistema. En este punto es válido cuestionarse, ¿Qué son estos puntos verdes que se encuentran dentro de las clases?. Simplemente son llamadas a métodos que van a minar campos concretos de cada sección, aquí es cuando entra `Mineable`.
 
