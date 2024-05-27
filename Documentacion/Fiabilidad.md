@@ -82,7 +82,7 @@ La respuesta es trivial; usando funciones default en la interfaz creamos un mét
 Actualmente la clase Testeable contiene únicamente un método que está pensado para realizar pruebas rápidas para verificar el correcto funcionamiento del minado. Pero la idea un poco más a futuro es la siguiente….
 
 
-**Nota: Lo que estoy a punto de escribir actualmente no tiene implementación no esta reflejado en el diagrama de clases, sin embargo, está pensado incluirse en las proximas actualizaciones**
+**Nota: Lo que estoy a punto de escribir actualmente no tiene implementación y no esta reflejado en el diagrama de clases, sin embargo, está pensado incluirse en las proximas actualizaciones**
 
 
 Como sabemos (y repetimos otra vez), el Web Scraping es extremadamente sensible para cambios externos por lo que debemos garantizar siempre que el sistema siga vigente, por lo tanto, se propone la siguiente modificación. **Testeable** se convertiría en una interfaz ahora con un método default, para entonces implementarse en todas las clases de minado de datos. De tal manera que el método de revisión de validez de minado de datos se podría incluir en el template “minadoTemplate”. (Una interfaz que implementa otra interfaz) De tal manera que cada vez que se ejecute un minado de datos podamos verificar si los métodos de minado siguen siendo válidos (usando un perfil prefabricado de tal manera que cumpla la mayoría de los casos). Igualmente, con eso podríamos tener un panorama global de los métodos disponibles y dañados, esto sería útil en el aspecto de mantenibilidad.
