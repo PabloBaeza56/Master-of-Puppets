@@ -111,4 +111,5 @@ Observamos que se presentan un nivel de usabilidad (el explicado anteriormente) 
 * **_Promedio de duración de tarea:_** como su nombre lo indica, es una media del tiempo que le tomó a los participantes completar la tarea.
 
 
-
+## Recursos
+Se adjunta el siguiente [enlace](Recursos/) donde se puede obtener el prototipo usado para la sesión, así como la presentación.
